@@ -1,0 +1,13 @@
+version: '2'
+services:
+  site:
+    image: sebp/lighttpd
+    ports:
+      - "80:8080"
+    depends_on:
+    build: ./www
+      - backend
+  backend:
+    image: joomla
+    ports:
+      - "80:8080"
