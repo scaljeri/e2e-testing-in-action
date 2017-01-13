@@ -16,3 +16,13 @@ How to use basic authentication together with Protractor
     $> docker run -d -p 80:80 --link web:web --name auth beevelop/nginx-basic-auth
     
 TODO: Replace --link with something else: https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/
+
+### FF
+
+prevent auto update:
+
+app.update.auto - false
+
+app.update.enabled - false
+
+app.update.silent - false
