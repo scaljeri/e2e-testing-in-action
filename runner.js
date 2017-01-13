@@ -11,7 +11,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 class Setup {
     static firefox() {
         //return new webdriver.Builder().forBrowser('firefox').build();
-        return Firefox.create(webdriver);
+        return Firefox.build(webdriver);
     }
 
     static ff() {
@@ -33,16 +33,9 @@ class Runner {
         let browserName = process.argv[2].toLowerCase();
 
         if (browserName.match(/(chrome|firefox|ff)/)) {
+            console.log('xx');
             this.browser = Setup[browserName]();
-            console.log(this.browser.Builder);
             this.selenium();
-            return;
-
-
-            Setup[browserName]().then((driver) => {
-                this.browser = driver;
-                this.selenium();
-            });
 
         } else {
             this.nodeOnly();
@@ -50,7 +43,6 @@ class Runner {
     }
 
     selenium() {
-        console.log('XXXX');
         this.browser.get(URL);
     }
 
