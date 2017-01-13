@@ -7,7 +7,6 @@ const URL = 'localhost',
 
 describe('Protractor Basic auth login', function () {
     beforeAll(() => {
-        console.log('begin');
         browser.ignoreSynchronization = true; // There is no angular here!
         browser.get(`http://${USERNAME}:${PASSWORD}@${URL}`);
     });
