@@ -9,6 +9,7 @@ How to use basic authentication together with Protractor
                  https://github.com/juliemr/protractor-demo/blob/master/howtos/setFirefoxProfile/helper.js
    - geckodriver: https://github.com/mozilla/geckodriver/releases/
    - FF versions (47 needed): https://ftp.mozilla.org/pub/firefox/releases/
+   - Protractor changelog: https://github.com/angular/protractor/blob/master/CHANGELOG.md
 
 ### start server
 
