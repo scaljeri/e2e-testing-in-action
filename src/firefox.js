@@ -7,7 +7,8 @@ var FirefoxProfile = require('firefox-profile');
 export default class Firefox {
     static createProfile() {
         let profile = new firefox.Profile();
-        //profile.setPreference('network.http.phishy-userpass-length', 255);
+        profile.setPreference('network.http.phishy-userpass-length', 255);
+        profile.setPreference('test-a', 1);
 
         return profile;
     }
@@ -16,32 +17,33 @@ export default class Firefox {
 
         console.log('xxxxxxxxxxxxxxxxxxxxxx');
         /*
-        var deferred = q.defer();
+         var deferred = q.defer();
 
-        var firefoxProfile = new FirefoxProfile();
-        firefoxProfile.setPreference('browser.newtab.url', 'https://www.angularjs.org');
-        firefoxProfile.encoded(function(encodedProfile) {
-            var multiCapabilities = [{
-                browserName: 'firefox',
-                firefox_profile : encodedProfile
-            }];
-            console.log('done');
-            deferred.resolve(multiCapabilities);
-        });
+         var firefoxProfile = new FirefoxProfile();
+         firefoxProfile.setPreference('browser.newtab.url', 'https://www.angularjs.org');
+         firefoxProfile.encoded(function(encodedProfile) {
+         var multiCapabilities = [{
+         browserName: 'firefox',
+         firefox_profile : encodedProfile
+         }];
+         console.log('done');
+         deferred.resolve(multiCapabilities);
+         });
 
-        return deferred.promise;
-        */
+         return deferred.promise;
+         */
 
-        //let profile = new FirefoxProfile();
-        let profile = Firefox.createProfile();
+        let profile = new FirefoxProfile();
+        //let profile = Firefox.createProfile();
 
         //profile.setPreference("network.http.phishy-userpass-length", 255);
+        profile.setPreference("test-b", 255);
 
-        return {
-            browserName: 'firefox',
-            //'firefox-profile': profile
+        /*return [{
+         browserName: 'firefox',
+         'firefox-profile': profile
 
-        };
+         }]; */
 
         return new Promise((resolve) => {
             profile.encoded((encodedProfile) => {
@@ -50,6 +52,7 @@ export default class Firefox {
                     'firefox-profile': encodedProfile
                 }];
 
+                console.log('okokookokoo');
                 resolve(multiCapabilities);
             });
         });
@@ -64,5 +67,21 @@ export default class Firefox {
             .forBrowser('firefox')
             .setFirefoxOptions(options)
             .build();
+    }
+
+    static testProfile() {
+        let profile = Firefox.createProfile();
+        profile.setPreference("general.useragent.override", 'monitoring1152936086');
+
+        return new Promise((resolve) => {
+            profile.encode((encodedProfile) => {
+                console.log('xxxxxx');
+                resolve([{
+                    browserName: 'firefox',
+                    'firefox-profile': encodedProfile,
+                    marionette: false
+                }]);
+            });
+        });
     }
 }
