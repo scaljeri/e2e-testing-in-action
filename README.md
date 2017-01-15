@@ -1,6 +1,8 @@
 # protractor-basic-auth
 How to use basic authentication together with Protractor
 
+[Blogpost])(https://scaljeri.github.io/protractor-basic-auth/)
+
 ### Bookmarks
 
    - docs: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/firefox/index.html
