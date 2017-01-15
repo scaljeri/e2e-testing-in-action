@@ -33,7 +33,6 @@ class Runner {
         let browserName = process.argv[2].toLowerCase();
 
         if (browserName.match(/(chrome|firefox|ff)/)) {
-            console.log('xx');
             this.browser = Setup[browserName]();
             this.selenium();
 
