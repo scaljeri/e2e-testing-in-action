@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link href='https://fonts.googleapis.com/css?family=Antic' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<main>
+    <header>
+        <img src="images/protractor-selenium.png">
+
+        <h1>Basic Authentication with Selenium</h1>
+    </header>
+
+    <article>
+
+        <div class="content-container">
+            <p>
+                Todo
+            </p>
+
+            <h2>TODO</h2>
+            <p class="first-dark-blue">
+                Todo
+            </p>
+
+            <h2>Todo</h2>
+
+            <p class="first-dark-red">
+                TODO
+            </p>
+
+            <h2>Actions</h2>
+
+            <p>
+                TODO
+            </p>
+        </div>
+    </article>
+</main>
+<script>
+    var header = document.querySelector('header'), isMinified = false;
+
+    window.onscroll = function (event) {
+        if (window.pageYOffset > 100) {
+            if (!isMinified) {
+                header.classList.add('minified');
+                isMinified = true;
+            }
+        } else if (isMinified) {
+            header.classList.remove('minified');
+            isMinified = false;
+        }
+    }
+</script>
+</body>
+</html>
