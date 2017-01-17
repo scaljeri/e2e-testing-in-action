@@ -10,7 +10,6 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
 class Setup {
     static firefox() {
-        //return new webdriver.Builder().forBrowser('firefox').build();
         return Firefox.build(webdriver);
     }
 
@@ -23,6 +22,12 @@ class Setup {
 
         return new webdriver.Builder().withCapabilities(options.toCapabilities()).build();
     }
+
+    static safari() {
+       return new webdriver.Builder()
+           .forBrowser('safari')
+           .build();
+    }
 }
 
 class Runner {
@@ -30,10 +35,10 @@ class Runner {
     }
 
     start() {
-        let browserName = process.argv[2].toLowerCase();
+        let browserName = (process.argv[2] || '').toLowerCase();
 
-        if (browserName.match(/(chrome|firefox|ff)/)) {
-            this.browser = Setup[browserName]();
+        if (browserName && Setup[browserName]) {
+            this.driver = Setup[browserName]();
             this.selenium();
 
         } else {
@@ -42,7 +47,8 @@ class Runner {
     }
 
     selenium() {
-        this.browser.get(URL);
+        this.driver.get(URL);
+        //this.browser.close();
     }
 
     nodeOnly() {
