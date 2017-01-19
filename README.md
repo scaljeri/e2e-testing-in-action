@@ -1,7 +1,43 @@
-# How to setup Selenium/Protractor for local or Browserstack
+# Setup Selenium/Protractor for local or remote
+
+Test your site on your local machine or remote in the cloud with [Browserstack](https://www.browserstack.com)
+
+Checkout [this](https://scaljeri.github.io/selenium-protractor-browserstack/) article for a detailed explanation.
+
+#### Setup
+TODO
 
 
-[Blogpost])(https://scaljeri.github.io/protractor-basic-auth/)
+    $> docker run -d --name web dockercloud/hello-world
+    $> docker run -d -p 80:80 --link web:web --name auth beevelop/nginx-basic-auth
+
+
+#### Local
+TODO
+
+    $> npm start 
+    $> npm start --  --browser firefox
+
+#### Remote - browserstack
+TODO
+
+    $> ./BrowserStackLocal --key <Your browserstack key>
+    $> npm start -- --browser firefox --browserstack-user <username> --browserstack-key <key>
+    
+#### Selenium standalone
+TODO
+
+    $> npm start -- --browser firefox --selenium-standalone
+    
+#### Testing
+TODO
+
+    $> npm run test:mocha -- --browser firefox // local
+    $> npm run test:mocha -- --browser firefox --browsertsack-user <user> --browserstack-key <key> // remote
+    $> npm run test:protractor -- --browser firefox // local
+    $> npm run test:protractor -- --browser firefox --browsertsack-user <user> --browserstack-key <key> // remote
+    
+
 
 ### Bookmarks
 
@@ -18,8 +54,6 @@
 
 ### start server
 
-    $> docker run -d --name web dockercloud/hello-world
-    $> docker run -d -p 80:80 --link web:web --name auth beevelop/nginx-basic-auth
     
 TODO: Replace --link with something else: https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/
 
