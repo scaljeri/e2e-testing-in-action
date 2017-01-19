@@ -5,6 +5,10 @@ body {
 	padding: 0;
 }
 
+main {
+	display: flex;
+}
+
 header {
 	display: flex;
 	justify-content: center;
@@ -13,6 +17,17 @@ header {
 	position: fixed;
 	background-color: #235653;
 	transition: all 0.4s ease-in-out;
+}
+
+header .wrapper {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	width: 900px;
+}
+
+header img {
+	height: 50px;
 }
 
 img {
@@ -49,12 +64,15 @@ header.minified img {
 article {
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	margin-bottom: 50px;
 	padding-top: 150px;
+	width: 100%;
 }
 
 div.content-container {
-	max-width: 600px;
+	align-self: center;
+	width: 800px;
 	overflow: hidden;
 }
 

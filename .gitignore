@@ -1,0 +1,7 @@
+.idea/
+BrowserStackLocal
+chromedriver
+credentials.txt
+geckodriver
+node_modules/
+
