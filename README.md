@@ -1,5 +1,5 @@
-# protractor-basic-auth
-How to use basic authentication together with Protractor
+# How to setup Selenium/Protractor for local or Browserstack
+
 
 [Blogpost])(https://scaljeri.github.io/protractor-basic-auth/)
 
