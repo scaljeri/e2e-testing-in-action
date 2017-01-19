@@ -1,15 +1,16 @@
-import firefox from '../src/firefox';
-import HomePo from './home-po';
-
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import webdriver from 'selenium-webdriver';
 import test from 'selenium-webdriver/testing';
 
+import {ARGVS} from '../src/setup';
+import Driver from '../src/driver';
+import HomePo from './home-po';
+
 chai.use(chaiAsPromised);
 chai.should();
 
-global.driver = firefox.build();
+global.driver = new Driver(ARGVS).build();
 global.by = webdriver.By;
 
 const URL = 'localhost',
@@ -17,7 +18,7 @@ const URL = 'localhost',
     PASSWORD = 'bar';
 
 describe('Protractor Basic auth login', function () {
-    test.beforeEach(() => {
+    test.before(() => {
         driver.get(`http://${USERNAME}:${PASSWORD}@${URL}`);
     });
 
@@ -25,7 +26,7 @@ describe('Protractor Basic auth login', function () {
         HomePo.title.should.eventually.equal('Hello world!');
     });
 
-    test.after(function() {
+    test.after(function () {
         driver.quit();
     });
 });

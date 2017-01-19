@@ -1,0 +1,11 @@
+credentials.txt
+node_modules
+.idea
+*.swp
+BrowserStackLocal
+chromedriver
+geckodriver
+mp.js
+webdriverio
+tests/protractor-test.conf.js
+

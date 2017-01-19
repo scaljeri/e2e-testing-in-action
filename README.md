@@ -50,3 +50,19 @@ Start the tunnel for localhost testing
 
     $> ./BrowserStackLocal --key <Your browserstack key>
     $> ./node_modules/.bin/protractor tests/protractor.conf
+    
+### Testing
+
+Mocha:
+
+    $> npm run test:mocha -- --browser=safari
+    
+Protractor:
+
+    $> npm run test:protractor ./tests/protractor-local.conf -- --browser=firefox
+    
+### Runner / Selenium only
+
+    $> npm start -- --browser=safari
+    $> npm start -- --browser=ie --browser-version=9 --os=windows --os-version=7 --browserstack-user=<username> --browserstack-key=<key> 
+

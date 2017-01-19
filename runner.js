@@ -1,44 +1,19 @@
-import webdriver from 'selenium-webdriver';
-import chrome  from 'selenium-webdriver/chrome';
 import request from 'request';
 import url from 'url';
-import Firefox from './src/firefox';
 
-const URL = 'http://foo:bar@localhost';
+import {ARGVS} from './src/setup';
+import Driver from './src/driver';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
-class Setup {
-    static firefox() {
-        return Firefox.build(webdriver);
-    }
-
-    static ff() {
-        return this.firefox();
-    }
-
-    static chrome() {
-        let options = new chrome.Options();
-
-        return new webdriver.Builder().withCapabilities(options.toCapabilities()).build();
-    }
-
-    static safari() {
-       return new webdriver.Builder()
-           .forBrowser('safari')
-           .build();
-    }
-}
+const USERNAME = 'foo',
+    PASSWORD = 'bar',
+    URL = `http://${USERNAME}:${PASSWORD}@localhost`;
 
 class Runner {
-    constructor() {
-    }
-
     start() {
-        let browserName = (process.argv[2] || '').toLowerCase();
-
-        if (browserName && Setup[browserName]) {
-            this.driver = Setup[browserName]();
+        if (ARGVS.browser) {
+            this.driver = new Driver(ARGVS).build();
             this.selenium();
 
         } else {
@@ -48,30 +23,29 @@ class Runner {
 
     selenium() {
         this.driver.get(URL);
-        //this.browser.close();
+        this.driver.sleep(1000);
+        this.driver.quit();
     }
 
     nodeOnly() {
-        let uname = 'foo',
-            password = 'bar',
-            auth = `Basic ${new Buffer(uname + ':' + password).toString("base64")}`;
+        let headers = {
+            Authorization: `Basic ${new Buffer(USERNAME + ':' + PASSWORD).toString("base64")}`
+        };
 
-        this.doRequest(URL, auth);
+        this.doRequest(URL, headers);
     }
 
-    doRequest(goto, auth) {
+    doRequest(goto, headers) {
         request({
             followRedirect: false,
             url: goto,
-            headers: {
-                "Authorization": auth
-            }
+            headers
         }, (error, response, body) => {
             if (response.statusCode === 301 || response.statusCode === 302) {
                 let redirectUrl = url.resolve(response.request.href, response.headers.location);
 
                 console.log(`Follow redirect (${response.statusCode}) -> ${redirectUrl}`);
-                doRequest(redirectUrl, auth);
+                doRequest(redirectUrl, headers);
             } else {
                 console.log(body);
             }

@@ -12,10 +12,13 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "mocha": "^3.2.0",
+    "optimist": "^0.6.1",
     "protractor": "^5.0.0",
     "selenium-webdriver": "^3.0.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register ./tests/mocha-home.spec.js"
+    "start": "./node_modules/.bin/babel-node ./runner.js",
+    "test:mocha": "./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 30000 ./tests/mocha-home.spec.js",
+    "test:protractor": "./node_modules/.bin/protractor ./tests/protractor.conf.js --disableChecks"
   }
 }
