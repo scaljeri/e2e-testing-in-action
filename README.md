@@ -2,9 +2,9 @@
 
 Current status: 
 
-  Selenium: ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=b0Vwc2NoREppTUk3cC9LS1hXd01ScG93b3JlZVZEdHZQdGZGbnh0bXUzOD0tLTNrZkplL1pPallMSUtBVldsWVpQMEE9PQ==--5c4c2bf17feca5f90d306b7de50d60a6250d3376)
-  Protractor: ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=KzZPLy9rNS92YmNtenJOczV0UHY0d0VSQWNmYmVodWIxZ3NyZWhOUW93MD0tLUkyS0VPeUpLM09WQlQyUXdkYktmQXc9PQ==--b926906ed6be6744bddeb3348c4c97f87ae6142e)
-  Mocha: ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=UE9OQWJpSWlNWnhLbHZhdElzRE1mdzE2c3BGQU42WTVsbTAwVm13akt1TT0tLXJuSmVxeVpzcXU3YmY1MDE3b3FoRHc9PQ==--32ef88244215b281c50ba7c2054ef134e9ad667d)
+  - Selenium: ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=b0Vwc2NoREppTUk3cC9LS1hXd01ScG93b3JlZVZEdHZQdGZGbnh0bXUzOD0tLTNrZkplL1pPallMSUtBVldsWVpQMEE9PQ==--5c4c2bf17feca5f90d306b7de50d60a6250d3376)
+  - Protractor: ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=KzZPLy9rNS92YmNtenJOczV0UHY0d0VSQWNmYmVodWIxZ3NyZWhOUW93MD0tLUkyS0VPeUpLM09WQlQyUXdkYktmQXc9PQ==--b926906ed6be6744bddeb3348c4c97f87ae6142e)
+  - Mocha: ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=UE9OQWJpSWlNWnhLbHZhdElzRE1mdzE2c3BGQU42WTVsbTAwVm13akt1TT0tLXJuSmVxeVpzcXU3YmY1MDE3b3FoRHc9PQ==--32ef88244215b281c50ba7c2054ef134e9ad667d)
 
 This project demonstrates how to test a website with selenium, protractor or mocha. It can test against
 browsers on your local machine or remote on [Browserstack](https://www.browserstack.com).
