@@ -1,7 +1,7 @@
 import request from 'request';
 import url from 'url';
 
-import {ARGVS} from './src/setup';
+import {ARGVS} from './src/cli';
 import Driver from './src/driver';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';

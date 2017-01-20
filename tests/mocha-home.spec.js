@@ -13,6 +13,7 @@ chai.should();
 global.driver = new Driver(Object.assign({project: 'mocha'}, ARGVS)).build();
 global.by = webdriver.By;
 
+console.log(mocha);
 const URL = 'localhost',
     USERNAME = 'foo',
     PASSWORD = 'bar';

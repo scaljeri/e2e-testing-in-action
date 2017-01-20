@@ -12,9 +12,9 @@ const VERSIONS = {
 export default class Driver {
     constructor(options) {
         this._options = options;
-        this.capabilities = { browserName: this.browserName, project: 'selenium' };
+        this.capabilities = { browserName: this.browserName, project: 'selenium-protractor' };
 
-        ['version', 'os', 'osVersion', 'project'].forEach((item) => {
+        ['version', 'os', 'osVersion', 'project', 'build', 'name'].forEach((item) => {
             if (options[item] !== undefined) {
                 this.capabilities[item] = options[item];
             }

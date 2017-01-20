@@ -1,6 +1,9 @@
 require('babel-core/register');
-let Driver = require('../src/driver.js').default;
-let ARGVS = require('../src/setup').ARGVS;
+let Driver = require('../src/driver.js').default,
+    Browserstack = require('../src/browserstack.js').default,
+    StatusReporter = require('./reporters/jasmine.js').default;
+
+let ARGVS = require('../src/cli').ARGVS;
 
 // Make sure errors are not silently swallowed by Promises
 process.on('unhandledRejection', (err) => {
@@ -8,7 +11,10 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
 });
 
-let driver = new Driver(ARGVS);
+let driver = new Driver(ARGVS),
+    browserstack = new Browserstack({prefix: 'protractor'}),
+    statusReporter = new StatusReporter();
+
 
 let config = {
     framework: 'jasmine2',
@@ -18,7 +24,9 @@ let config = {
     capabilities: {
         'browserstack.local': true,
         'browserstack.debug': 'true',
-        project: 'protractor',
+        project: 'selenium-protractor',
+        build: 'protractor',
+        name: browserstack.session,
 
         browserName: driver.browserName,
         version: driver.browserVersion
@@ -28,6 +36,13 @@ let config = {
     jasmineNodeOpts: {
         showColors: true,
         defaultTimeoutInterval: 30000
+    },
+    onPrepare: function () {
+        jasmine.getEnv().addReporter(statusReporter);
+    },
+    onComplete: function() {
+        console.log('------------');
+        console.log(statusReporter.success);
     }
 };
 
