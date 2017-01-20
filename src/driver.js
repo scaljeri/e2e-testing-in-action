@@ -14,7 +14,7 @@ export default class Driver {
         this._options = options;
         this.capabilities = { browserName: this.browserName, project: 'selenium-browserstack' };
 
-        ['version', 'os', 'osVersion'].forEach((item) => {
+        ['version', 'os', 'osVersion', 'project'].forEach((item) => {
             if (options[item] !== undefined) {
                 this.capabilities[item] = options[item];
             }

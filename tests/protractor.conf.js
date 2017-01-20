@@ -18,6 +18,7 @@ let config = {
     capabilities: {
         'browserstack.local': true,
         'browserstack.debug': 'true',
+        project: 'protractor-browserstack',
 
         browserName: driver.browserName,
         version: driver.browserVersion

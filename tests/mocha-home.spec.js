@@ -10,7 +10,7 @@ import HomePo from './home-po';
 chai.use(chaiAsPromised);
 chai.should();
 
-global.driver = new Driver(ARGVS).build();
+global.driver = new Driver(Object.assign({project: 'mocha-browserstack'}, ARGVS)).build();
 global.by = webdriver.By;
 
 const URL = 'localhost',
