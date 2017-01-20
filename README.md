@@ -1,4 +1,4 @@
-# Selenium/Protractor in action 
+# Selenium/Protractor in action  ![Browserstack.com](https://www.browserstack.com/images/layout/browserstack-logo-600x315.png)
 
 Current status: 
 
