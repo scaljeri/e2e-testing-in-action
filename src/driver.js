@@ -12,7 +12,7 @@ const VERSIONS = {
 export default class Driver {
     constructor(options) {
         this._options = options;
-        this.capabilities = { browserName: this.browserName };
+        this.capabilities = { browserName: this.browserName, project: 'selenium-browserstack' };
 
         ['version', 'os', 'osVersion'].forEach((item) => {
             if (options[item] !== undefined) {

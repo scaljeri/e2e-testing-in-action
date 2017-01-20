@@ -1,4 +1,4 @@
-# Selenium/Protractor in action
+# Selenium/Protractor in action ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=b0Vwc2NoREppTUk3cC9LS1hXd01ScG93b3JlZVZEdHZQdGZGbnh0bXUzOD0tLTNrZkplL1pPallMSUtBVldsWVpQMEE9PQ==--5c4c2bf17feca5f90d306b7de50d60a6250d3376)
 
 This project demonstrates how to test a website with selenium, protractor or mocha. It can test against
 browsers on your local machine or remote on [Browserstack](https://www.browserstack.com).
