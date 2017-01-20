@@ -7,7 +7,7 @@ Current status:
   - Mocha: ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=UE9OQWJpSWlNWnhLbHZhdElzRE1mdzE2c3BGQU42WTVsbTAwVm13akt1TT0tLXJuSmVxeVpzcXU3YmY1MDE3b3FoRHc9PQ==--32ef88244215b281c50ba7c2054ef134e9ad667d)
 
 This project demonstrates how to test a website with selenium, protractor or mocha. It can test against
-browsers on your local machine or remote on [Browserstack](https://www.browserstack.com).
+browsers on your local machine or remote on [Browserstack](https://www.browserstack.com) and in parallel.
 
 To make it all a bit more challenging, the demo-test site is protected with Basic Authentication :)
 
