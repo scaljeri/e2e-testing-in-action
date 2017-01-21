@@ -10,6 +10,8 @@
    - Protractor changelog: https://github.com/angular/protractor/blob/master/CHANGELOG.md
    - Module selenium-webdriver/testing: http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/testing/index.html
    - Chai as Promised: http://chaijs.com/plugins/chai-as-promised/
+   - Enable local testing: https://www.browserstack.com/local-testing
+   - https://jasmine.github.io/2.3/custom_reporter.html
 
 ### start server
 

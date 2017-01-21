@@ -3,7 +3,7 @@ import chaiAsPromised from 'chai-as-promised';
 import webdriver from 'selenium-webdriver';
 import test from 'selenium-webdriver/testing';
 
-import {ARGVS} from '../src/setup';
+import {ARGVS} from '../src/cli';
 import Driver from '../src/driver';
 import HomePo from './home-po';
 
