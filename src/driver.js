@@ -12,13 +12,17 @@ const VERSIONS = {
 export default class Driver {
     constructor(options) {
         this._options = options;
-        this.capabilities = { browserName: this.browserName, project: 'selenium-protractor' };
+        this.capabilities = {browserName: this.browserName, project: 'selenium-protractor'};
 
-        ['version', 'os', 'osVersion', 'project', 'build', 'name'].forEach((item) => {
+        ['os', 'osVersion', 'project', 'build', 'name'].forEach((item) => {
             if (options[item] !== undefined) {
                 this.capabilities[item] = options[item];
             }
         });
+
+        if (options.browserVersion) {
+            this.capabilities.version = options.browserVersion;
+        }
 
         if (this.browserstackUser) {
             Object.assign(this.capabilities, {
@@ -77,15 +81,15 @@ export default class Driver {
     build() {
         let builder = new webdriver.Builder();
 
-        switch(this.browserName) {
+        switch (this.browserName) {
             case 'firefox':
-                let profile = Driver.createProfile();
-
                 if (!this.browserstackUser) {
-                    this.capabilities.marionette = false;
-                }
+                    let profile = Driver.createProfile();
 
-                builder.setFirefoxOptions(new firefox.Options().setProfile(profile));
+                    this.capabilities.marionette = false;
+
+                    builder.setFirefoxOptions(new firefox.Options().setProfile(profile));
+                }
                 break;
             case 'chrome':
                 builder.setChromeOptions(new chrome.Options());

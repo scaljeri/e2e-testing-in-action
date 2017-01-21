@@ -1,7 +1,7 @@
 import optimist from 'optimist';
 
 const ARGVS = {},
-    KNOWN_OPTIONS = ['browser', 'browser-version', 'selenium-standalone', 'browserstack-user', 'browserstack-key', 'os', 'os-version'],
+    KNOWN_OPTIONS = ['browser', 'browser-version', 'selenium-standalone', 'browserstack-user', 'browserstack-key', 'os', 'os-version', 'project'],
     OPTIONS = optimist.argv;
 
 KNOWN_OPTIONS.forEach((option) => {

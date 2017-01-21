@@ -14,7 +14,8 @@
     "mocha": "^3.2.0",
     "optimist": "^0.6.1",
     "protractor": "^5.0.0",
-    "selenium-webdriver": "^3.0.1"
+    "selenium-webdriver": "^3.0.1",
+    "should": "^11.1.2"
   },
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./runner.js",

@@ -31,7 +31,7 @@ let config = {
         browserName: driver.browserName,
         version: driver.browserVersion
     },
-    specs: ['home.spec.js'],
+    specs: ['home.spec-protractor.js'],
 
     jasmineNodeOpts: {
         showColors: true,

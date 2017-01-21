@@ -1,19 +1,25 @@
 import request from 'request';
+import 'should';
 import url from 'url';
 
-import {ARGVS} from './src/cli';
+import HomePo from './tests/home-po';
 import Driver from './src/driver';
+import Browserstack from './src/browserstack';
+import {ARGVS} from './src/cli';
+import {USERNAME, PASSWORD, URL} from './tests/settings';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
-const USERNAME = 'foo',
-    PASSWORD = 'bar',
-    URL = `http://${USERNAME}:${PASSWORD}@localhost`;
+const MAIN_URL = `http://${USERNAME}:${PASSWORD}@${URL}`;
+
+let settings = Object.assign({prefix: 'selenium', build: 'selenium'}, ARGVS);
+let browserstack = new Browserstack(settings);
 
 class Runner {
     start() {
         if (ARGVS.browser) {
-            this.driver = new Driver(ARGVS).build();
+            this.driver = new Driver(Object.assign({name: browserstack.session}, settings)).build();
+            global.driver = this.driver;
             this.selenium();
 
         } else {
@@ -22,8 +28,12 @@ class Runner {
     }
 
     selenium() {
-        this.driver.get(URL);
-        this.driver.sleep(1000);
+        this.driver.get(MAIN_URL);
+        HomePo.title.then(titleText => {
+            titleText.should.equal('Hello world!');
+            console.log('Test passed!');
+
+        });
         this.driver.quit();
     }
 
@@ -32,7 +42,7 @@ class Runner {
             Authorization: `Basic ${new Buffer(USERNAME + ':' + PASSWORD).toString("base64")}`
         };
 
-        this.doRequest(URL, headers);
+        this.doRequest(MAIN_URL, headers);
     }
 
     doRequest(goto, headers) {
@@ -47,7 +57,9 @@ class Runner {
                 console.log(`Follow redirect (${response.statusCode}) -> ${redirectUrl}`);
                 doRequest(redirectUrl, headers);
             } else {
-                console.log(body);
+                body.should.match(/>Hello world!</);
+                console.log('Test passed!');
+
             }
         });
     }

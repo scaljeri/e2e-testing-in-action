@@ -47,6 +47,14 @@ export default class Browserstack {
         return json.find(item => (preKey ? item[preKey][matchKey] : item[matchKey]) === findVal);
     }
 
+    badgeKey() {
+        let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.projectId}/badge_key`;
+
+        return new Promise(resolve => {
+            exec(cmd, (error, stdout, stderr) => resolve(stdout));
+        });
+    }
+
     getProject() {
         return new Promise(resolve => {
             let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects.json`;
@@ -61,17 +69,59 @@ export default class Browserstack {
         });
     }
 
+    deleteProject() {
+        let cmd = `curl -u "${this.user}:${this.key}" -X DELETE https://www.browserstack.com/automate/projects/${this.projectId}.json`;
+
+        return new Promise(resolve => {
+            exec(cmd, (error, stdout, stderr) => {
+                if (error) throw error;
+                console.log(stdout);
+
+                resolve();
+            });
+        });
+    }
+
     getBuild() {
         return new Promise(resolve => {
             let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.projectId}.json`;
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
-                let build = this.extract(json.project.builds, 'name', this.build);
-                this.buildId = build.hashed_id;
+
+                if (this.build) {
+                    let build = this.extract(json.project.builds, 'name', this.build);
+                    this.buildId = build.hashed_id;
+                }
+
+                resolve(json.project.builds);
+            });
+        });
+    }
+
+    deleteBuild(build) {
+        let cmd = `curl -u "${this.user}:${this.key}" -X DELETE https://www.browserstack.com/automate/builds/${build.hashed_id}.json`;
+
+        return new Promise(resolve => {
+            exec(cmd, (error, stdout, stderr) => {
+                console.log(stdout);
 
                 resolve();
             });
+        });
+    }
+
+    deleteBuilds() {
+        return new Promise(resolve => {
+            this.getBuild()
+                .then(builds => {
+                    let promises = [];
+                    builds.forEach(build => {
+                        promises.push(this.deleteBuild(build));
+                    });
+
+                    Promise.all(promises).then(resolve);
+                });
         });
     }
 
