@@ -30,9 +30,12 @@ let mocha = new Mocha({timeout: 30000});
 mocha.addFile('./tests/home.spec-mocha.js');
 
 mocha.run(failures => {
-    browserstack.update(failures > 0 ? 'failed' : 'passed').then(() => {
-        process.on('exit', function () {
-            process.exit(failures);  // exit with non-zero status if there were failures
+    if (browserstack.user) {
+        browserstack.update(failures > 0 ? 'failed' : 'passed').then(() => {
         });
+    }
+
+    process.on('exit', function () {
+        process.exit(failures);  // exit with non-zero status if there were failures
     });
 });
