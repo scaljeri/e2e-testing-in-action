@@ -1,9 +1,9 @@
 require('babel-core/register');
-let Driver = require('../src/driver.js').default,
-    Browserstack = require('../src/browserstack.js').default,
+let Driver = require('../src/utils/driver.js').default,
+    Browserstack = require('../src/utils/browserstack.js').default,
     StatusReporter = require('./reporters/jasmine.js').default;
 
-let ARGVS = require('../src/cli').ARGVS;
+let ARGVS = require('../src/utils/cli').ARGVS;
 
 // Make sure errors are not silently swallowed by Promises
 process.on('unhandledRejection', (err) => {

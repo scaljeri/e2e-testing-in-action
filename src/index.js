@@ -2,11 +2,11 @@ import request from 'request';
 import 'should';
 import url from 'url';
 
-import HomePo from './tests/home-po';
-import Driver from './src/driver';
-import Browserstack from './src/browserstack';
-import {ARGVS} from './src/cli';
-import {USERNAME, PASSWORD, URL} from './tests/settings';
+import HomePo from '../tests/home-po';
+import Driver from './utils/driver';
+import Browserstack from './utils/browserstack';
+import {ARGVS} from './utils/cli';
+import {USERNAME, PASSWORD, URL} from '../tests/settings';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 

@@ -4,9 +4,9 @@ import chaiAsPromised from 'chai-as-promised';
 import webdriver from 'selenium-webdriver';
 import test from 'selenium-webdriver/testing';
 
-import {ARGVS} from '../src/cli';
-import Driver from '../src/driver';
-import Browserstack from '../src/browserstack';
+import {ARGVS} from './utils/cli';
+import Driver from './utils/driver';
+import Browserstack from './utils/browserstack';
 
 // Make sure errors are not silently swallowed by Promises
 process.on('unhandledRejection', (err) => {

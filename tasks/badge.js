@@ -1,5 +1,5 @@
-import Browserstack from '../src/browserstack';
-import {ARGVS} from '../src/cli';
+import Browserstack from '../src/utils/browserstack';
+import {ARGVS} from '../src/utils/cli';
 
 if (!ARGVS.browserstackUser || !ARGVS.browserstackKey) {
     console.log('Usage: ./node_modules/.bin/babel-node ./tasks/badge.js --browerstack-user <user> --browserstack-key <key> [--project <project>]')

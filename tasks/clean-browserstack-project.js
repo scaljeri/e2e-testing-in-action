@@ -1,5 +1,5 @@
-import Browserstack from '../src/browserstack';
-import {ARGVS} from '../src/cli';
+import Browserstack from '../src/utils/browserstack';
+import {ARGVS} from '../src/utils/cli';
 
 
 let browserstack = new Browserstack(ARGVS);

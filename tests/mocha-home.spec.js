@@ -3,8 +3,8 @@ import chaiAsPromised from 'chai-as-promised';
 import webdriver from 'selenium-webdriver';
 import test from 'selenium-webdriver/testing';
 
-import {ARGVS} from '../src/cli';
-import Driver from '../src/driver';
+import {ARGVS} from '../src/utils/cli';
+import Driver from '../src/utils/driver';
 import HomePo from './home-po';
 
 chai.use(chaiAsPromised);
