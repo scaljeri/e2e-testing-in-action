@@ -5,10 +5,9 @@ browsers on your local machine or remote on [Browserstack](https://www.browserst
 
 To make it all a bit more challenging, the demo-test site is protected with Basic Authentication :)
 
-In this README I only list the available commands, but for a more in-depth discussion please checkout 
-[this](https://scaljeri.github.io/selenium-protractor-browserstack/) article.
+For an in-depth discussion please checkout [this](https://scaljeri.github.io/selenium-protractor-browserstack/) article.
 
-#### Run the demo site
+#### Start the Demo Site
 
     $> docker run -d --name web dockercloud/hello-world
     $> docker run -d -p 80:80 --link web:web --name auth beevelop/nginx-basic-auth
@@ -16,7 +15,20 @@ In this README I only list the available commands, but for a more in-depth discu
 The demo site can be accessed via `http://localhost` with username `foo` and password `bar`
 
 #### Setup
-TODO: yarn install, download drivers, selenium jar, Browserstack tunnel, FF 47
+
+    $> yarn install
+    $> ./node_modules/.bin/webdriver-manager update
+    
+In order to user the demo site on [Browserstack](https://browserstack.com) you have to enable [Local Testing](https://www.browserstack.com/local-testing)
+and download the `BrowserStackLocal` binary. 
+
+    $> ./BrowserStackLocal --key <browserstack-key>
+    
+Your username and access-key can be found under `Account -> Settings`
+
+For locally testing without `selenium-standalone` you also need to download the [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+and [checkdriver](https://github.com/mozilla/geckodriver/releases/). Currently this will only work for Firefox 47.
+
 
 #### Local
 
