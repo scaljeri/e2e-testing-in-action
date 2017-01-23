@@ -2,7 +2,7 @@ import request from 'request';
 import 'should';
 import url from 'url';
 
-import HomePo from '../tests/home-po';
+import HomePo from '../tests/po/home-po';
 import Driver from './utils/driver';
 import Browserstack from './utils/browserstack';
 import {ARGVS} from './utils/cli';

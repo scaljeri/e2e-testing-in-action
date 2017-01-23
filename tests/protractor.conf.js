@@ -41,8 +41,7 @@ let config = {
         jasmine.getEnv().addReporter(statusReporter);
     },
     onComplete: function() {
-        console.log('------------');
-        console.log(statusReporter.success);
+        //console.log(statusReporter.success);
     }
 };
 

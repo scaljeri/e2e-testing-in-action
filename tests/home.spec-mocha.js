@@ -1,5 +1,5 @@
 import {USERNAME, PASSWORD, URL} from './settings';
-import HomePo from './home-po';
+import HomePo from './po/home-po';
 
 test.describe('Protractor Basic auth login', function () {
     test.before(() => {

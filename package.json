@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./src/index.js",
-    "test:mocha": "./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 30000 ./tests/mocha-home.spec.js",
+    "test:mocha": "./node_modules/.bin/babel-node ./src/mocha.js",
     "test:protractor": "./node_modules/.bin/protractor ./tests/protractor.conf.js --disableChecks"
   }
 }

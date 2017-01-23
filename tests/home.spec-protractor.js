@@ -1,4 +1,4 @@
-import HomePo from './home-po';
+import HomePo from './po/home-po';
 
 const URL = 'localhost',
     USERNAME = 'foo',
@@ -13,6 +13,5 @@ describe('Protractor Basic auth login', function () {
 
     it('should have a title', function () {
         expect(HomePo.title).toEqual('Hello world!');
-        //browser.pause();
     });
 });
