@@ -31,7 +31,7 @@ header img {
 }
 
 img {
-	height: 100px;
+	height: 150px;
 	margin: 10px 0;
 	transition: all 0.4s ease-in-out;
 }
@@ -71,6 +71,8 @@ article {
 }
 
 div.content-container {
+	display: flex;
+	flex-direction: column;
 	align-self: center;
 	width: 800px;
 	overflow: hidden;
@@ -81,7 +83,8 @@ h2 {
 	font-size: 2rem;
 }
 
-p {
+.content {
+	display: block;
 	font-size: 1rem; /* 12px */
 	line-height: 1.5000rem; /* 18px */
 	margin: 0 0 1.5000rem 0;
@@ -99,7 +102,7 @@ ol {
 
 @media screen and (min-width: 650px) {
 	/* Drop Caps */
-	p::first-letter {
+	.content::first-letter {
 		float: left;
 		color: #758afe;
 		font-size: 5rem;
@@ -110,18 +113,19 @@ ol {
 		font-family: Georgia;
 	}
 
-	p.first-dark-blue::first-letter {
+	.content.first-dark-blue::first-letter {
 		color: #273380;
 	}
 
-	p.first-dark-red::first-letter {
+	.content.first-dark-red::first-letter {
 		color: #802041 !important;
 	}
 }
 
 pre {
-	display: inline;
+	display: block;
 	background-color: lightgray;
+	margin-left: 100px;
 	margin-right: 5px;
 }
 pre.demo-code {
@@ -162,6 +166,10 @@ pre.demo-code {
 		margin-left: 0;
 		margin-right: 0;
 	}
+}
+
+img {
+    align-self: center;
 }
 
 @media screen and (max-width: 451px) {
