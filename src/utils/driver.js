@@ -92,7 +92,14 @@ export default class Driver {
                 }
                 break;
             case 'chrome':
-                builder.setChromeOptions(new chrome.Options());
+                // --auto-open-devtools-for-tabs
+                //let options = new chrome.Options();
+                //options.addArguments(['--disable-web-security', '--user-data-dir', '--auto-open-devtools-for-tabs']);
+                //builder.setChromeOptions(options);
+                //builder.setChromeOptions(new chrome.Options());
+
+                let options = new chrome.Options();
+                builder.setChromeOptions(options);
                 break;
             case 'safari':
                 builder.setSafariOptions(new safari.Options());
