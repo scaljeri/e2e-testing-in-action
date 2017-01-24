@@ -27,7 +27,8 @@ and download the `BrowserStackLocal` binary.
 Your username and access-key can be found under `Account -> Settings`
 
 For locally testing without `selenium-standalone` you also need to download the [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
-and [checkdriver](https://github.com/mozilla/geckodriver/releases/) and place them in the root of this repository. 
+and [checkdriver](https://github.com/mozilla/geckodriver/releases/) and place them in the root of this repository. Finally, 
+download the [selenium standalone server](http://www.seleniumhq.org/download/)
 
 Currently this will only work for Firefox 47 for local testing.
 
