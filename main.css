@@ -31,8 +31,9 @@ header img {
 }
 
 img {
+    display: block;
+	margin: 10px auto;
 	height: 150px;
-	margin: 10px 0;
 	transition: all 0.4s ease-in-out;
 }
 
@@ -51,14 +52,23 @@ header.minified {
 	height: 30px;
 }
 
+header.minified .wrapper {
+	justify-content: center;
+}
+
 header.minified h1 {
 	font-size: 15px;
 	line-height: 30px;
+	margin: 0 20px;
 }
 
 header.minified img {
 	height: 20px;
 	margin: 6px 0;
+}
+
+header.minified img + img {
+	margin-left: 10px;
 }
 
 article {
@@ -166,10 +176,6 @@ pre.demo-code {
 		margin-left: 0;
 		margin-right: 0;
 	}
-}
-
-img {
-    align-self: center;
 }
 
 @media screen and (max-width: 451px) {

@@ -22,7 +22,7 @@
 
     <article>
         <div class="content-container">
-            <p class="content">
+            <div class="content">
                 If you kick off some tests in selenium or protractor chances are that they run smoothly in one browser
                 but not even start in the other.
                 The reason for that can be anything and more often than not, hard to solve. That is why I started
@@ -33,66 +33,51 @@
                 Before you begin follows the steps describe in the project's <a
                     href="https://github.com/scaljeri/selenium-protractor-browserstack">README</a>
                 to install all required libraries.
-            </p>
+            </div>
 
 
             <h2>Basic Authentication</h2>
             <div class="content first-dark-red">
-                Before any of the tools can tests demo site, basic authentication need to be handled first. The most
-                straight forward solution is to add the username and password to the url.
+                As you might already know selenium cannot control the native popups you get using basic authentication. In my
+                search to solve this I found two solution which overcome these shortcomings. <br><br>
+
+                The most easiest solution is to add the username and password to the url
 
                 <pre style='color:#000020;background:#f6f8ff;'>http://foo:bar@localhost</pre>
                 <br>
 
-                This works great, but unfortunate after you enter this url in Firefox you still will get an popup
+                Thats it, BUT not for Firefox, they have an addition popup
 
                 <img src="images/extra-popup.png">
                 <br>
 
-                which cannot be handled by selenium. But, luckily there is inside <i>about:config</i> a property called
-                <strong>network.http.phishy-userpass-length</strong>, which if set to <strong>255</strong> which disables
-                this confirmation popup. With firefox profiles we can get this property into the
-                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L116">selenium configuration</a>
+                Fortunately this popup can be disabled with the config property <strong>network.http.phishy-userpass-length</strong>.
+                It can be implemented using Firefox profiles, which I have done
+                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L116">here</a>
+                <br><br>
 
-                <pre style='color:#000020;background:#f6f8ff;'><span style='color:#200080; font-weight:bold; '>let</span> profile <span style='color:#308080; '>=</span> <span style='color:#200080; font-weight:bold; '>new</span> firefox<span style='color:#308080; '>.</span>Profile<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
-profile<span style='color:#308080; '>.</span>setPreference<span style='color:#308080; '>(</span><span style='color:#800000; '>'</span><span style='color:#1060b6; '>network.http.phishy-userpass-length</span><span style='color:#800000; '>'</span><span style='color:#308080; '>,</span> <span style='color:#008c00; '>255</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
-
-<span style='color:#200080; font-weight:bold; '>let</span> driver <span style='color:#308080; '>=</span> <span style='color:#200080; font-weight:bold; '>new</span> webdriver<span style='color:#308080; '>.</span>Builder<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span>
-    <span style='color:#308080; '>.</span>setFirefoxOptions<span style='color:#308080; '>(</span><span style='color:#200080; font-weight:bold; '>new</span> firefox<span style='color:#308080; '>.</span>Options<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#308080; '>.</span>setProfile<span style='color:#308080; '>(</span>profile<span style='color:#308080; '>)</span><span style='color:#308080; '>)</span>
-    <span style='color:#308080; '>.</span>build<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
-</pre>
-                Now, in real live it is not uncommon to perform the authentication itself somewhere else and get redirected(302) with a token added to the url
-
-                <pre style='color:#000020;background:#f6f8ff;'>http://localhost?toke=jsnjdkfu8i83ifasdjcnsjnde2wjflasjndf</pre>
-                <br>
-
-                This token is then used to get access. In such a case, there is an other way to handle the first part.
-
-                . In such a case
-
-
-                and get redirected to the site.
-                A common case of how this can be implemented, is that the site itself is not behind basic authentication, but it requires a token which can be obtained from an
-                authentication stub
-
-
-
-                only the authentication part, you can use a pure NodeJs solution
-                to handle basic authentication before you start selenium, which is demonstrated <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L48">here</a>
-
-
-
-                But there is an other way to do this, which doesn't involve any of this. The only requirement is that the site itself is not behind
-                basic authentication, but the authorization site is
-
+                But there is an other way to solve this, but it requires a different setup. The site itself should be public and the
+                authentication part is protected. From there you will be redirect to your public site with some kind of authentication token
+                in the url. In such case you can do the authentication with nodeJs only. You can see it in action
+                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L40">here</a>
             </div>
 
-            <h2>Remote</h2>
-            <p class="content first-dark-blue">
+            <h2>Local testing</h2>
+            <div class="content first-dark-blue">
+                TODO
+            </div>
+
+            <h2>Local testing with selenium standalone</h2>
+            <div class="content first-dark-blue">
+                TODO
+            </div>
+
+            <h2>Remote testing with Browserstack</h2>
+            <p class="first-dark-blue">
                 TODO
             </p>
 
-            <h2>Selenium standalone</h2>
+            <h2>Conclusion</h2>
             <p class="first-dark-blue">
                 TODO
             </p>
