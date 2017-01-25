@@ -5,7 +5,7 @@ browsers on your local machine or remote on [Browserstack](https://www.browserst
 
 To make it all a bit more challenging, the demo-test site is protected with Basic Authentication :)
 
-For a more in-depth discussion please checkout [this](https://scaljeri.github.io/selenium-protractor-browserstack/) article.
+A more in-depth discussion with examples of how to run the test checkout [this](https://scaljeri.github.io/selenium-protractor-browserstack/) article.
 
 #### Demo Site
 
@@ -32,30 +32,11 @@ download the [selenium standalone server](http://www.seleniumhq.org/download/)
 
 Currently this will only work for Firefox 47 for local testing.
 
-#### Local
-
-    $> npm start                                    // nodeJs without selenium - headless
-    $> npm start --  --browser firefox              // selenium with Firefox
-    $> npm test:mocha -- --browser chrome           // Mocha 
-    $> npm test:protractor -- --browser safari      // Protractor
-    $> npm test:protractor -- --browser chrome --selenium-standalone
-    
-#### Remote
-
-    $> ./BrowserStackLocal --key <key>
-    
-Each command below requires the options `--browserstack-user <user>` and `--browserstack-key <key>`
-
-    $> npm start -- --browser ie --browser-version=9 --os=windows --os-version=7 
-    $> npm run test:mocha -- --browser firefox 
-    $> npm run test:protractor -- --browser firefox 
-    
-#### Selenium standalone
-
-    $> jar -jar ./node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar
-    $> npm start -- --browser chrome --selenium-standalone
-
-
 ### Known issues
 
    * With `--selenium-standalone` Safari and Firefox don't work
+   
+### TODO
+
+  * Add webdriverio
+  * Add Nichtwatch and Cucumber
