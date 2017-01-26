@@ -32,6 +32,9 @@ download the [selenium standalone server](http://www.seleniumhq.org/download/)
 
 Currently this will only work for Firefox 47 for local testing.
 
+### Tasks
+Inside the `tasks` folder are two script which can be used to remove a project or to extract the badge code
+
 ### Known issues
 
    * With `--selenium-standalone` Safari and Firefox don't work
