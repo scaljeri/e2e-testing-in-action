@@ -16,7 +16,9 @@ export default class Browserstack {
     }
 
     set project(project) {
-        this._project = project;
+        if (project) {
+            this._project = project;
+        }
     }
 
     get build() {
@@ -62,9 +64,20 @@ export default class Browserstack {
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
                 let project = this.extract(json, 'name', this.project.replace(/-/g, ' '));
-                this.projectId = project.id;
 
-                resolve();
+                if (!project) {
+                    console.error(`Project '${this.project}' does not exist!`);
+                    console.log('Available projects are:');
+                    (json || []).forEach(projectObj => {
+                       console.log(`   ${projectObj.name}`);
+                    });
+                    process.exit(0);
+                }
+
+                this.projectId = project.id;
+                this.project = project.name;
+
+                resolve(project);
             });
         });
     }

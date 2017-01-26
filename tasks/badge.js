@@ -1,3 +1,5 @@
+#! ./node_modules/.bin/babel-node
+
 import Browserstack from '../src/utils/browserstack';
 import {ARGVS} from '../src/utils/cli';
 

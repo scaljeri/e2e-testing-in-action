@@ -1,7 +1,10 @@
 # Selenium/Protractor in action  [![Browserstack.com](/browserstack-logo-small.png)](https://browserstack.com) ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=ZzRLRjE1ZC9mUUlUTmJWQlFNVVVnTFBTb2ZjS3NGNEJUNTN6c1dDcWtlcz0tLStVZFlpL1ZKOC9QeTNpSUNXVHM5Snc9PQ==--e4b37358ed234afa202b7aea2363783991dd02a6)
 
-This project demonstrates how to test a website with pure node, selenium, protractor or mocha. It can test against
-browsers on your local machine or remote on [Browserstack](https://www.browserstack.com) in parallel.
+This project demonstrates how to test a website with pure node, selenium, protractor or mocha. Depending on 
+your needs this project can serve as a reference guide or a tutorial on how to setup automated testing.
+
+This project will demonstrate how run run tests against different browsers on local machine or remote using 
+[Browserstack](https://www.browserstack.com) in parallel.
 
 To make it all a bit more challenging, the demo-test site is protected with Basic Authentication :)
 
@@ -33,7 +36,15 @@ download the [selenium standalone server](http://www.seleniumhq.org/download/)
 Currently this will only work for Firefox 47 for local testing.
 
 ### Tasks
-Inside the `tasks` folder are two script which can be used to remove a project or to extract the badge code
+Inside the `tasks` folder are two script which perform the following tasks:
+ 
+  * Remove a project from browserstack
+  
+    $> ./tasks/clean-browserstack-project --browserstack-user <user> --browserstack-key <key> [--project project name]
+    
+  * Get the badge code in Markdown or HTML format
+  
+    $> ./tasks/badge.js --browserstack-user <user> --browserstack-key <key> [--project project name]
 
 ### Known issues
 
