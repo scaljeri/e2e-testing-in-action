@@ -39,16 +39,24 @@ download the [selenium standalone server](http://www.seleniumhq.org/download/)
 
 Currently this will only work for Firefox 47 for local testing.
 
-### Tasks
-Inside the `tasks` folder are two script which perform the following tasks:
+### Tasks 
+I've created these script so that I can manipulate projects, builds and sessions on [Browserstack](https://browserstack.com). 
+I hear you wandering, why would you ever want to do that? And the answer is, the [browserstack badge](https://www.browserstack.com/automate/status-badges).
+
+As you can see, I have a Browserstack badge on this page (hopefully its green at the moment!). A badge is connected to a 
+browserstack project (e.g. `Selenium Protractor tests`). Inside a project you have builds (e.g `mocha test` or `protractor 
+tests`) and each build has session (a test run). If a session fails the badge will be red for ever. It doesn't matter how 
+many passed session follow. The only solution at the moment is to remove the failed session or update its status to `passed`
  
-  * Remove a project from browserstack
+To remove a project with all its build and session simply do
   
     $> ./tasks/clean-browserstack-project --browserstack-user <user> --browserstack-key <key> [--project project name]
     
-  * Get the badge code in Markdown or HTML format
+If you would like a badge for a project do
   
     $> ./tasks/badge.js --browserstack-user <user> --browserstack-key <key> [--project project name]
+    
+it will output the badge code in Markdown and HTML.
 
 ### Known issues
 

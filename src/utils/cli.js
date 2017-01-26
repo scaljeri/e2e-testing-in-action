@@ -1,7 +1,8 @@
 import optimist from 'optimist';
+import prompt from 'prompt';
 
 const ARGVS = {},
-    KNOWN_OPTIONS = ['browser', 'browser-version', 'selenium-standalone', 'browserstack-user', 'browserstack-key', 'os', 'os-version', 'project'],
+    KNOWN_OPTIONS = ['browser', 'browser-version', 'selenium-standalone', 'browserstack-user', 'browserstack-key', 'os', 'os-version', 'project', 'session-id'],
     OPTIONS = optimist.argv;
 
 KNOWN_OPTIONS.forEach((option) => {
@@ -15,4 +16,39 @@ KNOWN_OPTIONS.forEach((option) => {
 });
 
 export {ARGVS};
+
+// Only for Yes and No questions
+prompt.message = '';
+prompt.start();
+
+export function getUserConfirmation(question = 'confirm', yesChar = 'y', noChar = 'n') {
+    let schema = {
+        properties: {
+            confirm: {
+                description: question,
+                required: false,
+                conform: (input) => {
+                    return input === null || input.match(new RegExp(`^[${yesChar + noChar}]$`, 'i'));
+                }
+            }
+        }
+    };
+
+    return new Promise((resolve, reject) => {
+        prompt.get(schema, (err, result) => {
+            if (err) {
+                console.log(err);
+                return 1;
+            } else {
+                let input = result.confirm;
+
+                if (input.match(new RegExp(`^[${yesChar}]*$`, 'i'))) {
+                    resolve(input.toLowerCase());
+                } else {
+                    reject();
+                }
+            }
+        });
+    });
+}
 

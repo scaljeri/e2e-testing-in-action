@@ -20,7 +20,7 @@ chai.should();
 
 let settings = Object.assign({prefix: 'mocha', build: 'mocha'}, ARGVS);
 let browserstack = new Browserstack(settings);
-let myDriver = new Driver(Object.assign({name: browserstack.session}, settings));
+let myDriver = new Driver(Object.assign({name: browserstack.sessionId}, settings));
 
 global.driver = myDriver.build();
 global.by = webdriver.By;
