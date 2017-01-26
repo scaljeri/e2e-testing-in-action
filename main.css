@@ -110,6 +110,10 @@ ol {
 	margin-left: 50px;
 }
 
+strong {
+	white-space: nowrap;
+}
+
 @media screen and (min-width: 650px) {
 	/* Drop Caps */
 	.content::first-letter {

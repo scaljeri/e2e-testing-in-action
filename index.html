@@ -57,7 +57,7 @@
                 <br><br>
 
                 But there is an other way to solve this, but it requires a different setup. The site itself should be public and the
-                authentication part is protected. From there you will be redirect to your public site with some kind of authentication token
+                authentication part protected. From there you will be redirect to your public site with some kind of authentication token
                 in the url. In such case you can do the authentication with nodeJs only. You can see it in action
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L40">here</a>.
             </div>
@@ -96,7 +96,7 @@ $<span style='color:#308080; '>></span> npm run test:protractor <span style='col
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/mocha.js">Mocha code</a>, <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/protractor.conf.js">Protractor config</a>
                 <br>
 
-                With the current version of Protractor you don't need to use firefox profiles, its all taken care of!
+                With the current version of Protractor you don't need to use firefox profiles, its all taken care of now!
             </div>
 
             <h2>Local testing with selenium standalone</h2>
@@ -115,20 +115,20 @@ $<span style='color:#308080; '>></span> npm run test:protractor <span style='col
             <h2>Remote testing with Browserstack</h2>
             <p class="first-dark-red">
                 In order to use browserstack you need a username and a key. If you don't have an account you can sign-up for a free one, which
-                already gives you access to a lot of time of testing. To enable remote testing you can add the <strong>--browserstack-user username</strong>
-                and <strong>--browserstack-key key</strong> argument to the above commands and the the tests will auto-magically run in browserstack :)
+                gives you access to a lot of time to test remotely. To enable remote testing you can add the <strong>--browserstack-user</strong> <strong>username</strong>
+                and <strong>--browserstack-key</strong> <strong>key</strong> argument to the above commands and the the tests will auto-magically run on browserstack :)
 
             <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser ie <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser<span style='color:#308080; '>-</span>version<span style='color:#308080; '>=</span><span style='color:#008c00; '>9</span>
                 <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>os<span style='color:#308080; '>=</span>windows <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>os<span style='color:#308080; '>-</span>version<span style='color:#308080; '>=</span><span style='color:#008c00; '>7</span>
                 <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browserstack<span style='color:#308080; '>-</span>user barfoo <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browserstack<span style='color:#308080; '>-</span>key liufo7ag4</pre>
 
             This time you can run the test against any OS or browser(version), tablet or android device. Note that you can use other versions of firefox too! But
-            there is more, with Basic Authentication you don't need to use firefox profiles, the url with the username and password in it is enough.
+            there is more, with Basic Authentication you don't need to use firefox profiles, the url with credentiakls is enough, they fixed that too, it's true.
 
             <h2>Conclusion</h2>
             <p class="first-dark-blue">
                 Considering all the work you have to do to get testing on your local machine up and running, I advice to use Browserstack. They have
-                and will solve all the issue that can happen. Like the also did with Basic authentication. Local testing is of course faster, and is
+                and will solve all the issue that can possibly happen. Like they did with Basic authentication. Local testing is of course faster, and is
                 probably the only reason why you want to do it.
             </p>
         </div>
