@@ -1,7 +1,8 @@
 # Selenium/Protractor in action  
 
 [![Browserstack.com](/browserstack-logo-small.png)](https://browserstack.com) 
-![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=TmswRXJ6RUZQL3NSZHZKelh0QS9USnVkUnpiL1ZzaXlJOVViU3JoSlRMTT0tLXNCVWw5RXhYMXV5bjQrZyttWGZaNHc9PQ==--b03153f7bddbb1437ab4bb09b2c202d5267513d9)
+
+![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=NVF6Wng2T3FzNEtqYTk0Q0dFbEx2bEM4Q0t4U3lXOE1UUjd5QWhSb0dubz0tLWRJUFl1QUxzRXhBcWxxd29iV0xJNGc9PQ==--fc21c080c5aa387a837cd5afbbae46afbe03602f)
 
 This project demonstrates how to test a website with pure node, selenium, protractor or mocha. Depending on 
 your needs this project can serve as a reference guide or a tutorial on how to setup automated testing.
