@@ -14,11 +14,11 @@ let browserstack = new Browserstack(ARGVS),
     promise = Promise.resolve();
 
 if (!ARGVS.sessionId) {
-    promise = getUserConfirmation(`${colors.red('Are you sure you want to pass all failed sessions for project')} '${colors.bold.green(browserstack.projectDisplayName)}' ${colors.grey.bgGreen('[Yn]')}`)
+    promise = getUserConfirmation(`${colors.red('Are you sure you want to pass all failed sessions for project')} '${colors.bold.green(browserstack.projectName)}' ${colors.grey.bgGreen('[Yn]')}`)
         .then(() => {
             },
             () => {
-                console.log(colors.grey.bgGreen('Project deleted'));
+                console.log(colors.grey.bgGreen('Aborted'));
                 process.exit();
             });
 }
@@ -28,6 +28,7 @@ let update;
 promise.then(() => getUserConfirmation(`${colors.red('Do you want to delete or update failed sessions')} ${colors.grey.bgGreen('[Ud]')}`, 'ud', '', 'ud'))
     .then((input) => {
         update = input !== 'd';
+        console.log('As you wish, ' + (update ? colors.yellow('Update') : colors.red('Delete')) + ` sessions for project ${colors.bold.green(browserstack.projectName)}`);
     })
     .then(() => {
         return browserstack.getProject()
@@ -35,15 +36,20 @@ promise.then(() => getUserConfirmation(`${colors.red('Do you want to delete or u
     .then(() => browserstack.getBuild())
     .then(builds => {
         (builds || []).forEach(build => {
-            browserstack.getSession(build.hashed_id)
+            browserstack.build = build;
+
+            browserstack.getSession()
                 .then(sessions => {
                     (sessions || []).forEach(session => {
-                        if (session.status === 'passed' || session.status === 'done') {
-                            console.log('sdfsdfsdfsdfs');
+                        let status = session.automation_session.status;
+
+                        if (session.automation_session.status === 'failed') {
                             if (update) {
-                                //browserstack.update('passed', session.automation_session.hashed_id);
+                                browserstack.updateSession('passed', session.automation_session.hashed_id);
+                                console.log(`  ${colors.underline('updated')} session ${colors.yellow(session.automation_session.name)}`);
                             } else {
-                                //browserstack.deleteSession(session.automation_session.hashed_id);
+                                console.log(`  ${colors.underline('deleted')} session ${colors.yellow(session.automation_session.name)}`);
+                                browserstack.deleteSession(session.automation_session.hashed_id);
                             }
                         }
                     });

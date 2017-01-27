@@ -3,6 +3,10 @@ import childProcess from 'child_process';
 //let spawn = childProcess.spawn;
 let exec = childProcess.exec;
 
+function extract(json, matchKey, findVal, preKey) {
+    return json.find(item => (preKey ? item[preKey][matchKey] : item[matchKey]) === findVal);
+}
+
 export default class Browserstack {
     constructor(options = {}) {
         this._options = options;
@@ -18,7 +22,6 @@ export default class Browserstack {
     }
 
     set projectName(projectName) {
-        // TODO: is this needed?
         this._projectName = projectName.replace(/-/g, ' ');
     }
 
@@ -60,9 +63,6 @@ export default class Browserstack {
         return this._options.browserstackKey;
     }
 
-    extract(json, matchKey, findVal, preKey) {
-        return json.find(item => (preKey ? item[preKey][matchKey] : item[matchKey]) === findVal);
-    }
 
     badgeKey() {
         let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.projectId}/badge_key`;
@@ -78,7 +78,7 @@ export default class Browserstack {
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
-                let project = this.extract(json, 'name', this.projectName);
+                let project = extract(json, 'name', this.projectName);
 
                 if (!project) {
                     console.error(`Project '${this.project}' does not exist!`);
@@ -123,7 +123,7 @@ export default class Browserstack {
                 let json = JSON.parse(stdout);
 
                 if (buildName) {
-                    let build = this.extract(json.project.builds, 'name', buildName);
+                    let build = extract(json.project.builds, 'name', buildName);
                     this.build = json.project.builds = build;
                 }
 
@@ -134,7 +134,6 @@ export default class Browserstack {
 
     deleteBuild(build) {
         let cmd = `curl -u "${this.user}:${this.key}" -X DELETE https://www.browserstack.com/automate/builds/${build.hashed_id}.json`;
-        console.log(cmd);
 
         return new Promise(resolve => {
             exec(cmd, (error, stdout, stderr) => {
@@ -159,17 +158,15 @@ export default class Browserstack {
         });
     }
 
-    getSession(build) {
-        build = build || this.build;
-
+    getSession() {
         return new Promise(resolve => {
-            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/builds/${build.hashed_id}/sessions.json`;
+            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/builds/${this.build.hashed_id}/sessions.json`;
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
 
                 if (this._session) {
-                    let session = this.extract(json, 'name', this.session.name, 'automation_session');
+                    let session = extract(json, 'name', this.session.name, 'automation_session');
                     this.session = session.automation_session;
                     json = this.session;
                 }
@@ -181,11 +178,8 @@ export default class Browserstack {
     }
 
     updateSession(status, sessionId) {
-        let cmd = `curl -u "${this.user}:${this.key}" -X PUT -H "Content-Type: application/json" -d "{\\"status\\":\\"${status}\\", \\"reason\\":\\"TODO\\"}" https://www.browserstack.com/automate/sessions/`;
-
-        if (sessionId) {
-            this.session = {hashed_id: sessionId};
-        }
+        let cmd = `curl -u "${this.user}:${this.key}" -X PUT -H "Content-Type: application/json" -d "{\\"status\\":\\"${status}\\", \\"reason\\":\\"TODO\\"}" https://www.browserstack.com/automate/sessions/`,
+            session = {hashed_id: (sessionId || this.session.hashed_id)};
 
         return this.getProject()
             .then(() => {
@@ -194,10 +188,11 @@ export default class Browserstack {
                 }
             })
             .then(() => {
-                return sessionId ? this.session : this.getSession();
+                return sessionId ? session : this.getSession();
             })
             .then((session) => {
                 cmd += `${session.hashed_id}.json`;
+
                 return new Promise(resolve => {
                     exec(cmd, (error, stdout, stderr) => resolve());
                 });
