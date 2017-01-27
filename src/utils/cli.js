@@ -2,7 +2,7 @@ import optimist from 'optimist';
 import prompt from 'prompt';
 
 const ARGVS = {},
-    KNOWN_OPTIONS = ['browser', 'browser-version', 'selenium-standalone', 'browserstack-user', 'browserstack-key', 'os', 'os-version', 'project', 'session-id'],
+    KNOWN_OPTIONS = ['browser', 'browser-version', 'selenium-standalone', 'browserstack-user', 'browserstack-key', 'os', 'os-version', 'project', 'session-id', 'y'],
     OPTIONS = optimist.argv;
 
 KNOWN_OPTIONS.forEach((option) => {
@@ -34,21 +34,26 @@ export function getUserConfirmation(question = 'confirm', yesChar = 'y', noChar 
         }
     };
 
-    return new Promise((resolve, reject) => {
-        prompt.get(schema, (err, result) => {
-            if (err) {
-                console.log(err);
-                return 1;
-            } else {
-                let input = result.confirm;
+    if (ARGVS.y) {
+        return Promise.resolve('');
+    } else {
 
-                if (input.match(new RegExp(`^[${yesChar}]*$`, 'i'))) {
-                    resolve(input.toLowerCase());
+        return new Promise((resolve, reject) => {
+            prompt.get(schema, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return 1;
                 } else {
-                    reject();
+                    let input = result.confirm;
+
+                    if (input.match(new RegExp(`^[${yesChar}]*$`, 'i'))) {
+                        resolve(input.toLowerCase());
+                    } else {
+                        reject();
+                    }
                 }
-            }
+            });
         });
-    });
+    }
 }
 

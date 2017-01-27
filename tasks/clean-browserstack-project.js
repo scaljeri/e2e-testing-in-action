@@ -14,7 +14,7 @@ let browserstack = new Browserstack(ARGVS);
 
 browserstack.getProject()
     .then(() => {
-        getUserConfirmation(`${colors.red('Are you sure you want to erase project')} '${colors.bold.green(browserstack.project)}' ${colors.grey.bgGreen('[Yn]')}`)
+        getUserConfirmation(`${colors.red('Are you sure you want to erase project')} '${colors.bold.green(browserstack.projectName)}' ${colors.grey.bgGreen('[Yn]')}`)
             .then(() => browserstack.getProject(),
                 () => {
                     console.log(colors.underline.bold.bgYellow.white('Aborted!!'));

@@ -23,7 +23,7 @@ export default class Browserstack {
     }
 
     get project() {
-        return this._project;
+        return this._project || {};
     }
 
     set project(project) {
@@ -33,7 +33,7 @@ export default class Browserstack {
     }
 
     get build() {
-        return this._build;
+        return this._build || {};
     }
 
     set build(build) {
@@ -42,21 +42,14 @@ export default class Browserstack {
 
     get session() {
         if (!this._session) {
-            this._session = (this._options.prefix ? this._options.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16);
+            this._session = {name: (this._options.prefix ? this._options.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16)};
         }
 
         return this._session;
     }
 
-    get sessionId() {
-        if (!this._sessionId) {
-            this._sessionId = (this._options.prefix ? this._options.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16);
-        }
-        return this._sessionId;
-    }
-
-    set sessionId(sessionId) {
-        this._sessionId = sessionId;
+    set session(session) {
+        this._session = session;
     }
 
     get user() {
@@ -85,8 +78,7 @@ export default class Browserstack {
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
-                console.log(this.projectDisplayName);
-                let project = this.extract(json, 'name', this.projectDisplayName);
+                let project = this.extract(json, 'name', this.projectName);
 
                 if (!project) {
                     console.error(`Project '${this.project}' does not exist!`);
@@ -118,14 +110,14 @@ export default class Browserstack {
     }
 
     getBuild(buildName) {
-        if (this.build.name === buildName) {
+        if (this.build.name === buildName && buildName) {
             return this.build;
         }
 
         buildName = buildName || this.build.name;
 
         return new Promise(resolve => {
-            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.projectId}.json`;
+            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.project.id}.json`;
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
@@ -176,10 +168,10 @@ export default class Browserstack {
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
 
-                if (this._sessionId) {
-                    let session = this.extract(json, 'name', this.sessionId, 'automation_session');
-                    this.sessionId = session.automation_session.hashed_id;
-                    json = this.sessionId;
+                if (this._session) {
+                    let session = this.extract(json, 'name', this.session.name, 'automation_session');
+                    this.session = session.automation_session;
+                    json = this.session;
                 }
 
                 resolve(json);
@@ -188,8 +180,12 @@ export default class Browserstack {
 
     }
 
-    update(status, sessionId) {
+    updateSession(status, sessionId) {
         let cmd = `curl -u "${this.user}:${this.key}" -X PUT -H "Content-Type: application/json" -d "{\\"status\\":\\"${status}\\", \\"reason\\":\\"TODO\\"}" https://www.browserstack.com/automate/sessions/`;
+
+        if (sessionId) {
+            this.session = {hashed_id: sessionId};
+        }
 
         return this.getProject()
             .then(() => {
@@ -198,10 +194,10 @@ export default class Browserstack {
                 }
             })
             .then(() => {
-                return sessionId ? sessionId : this.getSession()
+                return sessionId ? this.session : this.getSession();
             })
-            .then((sessionId) => {
-                cmd += `${sessionId}.json`;
+            .then((session) => {
+                cmd += `${session.hashed_id}.json`;
                 return new Promise(resolve => {
                     exec(cmd, (error, stdout, stderr) => resolve());
                 });

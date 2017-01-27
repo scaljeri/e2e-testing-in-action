@@ -18,7 +18,7 @@ let browserstack = new Browserstack(settings);
 class Runner {
     start() {
         if (ARGVS.browser) {
-            this.driver = new Driver(Object.assign({name: browserstack.session}, settings)).build();
+            this.driver = new Driver(Object.assign({name: browserstack.session.name}, settings)).build();
             global.driver = this.driver;
             this.selenium();
 
@@ -30,8 +30,15 @@ class Runner {
     selenium() {
         this.driver.get(MAIN_URL);
         HomePo.title.then(titleText => {
-            titleText.should.equal('Hello world!');
-            console.log('Test passed!');
+            try {
+                titleText.should.equal('Hello world');
+                console.log('Test passed!');
+            } catch(e) {
+                browserstack.updateSession('failed');
+
+                console.log('test failed');
+                console.log(e.AssertionError);
+            }
 
         });
         this.driver.quit();
