@@ -4,7 +4,7 @@ import Browserstack from '../src/utils/browserstack';
 import {ARGVS} from '../src/utils/cli';
 
 if (!ARGVS.browserstackUser || !ARGVS.browserstackKey) {
-    console.log('Usage: ./node_modules/.bin/babel-node ./tasks/badge.js --browerstack-user <user> --browserstack-key <key> [--project <project>]')
+    console.log('Usage: ./node_modules/.bin/babel-node ./tasks/badge.js --browerstack-user <user> --browserstack-key <key> [--project <project>]');
     process.exit(1);
 }
 

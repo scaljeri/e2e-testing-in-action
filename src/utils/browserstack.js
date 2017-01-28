@@ -65,7 +65,7 @@ export default class Browserstack {
 
 
     badgeKey() {
-        let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.projectId}/badge_key`;
+        let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.project.id}/badge_key`;
 
         return new Promise(resolve => {
             exec(cmd, (error, stdout, stderr) => resolve(stdout));
