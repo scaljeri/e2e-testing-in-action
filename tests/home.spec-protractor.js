@@ -1,9 +1,5 @@
+import {USERNAME, PASSWORD, URL} from './settings';
 import HomePo from './po/home-po';
-
-const URL = 'localhost',
-    USERNAME = 'foo',
-    PASSWORD = 'bar';
-
 
 describe('Protractor Basic auth login', function () {
     beforeAll(() => {
@@ -12,6 +8,6 @@ describe('Protractor Basic auth login', function () {
     });
 
     it('should have a title', function () {
-        expect(HomePo.title).toEqual('Hello world!');
+        expect(HomePo.title).toEqual('Hello world');
     });
 });

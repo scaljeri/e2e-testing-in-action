@@ -3,16 +3,30 @@ import childProcess from 'child_process';
 //let spawn = childProcess.spawn;
 let exec = childProcess.exec;
 
+function extract(json, matchKey, findVal, preKey) {
+    return json.find(item => (preKey ? item[preKey][matchKey] : item[matchKey]) === findVal);
+}
+
 export default class Browserstack {
     constructor(options = {}) {
         this._options = options;
 
-        this.project = options.project || 'selenium-protractor';
-        this.build = options.build;
+        this.projectName = options.project || 'selenium-protractor';
+        if (options.build) {
+            this.build = {name: options.build};
+        }
+    }
+
+    get projectName() {
+        return this._projectName;
+    }
+
+    set projectName(projectName) {
+        this._projectName = projectName.replace(/-/g, ' ');
     }
 
     get project() {
-        return this._project;
+        return this._project || {};
     }
 
     set project(project) {
@@ -22,7 +36,7 @@ export default class Browserstack {
     }
 
     get build() {
-        return this._build;
+        return this._build || {};
     }
 
     set build(build) {
@@ -31,10 +45,14 @@ export default class Browserstack {
 
     get session() {
         if (!this._session) {
-            this._session = (this._options.prefix ? this._options.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16);
+            this._session = {name: (this._options.prefix ? this._options.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16)};
         }
 
         return this._session;
+    }
+
+    set session(session) {
+        this._session = session;
     }
 
     get user() {
@@ -45,12 +63,9 @@ export default class Browserstack {
         return this._options.browserstackKey;
     }
 
-    extract(json, matchKey, findVal, preKey) {
-        return json.find(item => (preKey ? item[preKey][matchKey] : item[matchKey]) === findVal);
-    }
 
     badgeKey() {
-        let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.projectId}/badge_key`;
+        let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.project.id}/badge_key`;
 
         return new Promise(resolve => {
             exec(cmd, (error, stdout, stderr) => resolve(stdout));
@@ -63,19 +78,18 @@ export default class Browserstack {
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
-                let project = this.extract(json, 'name', this.project.replace(/-/g, ' '));
+                let project = extract(json, 'name', this.projectName);
 
                 if (!project) {
                     console.error(`Project '${this.project}' does not exist!`);
                     console.log('Available projects are:');
                     (json || []).forEach(projectObj => {
-                       console.log(`   ${projectObj.name}`);
+                        console.log(`   ${projectObj.name}`);
                     });
                     process.exit(0);
                 }
 
-                this.projectId = project.id;
-                this.project = project.name;
+                this.project = project;
 
                 resolve(project);
             });
@@ -83,7 +97,7 @@ export default class Browserstack {
     }
 
     deleteProject() {
-        let cmd = `curl -u "${this.user}:${this.key}" -X DELETE https://www.browserstack.com/automate/projects/${this.projectId}.json`;
+        let cmd = `curl -u "${this.user}:${this.key}" -X DELETE https://www.browserstack.com/automate/projects/${this.project.id}.json`;
 
         return new Promise(resolve => {
             exec(cmd, (error, stdout, stderr) => {
@@ -95,16 +109,22 @@ export default class Browserstack {
         });
     }
 
-    getBuild() {
+    getBuild(buildName) {
+        if (this.build.name === buildName && buildName) {
+            return this.build;
+        }
+
+        buildName = buildName || this.build.name;
+
         return new Promise(resolve => {
-            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.projectId}.json`;
+            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/projects/${this.project.id}.json`;
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
 
-                if (this.build) {
-                    let build = this.extract(json.project.builds, 'name', this.build);
-                    this.buildId = build.hashed_id;
+                if (buildName) {
+                    let build = extract(json.project.builds, 'name', buildName);
+                    this.build = json.project.builds = build;
                 }
 
                 resolve(json.project.builds);
@@ -140,32 +160,52 @@ export default class Browserstack {
 
     getSession() {
         return new Promise(resolve => {
-            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/builds/${this.buildId}/sessions.json`;
+            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/builds/${this.build.hashed_id}/sessions.json`;
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
-                let session = this.extract(json, 'name', this.session, 'automation_session');
-                this.sessionId = session.automation_session.hashed_id;
 
-                resolve(this.sessionId);
+                if (this._session) {
+                    let session = extract(json, 'name', this.session.name, 'automation_session');
+                    this.session = session.automation_session;
+                    json = this.session;
+                }
+
+                resolve(json);
             });
         });
 
     }
 
-    update(status) {
+    updateSession(status, sessionId) {
+        let cmd = `curl -u "${this.user}:${this.key}" -X PUT -H "Content-Type: application/json" -d "{\\"status\\":\\"${status}\\", \\"reason\\":\\"TODO\\"}" https://www.browserstack.com/automate/sessions/`,
+            session = {hashed_id: (sessionId || this.session.hashed_id)};
+
         return this.getProject()
-            .then(() => this.getBuild())
-            .then(() => this.getSession())
-            .then((sessionId) => {
-                let cmd = `curl -u "${this.user}:${this.key}" -X PUT -H "Content-Type: application/json" -d "{\\"status\\":\\"${status}\\", \\"reason\\":\\"TODO\\"}" https://www.browserstack.com/automate/sessions/${sessionId}.json`;
+            .then(() => {
+                if (!sessionId) {
+                    return this.getBuild()
+                }
+            })
+            .then(() => {
+                return sessionId ? session : this.getSession();
+            })
+            .then((session) => {
+                cmd += `${session.hashed_id}.json`;
 
                 return new Promise(resolve => {
-                    exec(cmd, (error, stdout, stderr) => {
-                        resolve();
-                    });
-
+                    exec(cmd, (error, stdout, stderr) => resolve());
                 });
             });
+    }
+
+    deleteSession(sessionId) {
+        let cmd = `curl -u "${this.user}:${this.key}" -X DELETE https://www.browserstack.com/automate/sessions/${sessionId}.json`;
+
+        return new Promise(resolve => {
+            exec(cmd, (error, stdout, stderr) => resolve());
+
+        });
+
     }
 }

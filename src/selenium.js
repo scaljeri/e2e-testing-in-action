@@ -1,6 +1,7 @@
 import request from 'request';
 import 'should';
 import url from 'url';
+import colors from 'colors/safe';
 
 import HomePo from '../tests/po/home-po';
 import Driver from './utils/driver';
@@ -18,7 +19,7 @@ let browserstack = new Browserstack(settings);
 class Runner {
     start() {
         if (ARGVS.browser) {
-            this.driver = new Driver(Object.assign({name: browserstack.session}, settings)).build();
+            this.driver = new Driver(Object.assign({name: browserstack.session.name}, settings)).build();
             global.driver = this.driver;
             this.selenium();
 
@@ -29,11 +30,20 @@ class Runner {
 
     selenium() {
         this.driver.get(MAIN_URL);
+
         HomePo.title.then(titleText => {
-            titleText.should.equal('Hello world!');
-            console.log('Test passed!');
+            try {
+                titleText.should.equal('Hello world!');
+                console.log('Test passed!');
+            } catch(e) {
+                browserstack.updateSession('failed');
+
+                console.log(colors.red('Test failed'));
+                console.log(e.message);
+            }
 
         });
+
         this.driver.quit();
     }
 
@@ -54,12 +64,16 @@ class Runner {
             if (response.statusCode === 301 || response.statusCode === 302) {
                 let redirectUrl = url.resolve(response.request.href, response.headers.location);
 
-                console.log(`Follow redirect (${response.statusCode}) -> ${redirectUrl}`);
+                console.log(colors.yellow(`Follow redirect (${response.statusCode}) -> ${redirectUrl}`));
                 doRequest(redirectUrl, headers);
             } else {
-                body.should.match(/>Hello world!</);
-                console.log('Test passed!');
-
+                try {
+                    body.should.match(/>Hello world!</);
+                    console.log(colors.green('Test passed!'));
+                } catch(e) {
+                    console.log(colors.red('Test failed'));
+                    console.log(e.message);
+                }
             }
         });
     }

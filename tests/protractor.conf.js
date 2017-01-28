@@ -26,7 +26,7 @@ let config = {
         'browserstack.debug': 'true',
         project: 'selenium-protractor',
         build: 'protractor',
-        name: browserstack.session,
+        name: browserstack.session.name,
 
         browserName: driver.browserName,
         version: driver.browserVersion
