@@ -27,7 +27,7 @@ The demo site can be accessed via `http://localhost` with username `foo` and pas
     $> ./node_modules/.bin/webdriver-manager update
     
 In order to user the demo site on [Browserstack](https://browserstack.com) you have to enable [Local Testing](https://www.browserstack.com/local-testing)
-and download the `BrowserStackLocal` binary. 
+and download the `BrowserStackLocal` binary. Execute this binary as follows before you start testing
 
     $> ./BrowserStackLocal --key <browserstack-key>
     
@@ -68,5 +68,4 @@ it will output the badge code in Markdown and HTML.
    
 ### TODO
 
-  * Add webdriverio
   * Add Nichtwatch and Cucumber
