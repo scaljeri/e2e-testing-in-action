@@ -111,6 +111,7 @@ ol {
 }
 
 strong {
+	display: inline;
 	white-space: nowrap;
 }
 

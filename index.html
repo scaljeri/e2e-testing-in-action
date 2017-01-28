@@ -113,17 +113,42 @@ $<span style='color:#308080; '>></span> npm run test:protractor <span style='col
             </div>
 
             <h2>Remote testing with Browserstack</h2>
-            <p class="first-dark-red">
+            <div class="first-dark-red">
                 In order to use browserstack you need a username and a key. If you don't have an account you can sign-up for a free one, which
-                gives you access to a lot of time to test remotely. To enable remote testing you can add the <strong>--browserstack-user</strong> <strong>username</strong>
-                and <strong>--browserstack-key</strong> <strong>key</strong> argument to the above commands and the the tests will auto-magically run on browserstack :)
+                gives you access to a lot of time to test remotely. These credentials neeed to be added to the configuration of of Selenium,
+                Protractor or Mocha. Furthermore, you have to enable local testing because the demo site runs on <strong>localhost</strong>:
 
+            <pre style='color:#000020;background:#f6f8ff;'>export<span style='color:#008c00; '>.</span>config <span style='color:#308080; '>=</span> {
+    browserstackUser: myUserName,
+    browserstackKey: myKey,
+    ...
+    capabilities: {
+        <span style='color:#595979; '>'browserstack.local': true,</span>
+        <span style='color:#595979; '>'browserstack.debug': 'true'</span>
+        ...
+    }
+    ...
+}
+</pre>
+
+                Note that the configuration can change a bit depending on the tooling. <br>
+                To test the demo site on browserstack you need to add <strong>--browserstack-user</strong> <strong>username</strong>
+                and <strong>--browserstack-key</strong> <strong>key</strong> argument to the above commands and the the tests will auto-magically run on browserstack :)
+                If it is a bit too much for you to add these to every command, you can also use environment variables
+
+            <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> export BROWSERSTACK_USERNAME<span style='color:#308080; '>=</span>username
+$<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span style='color:#308080; '>=</span>key
+</pre>
+
+
+            Here is an example how you can start selenium
             <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser ie <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser<span style='color:#308080; '>-</span>version<span style='color:#308080; '>=</span><span style='color:#008c00; '>9</span>
                 <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>os<span style='color:#308080; '>=</span>windows <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>os<span style='color:#308080; '>-</span>version<span style='color:#308080; '>=</span><span style='color:#008c00; '>7</span>
                 <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browserstack<span style='color:#308080; '>-</span>user barfoo <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browserstack<span style='color:#308080; '>-</span>key liufo7ag4</pre>
 
-            This time you can run the test against any OS or browser(version), tablet or android device. Note that you can use other versions of firefox too! But
-            there is more, with Basic Authentication you don't need to use firefox profiles, the url with credentiakls is enough, they fixed that too, it's true.
+                Checkout browserstack to see what operating systems and which devices are supported in combination with a specific browser.
+                Note that you can use other versions of firefox too! But there is more, with Basic Authentication you don't need to use firefox profiles, the url with credentials is enough, they fixed that too.
+            </div>
 
             <h2>Conclusion</h2>
             <p class="first-dark-blue">
