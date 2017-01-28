@@ -20,7 +20,7 @@ chai.should();
 
 let settings = Object.assign({prefix: 'mocha', build: 'mocha'}, ARGVS);
 let browserstack = new Browserstack(settings);
-let myDriver = new Driver(Object.assign({name: browserstack.sessionId}, settings));
+let myDriver = new Driver(Object.assign({name: browserstack.session.name}, settings));
 
 global.driver = myDriver.build();
 global.by = webdriver.By;
@@ -31,7 +31,7 @@ mocha.addFile('./tests/home.spec-mocha.js');
 
 mocha.run(failures => {
     if (browserstack.user) {
-        browserstack.update(failures > 0 ? 'failed' : 'passed').then(() => {
+        browserstack.updateSession(failures > 0 ? 'failed' : 'passed').then(() => {
         });
     }
 

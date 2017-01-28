@@ -36,6 +36,7 @@ promise.then(() => getUserConfirmation(`${colors.red('Do you want to delete or u
     .then(() => browserstack.getBuild())
     .then(builds => {
         (builds || []).forEach(build => {
+            let buildName = build.name;
             browserstack.build = build;
 
             browserstack.getSession()
@@ -44,11 +45,15 @@ promise.then(() => getUserConfirmation(`${colors.red('Do you want to delete or u
                         let status = session.automation_session.status;
 
                         if (session.automation_session.status === 'failed') {
+                            if (buildName) {
+                                console.log('  Build ' + colors.bgGreen.white(buildName));
+                                buildName = null;
+                            }
                             if (update) {
                                 browserstack.updateSession('passed', session.automation_session.hashed_id);
-                                console.log(`  ${colors.underline('updated')} session ${colors.yellow(session.automation_session.name)}`);
+                                console.log(`    ${colors.underline('updated')} session ${colors.yellow(session.automation_session.name)}`);
                             } else {
-                                console.log(`  ${colors.underline('deleted')} session ${colors.yellow(session.automation_session.name)}`);
+                                console.log(`    ${colors.underline('deleted')} session ${colors.yellow(session.automation_session.name)}`);
                                 browserstack.deleteSession(session.automation_session.hashed_id);
                             }
                         }
