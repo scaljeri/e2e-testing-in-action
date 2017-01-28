@@ -1,5 +1,6 @@
 import optimist from 'optimist';
 import prompt from 'prompt';
+import colors from 'colors/safe';
 
 const ARGVS = {},
     KNOWN_OPTIONS = ['browser', 'browser-version', 'selenium-standalone', 'browserstack-user', 'browserstack-key', 'os', 'os-version', 'project', 'session-id', 'y'],
@@ -14,6 +15,18 @@ KNOWN_OPTIONS.forEach((option) => {
         ARGVS[camelCase] = optionValue;
     }
 });
+
+let browserstackUser = process.env.BROWSERSTACK_USERNAME,
+    browserstackKey = process.env.BROWSERSTACK_ACCESS_KEY;
+
+if (!ARGVS.browserstackUser && browserstackUser) {
+    console.log(colors.yellow('Using browserstack credentials from environment variables!!'));
+    ARGVS.browserstackUser = browserstackUser;
+}
+
+if (!ARGVS.browserstackKey && browserstackKey) {
+    ARGVS.browserstackKey = browserstackKey;
+}
 
 export {ARGVS};
 
