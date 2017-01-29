@@ -64,7 +64,7 @@
 
             <h2>Local testing</h2>
             <div class="content first-dark-blue">
-                There is only one test, which is
+                There is only one test case in this project, which looks like this
 
                 <pre style='color:#000020;background:#f6f8ff;'>expect<span style='color:#308080; '>(</span>HomePo<span style='color:#308080; '>.</span>title<span style='color:#308080; '>)</span><span style='color:#308080; '>.</span>toEqual<span style='color:#308080; '>(</span><span style='color:#800000; '>'</span><span style='color:#1060b6; '>Hello world!</span><span style='color:#800000; '>'</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span></pre>
                 <br>
@@ -88,12 +88,15 @@
                 This time selenium kicks in and uses firefox (<a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L20">code</a>). Currently you can only use Firefox version 47.
                 <br>
 
-                For protractor and Mocha its basically the same
+                For protractor, Mocha and webdriverio its basically the same
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm run test:mocha <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser chrome
-$<span style='color:#308080; '>></span> npm run test:protractor <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser safari</pre>
+$<span style='color:#308080; '>></span> npm run test:protractor <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser safari
+$<span style='color:#308080; '>></span> npm run test:wdio <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> browser chrome
+</pre>
 
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/mocha.js">Mocha code</a>, <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/protractor.conf.js">Protractor config</a>
+                and <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/wdio.conf.js">Wdio config</a>
                 <br>
 
                 With the current version of Protractor you don't need to use firefox profiles, its all taken care of now!
