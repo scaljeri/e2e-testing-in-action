@@ -40,3 +40,18 @@ Remove the phising warning: 'Safari' -> Preferences -> Security -> Uncheck the '
 
     $> npm start -- --browser=safari
     $> npm start -- --browser=ie --browser-version=9 --os=windows --os-version=7 --browserstack-user=<username> --browserstack-key=<key> 
+    
+    
+### Problems with yarn
+
+    $> yarn cache clean
+    $> yarn self-update
+    $> yarn upgrade
+    $> yarn install
+   
+   
+### docker standalone chrome/firefox
+
+
+    $> docker run -p 127.0.0.1:4444:4444 selenium/standalone-chrome:latest
+    $> docker run -p 127.0.0.1:4444:4444 selenium/standalone-firefox:latest

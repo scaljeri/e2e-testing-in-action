@@ -2,4 +2,4 @@ export const USERNAME = 'foo';
 
 export const PASSWORD = 'bar';
 
-export const URL = 'localhost';
+export const URL_PATH = '';

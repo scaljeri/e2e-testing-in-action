@@ -2,7 +2,7 @@ require('babel-core/register');
 
 let ARGVS = require('../src/utils/cli.js').ARGVS;
 
-exports.config = {
+let config = {
     //
     // =================
     // Service Providers
@@ -60,7 +60,7 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 5,
         //
-        browserName: 'firefox',
+        browserName: ARGVS.browser || 'chrome',
         project: 'selenium-browserstack',
         build: 'wdio',
         'browserstack.local': true,
@@ -121,12 +121,15 @@ exports.config = {
     //     webdriverrtc: {},
     //     browserevent: {}
     // },
+    plugins: {
+        'wdio-screenshot': {}
+    },
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['browserstack'],
+    //services: ['browserstack'],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -218,4 +221,10 @@ exports.config = {
     // possible to defer the end of the process using a promise.
     // onComplete: function(exitCode) {
     // }
+};
+
+if (ARGVS.browserstackUser) {
+    config.services = ['browserstack'];
 }
+
+exports.config = config;

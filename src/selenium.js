@@ -6,40 +6,46 @@ import colors from 'colors/safe';
 import HomePo from '../tests/po/home-po';
 import Driver from './utils/driver';
 import Browserstack from './utils/browserstack';
-import {ARGVS} from './utils/cli';
-import {USERNAME, PASSWORD, URL} from '../tests/settings';
+import Cli from './utils/cli';
+import {USERNAME, PASSWORD, URL_PATH} from '../tests/settings';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
-const MAIN_URL = `http://${USERNAME}:${PASSWORD}@${URL}`;
-
-let settings = Object.assign({prefix: 'selenium', build: 'selenium'}, ARGVS);
-let browserstack = new Browserstack(settings);
-
 class Runner {
     start() {
-        if (ARGVS.browser) {
-            this.driver = new Driver(Object.assign({name: browserstack.session.name}, settings)).build();
-            global.driver = this.driver;
-            this.selenium();
+        Cli.defaults = {prefix: 'selenium', build: 'selenium'};
 
-        } else {
-            this.nodeOnly();
-        }
+        Cli.buildArgs()
+            .then(() => {
+                this.browserstack = new Browserstack(Cli.args);
+                Cli.name = this.browserstack.session.name;
+
+                if (Cli.args.browser) {
+                    this.driver = new Driver(Cli.args).build();
+                    // Needed fr HomePo
+                    global.driver = this.driver;
+                    this.selenium();
+
+                } else {
+                    this.nodeOnly();
+                }
+            });
     }
 
     selenium() {
-        this.driver.get(MAIN_URL);
+        let url = `http://${USERNAME}:${PASSWORD}@${Cli.host}${URL_PATH}`;
+        this.driver.get(url);
 
         HomePo.title.then(titleText => {
             try {
                 titleText.should.equal('Hello world!');
-                console.log('Test passed!');
-            } catch(e) {
-                browserstack.updateSession('failed');
+                this.testPassed();
+            } catch (e) {
+                if (Cli.browserstackUser) {
+                    this.browserstack.updateSession('failed');
+                }
 
-                console.log(colors.red('Test failed'));
-                console.log(e.message);
+                this.testFailed(e);
             }
 
         });
@@ -52,7 +58,7 @@ class Runner {
             Authorization: `Basic ${new Buffer(USERNAME + ':' + PASSWORD).toString("base64")}`
         };
 
-        this.doRequest(MAIN_URL, headers);
+        this.doRequest(`http://${Cli.host}${URL_PATH}`, headers);
     }
 
     doRequest(goto, headers) {
@@ -69,13 +75,21 @@ class Runner {
             } else {
                 try {
                     body.should.match(/>Hello world!</);
-                    console.log(colors.green('Test passed!'));
-                } catch(e) {
-                    console.log(colors.red('Test failed'));
-                    console.log(e.message);
+                    this.testPassed();
+                } catch (e) {
+                    this.testFailed(e);
                 }
             }
         });
+    }
+
+    testPassed() {
+        console.log(colors.green('Test passed!'));
+    }
+
+    testFailed(e) {
+        console.log(colors.red('Test failed'));
+        console.log(e.message);
     }
 }
 

@@ -6,6 +6,8 @@ describe('Protractor Basic auth login', () => {
     });
 
     it('should have a title', function () {
+        //browser.saveViewportScreenshot('./screenshot.png');
+
         browser.getText('h1').should.equal('Hello world!');
     });
 });
