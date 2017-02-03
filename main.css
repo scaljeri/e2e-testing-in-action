@@ -32,7 +32,6 @@ header img {
 
 img {
     display: block;
-	margin: 10px auto;
 	height: 150px;
 	transition: all 0.4s ease-in-out;
 }
@@ -71,6 +70,15 @@ header.minified img + img {
 	margin-left: 10px;
 }
 
+.horizontal-wrapper {
+	display: flex;
+	flex-direction: row;
+}
+
+.horizontal-wrapper img + img {
+	margin-left: 10px;
+}
+
 article {
 	display: flex;
 	justify-content: center;
@@ -98,6 +106,10 @@ h2 {
 	font-size: 1rem; /* 12px */
 	line-height: 1.5000rem; /* 18px */
 	margin: 0 0 1.5000rem 0;
+}
+
+.content img {
+	margin: 10px auto;
 }
 
 .up2date {

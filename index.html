@@ -15,8 +15,10 @@
 
             <h1>E2E testing in Action</h1>
 
-            <img src="images/icon-browserstack.png">
-            <img src="images/mocha-icon.svg">
+            <div class="horizontal-wrapper">
+                <img src="images/icon-browserstack.png">
+                <img src="images/mocha-icon.svg">
+            </div>
         </div>
     </header>
 
@@ -38,7 +40,8 @@
 
             <h2>Basic Authentication</h2>
             <div class="content first-dark-red">
-                As you might already know selenium cannot control the native popup you get using basic authentication. In my
+                As you might already know selenium cannot control the native popup you get using basic authentication.
+                In my
                 search to solve this I found two solution which overcome these shortcomings. <br><br>
 
                 The most easiest solution is to add the username and password to the url
@@ -52,12 +55,16 @@
                 <br>
 
                 Fortunately this popup can be disabled with the config property <strong>network.http.phishy-userpass-length</strong>.
-                It can be implemented using <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver">Firefox profiles</a>, which
-                I have implemented <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L116">here</a>.
+                It can be implemented using <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver">Firefox
+                profiles</a>, which
+                I have implemented <a
+                    href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L116">here</a>.
                 <br><br>
 
-                But there is an other way to solve this, but it requires a different setup. The site itself should be public and the
-                authentication part protected. From there you will be redirect to your public site with some kind of authentication token
+                But there is an other way to solve this, but it requires a different setup. The site itself should be
+                public and the
+                authentication part protected. From there you will be redirect to your public site with some kind of
+                authentication token
                 in the url. In such case you can do the authentication with nodeJs only. You can see it in action
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L40">here</a>.
             </div>
@@ -66,14 +73,25 @@
             <div class="content first-dark-blue">
                 There is only one test case in this project, which looks like this
 
-                <pre style='color:#000020;background:#f6f8ff;'>expect<span style='color:#308080; '>(</span>HomePo<span style='color:#308080; '>.</span>title<span style='color:#308080; '>)</span><span style='color:#308080; '>.</span>toEqual<span style='color:#308080; '>(</span><span style='color:#800000; '>'</span><span style='color:#1060b6; '>Hello world!</span><span style='color:#800000; '>'</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span></pre>
+                <pre style='color:#000020;background:#f6f8ff;'>expect<span style='color:#308080; '>(</span>HomePo<span
+                        style='color:#308080; '>.</span>title<span style='color:#308080; '>)</span><span
+                        style='color:#308080; '>.</span>toEqual<span style='color:#308080; '>(</span><span
+                        style='color:#800000; '>'</span><span style='color:#1060b6; '>Hello world!</span><span
+                        style='color:#800000; '>'</span><span style='color:#308080; '>)</span><span
+                        style='color:#406080; '>;</span></pre>
                 <br>
 
-                Not very spectacular, but it serves its purpose very well :) This test can be performed using nodeJs only
+                Not very spectacular, but it serves its purpose very well :) This test can be performed using nodeJs
+                only
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> .<span style='color:#308080; '>/</span>node_modules<span style='color:#308080; '>/</span>.bin<span style='color:#308080; '>/</span>babel<span style='color:#308080; '>-</span>node .<span style='color:#308080; '>/</span>src<span style='color:#308080; '>/</span>index<span style='color:#008c00; '>.</span>js</pre>
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> .<span
+                        style='color:#308080; '>/</span>node_modules<span style='color:#308080; '>/</span>.bin<span
+                        style='color:#308080; '>/</span>babel<span style='color:#308080; '>-</span>node .<span
+                        style='color:#308080; '>/</span>src<span style='color:#308080; '>/</span>index<span
+                        style='color:#008c00; '>.</span>js</pre>
 
-                To simplify things a bit most commands are added to <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/package.json#L21">package.js</a>.
+                To simplify things a bit most commands are added to <a
+                    href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/package.json#L21">package.js</a>.
                 The above command can also be executed as
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start</pre>
@@ -83,30 +101,52 @@
 
                 A couple of command line arguments can be added, like <strong>--browser</strong>
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser firefox</pre>
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start <span
+                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span
+                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser firefox</pre>
 
-                This time selenium kicks in and uses firefox (<a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L20">code</a>). Currently you can only use Firefox version 47.
+                This time selenium kicks in and uses firefox (<a
+                    href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L20">code</a>).
+                Currently you can only use Firefox version 47.
                 <br>
 
                 For protractor, Mocha and webdriverio its basically the same
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm run test:mocha <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser chrome
-$<span style='color:#308080; '>></span> npm run test:protractor <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser safari
-$<span style='color:#308080; '>></span> npm run test:wdio <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> browser chrome
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm run test:mocha <span
+                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span
+                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser chrome
+$<span style='color:#308080; '>></span> npm run test:protractor <span style='color:#308080; '>-</span><span
+                            style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span
+                            style='color:#308080; '>-</span>browser safari
+$<span style='color:#308080; '>></span> npm run test:wdio <span style='color:#308080; '>-</span><span
+                            style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span
+                            style='color:#308080; '>-</span> browser chrome
 </pre>
 
-                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/mocha.js">Mocha code</a>, <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/protractor.conf.js">Protractor config</a>
-                and <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/wdio.conf.js">Wdio config</a>
+                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/mocha.js">Mocha
+                    code</a>, <a
+                    href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/protractor.conf.js">Protractor
+                config</a>
+                and <a
+                    href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/wdio.conf.js">Wdio
+                config</a>
                 <br>
 
-                With the current version of Protractor and WebdriverIO you don't need to use firefox profiles, its all taken care of now! <br><br>
-                WebdriverIO also comes with a handy tool called <strong>./node_modules/.bin/wdio</strong> which can setup the configuration file and
-                run the specs with a lot of interesting options. Furthermore, in contrast to selenium and protractor, WebdriverIO transforms all
+                With the current version of Protractor and WebdriverIO you don't need to use firefox profiles, its all
+                taken care of now! <br><br>
+                WebdriverIO also comes with a handy tool called <strong>./node_modules/.bin/wdio</strong> which can
+                setup the configuration file and
+                run the specs with a lot of interesting options. Furthermore, in contrast to selenium and protractor,
+                WebdriverIO transforms all
                 actions to act synchroniously, for example
 
-                <pre style='color:#000020;background:#f6f8ff;'>browser<span style='color:#008c00; '>.</span>getText<span style='color:#308080; '>(</span><span style='color:#595979; '>'h1') === 'Hello world!'</span></pre>
-                It is also available for angular with <a href="http://webdriver.io/guide/plugins/webdriverjs-angular.html">webdriverjs-angular</a>. It
-                waits for angular to be ready, but they haven't enhanced it with angular specific commands as the developers think that functional tests
+                <pre style='color:#000020;background:#f6f8ff;'>browser<span style='color:#008c00; '>.</span>getText<span
+                        style='color:#308080; '>(</span><span
+                        style='color:#595979; '>'h1') === 'Hello world!'</span></pre>
+                It is also available for angular with <a
+                    href="http://webdriver.io/guide/plugins/webdriverjs-angular.html">webdriverjs-angular</a>. It
+                waits for angular to be ready, but they haven't enhanced it with angular specific commands as the
+                developers think that functional tests
                 should be as framework-agnostic as possible.
             </div>
 
@@ -114,22 +154,30 @@ $<span style='color:#308080; '>></span> npm run test:wdio <span style='color:#30
             <div class="content">
                 First start the selenium hub
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> java <span style='color:#308080; '>-</span>jar selenium<span style='color:#308080; '>-</span>server<span style='color:#308080; '>-</span>standalone<span style='color:#308080; '>-</span><span style='color:#008c00; '>3.0.1.</span>jar</pre>
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> java <span
+                        style='color:#308080; '>-</span>jar selenium<span style='color:#308080; '>-</span>server<span
+                        style='color:#308080; '>-</span>standalone<span style='color:#308080; '>-</span><span
+                        style='color:#008c00; '>3.0.1.</span>jar</pre>
 
                 Now you can run the same commands as described above with addition of one parameter<strong>--selenium-standalone</strong>
                 <br>
-                Unfortunately, it is not possible to use Firefox and Safari, they produce errors which I haven't solved yet. Feel free to
+                Unfortunately, it is not possible to use Firefox and Safari, they produce errors which I haven't solved
+                yet. Feel free to
                 help and send me a <a href="https://help.github.com/articles/about-pull-requests/">PR</a> :)
 
             </div>
 
             <h2>Remote testing with Browserstack</h2>
             <div class="first-dark-red">
-                In order to use browserstack you need a username and a key. If you don't have an account you can sign-up for a free one, which
-                gives you access to a lot of time to test remotely. These credentials neeed to be added to the configuration of of Selenium,
-                Protractor or Mocha. Furthermore, you have to enable local testing because the demo site runs on <strong>localhost</strong>:
+                In order to use browserstack you need a username and a key. If you don't have an account you can sign-up
+                for a free one, which
+                gives you access to a lot of time to test remotely. These credentials neeed to be added to the
+                configuration of of Selenium,
+                Protractor or Mocha. Furthermore, you have to enable local testing because the demo site runs on
+                <strong>localhost</strong>:
 
-            <pre style='color:#000020;background:#f6f8ff;'>export<span style='color:#008c00; '>.</span>config <span style='color:#308080; '>=</span> {
+                <pre style='color:#000020;background:#f6f8ff;'>export<span style='color:#008c00; '>.</span>config <span
+                        style='color:#308080; '>=</span> {
     browserstackUser: myUserName,
     browserstackKey: myKey,
     ...
@@ -142,29 +190,46 @@ $<span style='color:#308080; '>></span> npm run test:wdio <span style='color:#30
 }
 </pre>
 
-                Note that the configuration can change a bit depending on the tooling. To test the demo site on browserstack you need to add
-                <strong>--browserstack-user</strong> <strong>username</strong> and <strong>--browserstack-key</strong> <strong>access-key</strong>
+                Note that the configuration can change a bit depending on the tooling. To test the demo site on
+                browserstack you need to add
+                <strong>--browserstack-user</strong> <strong>username</strong> and <strong>--browserstack-key</strong>
+                <strong>access-key</strong>
                 argument to the above commands and the tests will auto-magically run on browserstack :)
                 If it is a bit too much for you to add these to every command, you can also use environment variables
 
-            <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> export BROWSERSTACK_USERNAME<span style='color:#308080; '>=</span>username
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> export BROWSERSTACK_USERNAME<span
+                        style='color:#308080; '>=</span>username
 $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span style='color:#308080; '>=</span>key
 </pre>
 
 
-            Here is an example how selenium is started
-            <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser ie <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser<span style='color:#308080; '>-</span>version<span style='color:#308080; '>=</span><span style='color:#008c00; '>9</span>
-                <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>os<span style='color:#308080; '>=</span>windows <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>os<span style='color:#308080; '>-</span>version<span style='color:#308080; '>=</span><span style='color:#008c00; '>7</span>
-                <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browserstack<span style='color:#308080; '>-</span>user barfoo <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browserstack<span style='color:#308080; '>-</span>key liufo7ag4</pre>
+                Here is an example how selenium is started
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start <span
+                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span
+                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser ie <span
+                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser<span
+                        style='color:#308080; '>-</span>version<span style='color:#308080; '>=</span><span
+                        style='color:#008c00; '>9</span>
+                <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>os<span
+                            style='color:#308080; '>=</span>windows <span style='color:#308080; '>-</span><span
+                            style='color:#308080; '>-</span>os<span style='color:#308080; '>-</span>version<span
+                            style='color:#308080; '>=</span><span style='color:#008c00; '>7</span>
+                <span style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browserstack<span
+                            style='color:#308080; '>-</span>user barfoo <span style='color:#308080; '>-</span><span
+                            style='color:#308080; '>-</span>browserstack<span style='color:#308080; '>-</span>key liufo7ag4</pre>
 
-                Checkout browserstack to see what operating systems and which devices are supported in combination with a specific browser.
-                Note that you can use other versions of firefox too! But there is more, with Basic Authentication you don't need to use firefox profiles, the url with credentials is enough, they fixed that too.
+                Checkout browserstack to see what operating systems and which devices are supported in combination with
+                a specific browser.
+                Note that you can use other versions of firefox too! But there is more, with Basic Authentication you
+                don't need to use firefox profiles, the url with credentials is enough, they fixed that too.
             </div>
 
             <h2>Conclusion</h2>
             <p class="first-dark-blue">
-                Considering all the work you have to do to get testing on your local machine up and running, I advice to use Browserstack. They have
-                and will solve all the issue that can possibly happen. Like they did with Basic authentication. Local testing is of course faster, and is
+                Considering all the work you have to do to get testing on your local machine up and running, I advice to
+                use Browserstack. They have
+                and will solve all the issue that can possibly happen. Like they did with Basic authentication. Local
+                testing is of course faster, and is
                 probably the only reason why you want to do it.
             </p>
         </div>
