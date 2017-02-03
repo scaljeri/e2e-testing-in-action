@@ -54,7 +54,7 @@ To remove a project with all its build and session simply do
     
 but you can also update/delete failing sessions as follows
 
-    $> ./tasks/pass-failed-sessions --browserstack-user <user> --browserstack-key <key> [--project project name]
+    $> ./tasks/process-failed-sessions --browserstack-user <user> --browserstack-key <key> [--project project name]
     
 If you would like a badge for a project do
   
