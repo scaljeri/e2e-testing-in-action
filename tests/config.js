@@ -132,6 +132,6 @@ export default class Config {
 
     static getArgv(name) {
         //        set by app      command line args      defaults or environment vars
-        return Config[`_${name}`] || optimist.argv[name] || this.defaults[name];
+        return Config[`_${name}`] || optimist.argv[name] || Config.defaults[name];
     }
 }

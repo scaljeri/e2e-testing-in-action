@@ -1,12 +1,13 @@
 require('babel-core/register');
 
-let Config = require('../src/utils/cli.js').default;
+let Config = require('./config.js').default;
+let Cli = require('../src/utils/cli.js').default;
 
 Config.defaults = {
     browser: 'chrome'
 };
 
-let config = {
+let settings = {
     //
     // =================
     // Service Providers
@@ -228,7 +229,10 @@ let config = {
 };
 
 if (Config.browserstackUser) {
-    config.services = ['browserstack'];
+    settings.services = ['browserstack'];
 }
 
-exports.config = config;
+// Get the firt IP in the list
+Config.host = Cli.getListOfIps()[0];
+
+exports.config = settings;

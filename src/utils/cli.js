@@ -9,15 +9,30 @@ export default class Cli {
             // container `localhost` need to be changed to an ip
             Cli.getIp()
                 .then(ip => {
-                    Config.host = ip;
+                    config.host = ip;
                     resolve();
                 });
         });
     }
 
-    static getIp() {
+    static getListOfIps() {
         let interfaces = os.networkInterfaces(),
             addresses = [];
+
+        for (let i in interfaces) {
+            for (let j in interfaces[i]) {
+                let address = interfaces[i][j];
+                if (address.family === 'IPv4' && !address.internal) {
+                    addresses.push(address.address);
+                }
+            }
+        }
+
+        return addresses;
+    }
+
+    static getIp() {
+        let addresses = Cli.getListOfIps();
 
         return new Promise(resolve => {
             for (let i in interfaces) {
@@ -29,7 +44,7 @@ export default class Cli {
                 }
             }
 
-            if (addresses.length > 0) {
+            if (addresses.length > 1) {
                 Cli.prompt({
                     name: 'ip',
                     message: 'Which IP should be used?',
