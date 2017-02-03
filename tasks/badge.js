@@ -1,14 +1,14 @@
 #! ./node_modules/.bin/babel-node
 
 import Browserstack from '../src/utils/browserstack';
-import {ARGVS} from '../src/utils/cli';
+import Config from '../tests/config';
 
-if (!ARGVS.browserstackUser || !ARGVS.browserstackKey) {
+if (!Config.browserstackUser || !Config.browserstackKey) {
     console.log('Usage: ./node_modules/.bin/babel-node ./tasks/badge.js --browerstack-user <user> --browserstack-key <key> [--project <project>]');
     process.exit(1);
 }
 
-let browserstack = new Browserstack(ARGVS);
+let browserstack = new Browserstack(Config);
 
 browserstack.getProject()
     .then(() => browserstack.badgeKey())

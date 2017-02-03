@@ -2,7 +2,7 @@
 
 [![Browserstack.com](/browserstack-logo-small.png)](https://browserstack.com) 
 
-![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=TUw2dklNeE55eFo2R0hhOUxsOUI4TEtrc2pYOHBRNjc1V1FQeDJWd3dxVT0tLVVtdEtpNkR0RVBYUGl1eVJvVG95Z1E9PQ==--0957640239f22fcfe802876eb57b63b603c704f6)
+![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=SW5jemxFMi9URmh6SEtGOC9yN0dlRzZlME5Vd3RWYklTd0xMRHlLOEhmQT0tLWthYzAwM0xaaVBiRmpORTV0SXR1RVE9PQ==--fe0340b981aedb79e9f8271da1c6c0d0f92e1e17)
 
 This project demonstrates how to test a website with pure node, selenium, protractor or mocha. Depending on 
 your needs this project can serve as a reference guide or a tutorial on how to setup automated testing.
@@ -54,7 +54,7 @@ To remove a project with all its build and session simply do
     
 but you can also update/delete failing sessions as follows
 
-    $> ./tasks/pass-failed-sessions --browserstack-user <user> --browserstack-key <key> [--project project name]
+    $> ./tasks/process-failed-sessions --browserstack-user <user> --browserstack-key <key> [--project project name]
     
 If you would like a badge for a project do
   

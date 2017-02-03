@@ -1,0 +1,14 @@
+version: '2'
+services:
+  hub:
+    image: selenium/hub:3.0.1-fermium
+    ports:
+          - "4444:4444"
+  chrome:
+    image: selenium/node-chrome:3.0.1-fermium
+    depends_on:
+      - hub
+  firefox:
+    image: selenium/node-firefox:3.0.1-fermium
+    depends_on:
+      - hub

@@ -3,79 +3,30 @@ import chrome  from 'selenium-webdriver/chrome';
 import safari  from 'selenium-webdriver/safari';
 import webdriver from 'selenium-webdriver';
 
-const VERSIONS = {
-    safari: 10,
-    firefox: 47,
-    chrome: 55
-};
-
 export default class Driver {
-    constructor(options) {
-        this._options = options;
-        this.capabilities = {browserName: this.browserName, project: 'selenium-protractor'};
+    constructor(config) {
+        this._config = config;
+
+        // Construct capabilities
+        this.capabilities = {browserName: config.browser, project: config.project};
 
         ['os', 'osVersion', 'project', 'build', 'name'].forEach((item) => {
-            if (options[item] !== undefined) {
-                this.capabilities[item] = options[item];
+            if (config[item] !== undefined) {
+                this.capabilities[item] = config[item];
             }
         });
 
-        if (options.browserVersion) {
-            this.capabilities.version = options.browserVersion;
+        if (config.browserVersion) {
+            this.capabilities.version = config.browserVersion;
         }
 
-        if (this.browserstackUser) {
+        if (config.browserstackUser) {
             Object.assign(this.capabilities, {
-                'browserstack.user':  this.browserstackUser,
-                'browserstack.key':   this.browserstackKey,
+                'browserstack.user':  config.browserstackUser,
+                'browserstack.key':   config.browserstackKey,
                 'browserstack.local': true,
-
             });
         }
-    }
-
-    get browserName() {
-        return this._options.browser === 'ff' ? 'firefox' : (this._options.browser || 'chrome');
-    }
-
-    get browserstackKey() {
-        return this._options['browserstackKey'];
-    }
-
-    get browserstackUser() {
-        return this._options['browserstackUser'];
-    }
-
-    get browserVersion() {
-        return this._options['browserVersion'] || VERSIONS[this.browserName];
-    }
-
-    get version() {
-        return this.browserVersion;
-    }
-
-    get os() {
-        return this._options.os
-    }
-
-    get osVersion() {
-        return this._options['osVersion'];
-    }
-
-    get seleniumHub() {
-        let hubUrl;
-
-        if (this.browserstackUser) {
-            hubUrl = `https://${this.browserstackUser}:${this.browserstackKey}@hub-cloud.browserstack.com/wd/hub`;
-        } else {
-            hubUrl = 'http://localhost:4444/wd/hub';
-        }
-
-        return hubUrl;
-    }
-
-    get useSeleniumHub() {
-        return this._options['seleniumStandalone'] || this.browserstackUser;
     }
 
     build() {
@@ -92,6 +43,7 @@ export default class Driver {
                 }
                 break;
             case 'chrome':
+                // TODO:
                 // --auto-open-devtools-for-tabs
                 //let options = new chrome.Options();
                 //options.addArguments(['--disable-web-security', '--user-data-dir', '--auto-open-devtools-for-tabs']);
@@ -106,8 +58,8 @@ export default class Driver {
                 break;
         }
 
-        if (this.useSeleniumHub) {
-            builder.usingServer(this.seleniumHub);
+        if (this._config.seleniumStandalone) {
+            builder.usingServer(this._config.seleniumHub);
         }
 
         return builder.withCapabilities(this.capabilities).build();

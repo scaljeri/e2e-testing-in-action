@@ -1,8 +1,13 @@
 require('babel-core/register');
 
-let ARGVS = require('../src/utils/cli.js').ARGVS;
+let Config = require('./config.js').default;
+let Cli = require('../src/utils/cli.js').default;
 
-exports.config = {
+Config.defaults = {
+    browser: 'chrome'
+};
+
+let settings = {
     //
     // =================
     // Service Providers
@@ -11,8 +16,8 @@ exports.config = {
     // should work too though). These services define specific user and key (or access key)
     // values you need to put in here in order to connect to these services.
     //
-    user: ARGVS.browserstackUser,
-    key: ARGVS.browserstackKey,
+    user: Config.browserstackUser,
+    key:  Config.browserstackKey,
 
     timeout: 0,
     
@@ -60,7 +65,7 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 5,
         //
-        browserName: 'firefox',
+        browserName: Config.browser,
         project: 'selenium-browserstack',
         build: 'wdio',
         'browserstack.local': true,
@@ -121,12 +126,15 @@ exports.config = {
     //     webdriverrtc: {},
     //     browserevent: {}
     // },
+    plugins: {
+        'wdio-screenshot': {}
+    },
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['browserstack'],
+    //services: ['browserstack'],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -218,4 +226,13 @@ exports.config = {
     // possible to defer the end of the process using a promise.
     // onComplete: function(exitCode) {
     // }
+};
+
+if (Config.browserstackUser) {
+    settings.services = ['browserstack'];
 }
+
+// Get the firt IP in the list
+Config.host = Cli.getListOfIps()[0];
+
+exports.config = settings;

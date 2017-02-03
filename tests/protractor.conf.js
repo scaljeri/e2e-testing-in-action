@@ -3,7 +3,7 @@ let Driver = require('../src/utils/driver.js').default,
     Browserstack = require('../src/utils/browserstack.js').default,
     StatusReporter = require('./reporters/jasmine.js').default;
 
-let ARGVS = require('../src/utils/cli').ARGVS;
+let Config = require('./config.js').default;
 
 // Make sure errors are not silently swallowed by Promises
 process.on('unhandledRejection', (err) => {
@@ -11,15 +11,20 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
 });
 
-let driver = new Driver(ARGVS),
-    browserstack = new Browserstack({prefix: 'protractor'}),
-    statusReporter = new StatusReporter();
+Config.defaults = {
+    build: 'protractor',
+    prefix: 'protractor',
+    browser: 'chrome'
+};
 
+let driver = new Driver(Config),
+    browserstack = new Browserstack(Config),
+    statusReporter = new StatusReporter();
 
 let config = {
     framework: 'jasmine2',
-    browserstackUser: driver.browserstackUser,
-    browserstackKey: driver.browserstackKey,
+    browserstackUser: Config.browserstackUser,
+    browserstackKey:  Config.browserstackKey,
 
     capabilities: {
         'browserstack.local': true,
@@ -28,7 +33,7 @@ let config = {
         build: 'protractor',
         name: browserstack.session.name,
 
-        browserName: driver.browserName,
+        browserName: Config.browser,
         version: driver.browserVersion
     },
     specs: ['home.spec-protractor.js'],

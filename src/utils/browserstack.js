@@ -8,25 +8,18 @@ function extract(json, matchKey, findVal, preKey) {
 }
 
 export default class Browserstack {
-    constructor(options = {}) {
-        this._options = options;
+    constructor(config = {}) {
+        this._config = config;
 
-        this.projectName = options.project || 'selenium-protractor';
-        if (options.build) {
-            this.build = {name: options.build};
+        if (config.build) {
+            this.build = {name: config.build};
         }
-    }
 
-    get projectName() {
-        return this._projectName;
-    }
-
-    set projectName(projectName) {
-        this._projectName = projectName.replace(/-/g, ' ');
+        config.name = this.session.name;
     }
 
     get project() {
-        return this._project || {};
+        return this._project || {name: this._config.project};
     }
 
     set project(project) {
@@ -45,7 +38,7 @@ export default class Browserstack {
 
     get session() {
         if (!this._session) {
-            this._session = {name: (this._options.prefix ? this._options.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16)};
+            this._session = {name: (this._config.prefix ? this._config.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16)};
         }
 
         return this._session;
@@ -56,11 +49,11 @@ export default class Browserstack {
     }
 
     get user() {
-        return this._options.browserstackUser;
+        return this._config.browserstackUser;
     }
 
     get key() {
-        return this._options.browserstackKey;
+        return this._config.browserstackKey;
     }
 
 
@@ -78,10 +71,10 @@ export default class Browserstack {
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
-                let project = extract(json, 'name', this.projectName);
+                let project = extract(json, 'name', this.project.name);
 
                 if (!project) {
-                    console.error(`Project '${this.project}' does not exist!`);
+                    console.error(`Project '${this.project.name}' does not exist!`);
                     console.log('Available projects are:');
                     (json || []).forEach(projectObj => {
                         console.log(`   ${projectObj.name}`);
@@ -90,7 +83,6 @@ export default class Browserstack {
                 }
 
                 this.project = project;
-
                 resolve(project);
             });
         });
@@ -158,17 +150,22 @@ export default class Browserstack {
         });
     }
 
-    getSession() {
+    getSession(build) {
+        build = build || this.build;
+
         return new Promise(resolve => {
-            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/builds/${this.build.hashed_id}/sessions.json`;
+            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/builds/${build.hashed_id}/sessions.json`;
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
 
                 if (this._session) {
                     let session = extract(json, 'name', this.session.name, 'automation_session');
-                    this.session = session.automation_session;
-                    json = this.session;
+
+                    if (session) {
+                        this.session = session.automation_session;
+                        json = this.session;
+                    }
                 }
 
                 resolve(json);

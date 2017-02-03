@@ -1,72 +1,68 @@
-import optimist from 'optimist';
-import prompt from 'prompt';
-import colors from 'colors/safe';
+import os from 'os';
+import inquirer from 'inquirer';
+import confirm from 'inquirer-confirm';
 
-const ARGVS = {},
-    KNOWN_OPTIONS = ['browser', 'browser-version', 'selenium-standalone', 'browserstack-user', 'browserstack-key', 'os', 'os-version', 'project', 'session-id', 'y'],
-    OPTIONS = optimist.argv;
-
-KNOWN_OPTIONS.forEach((option) => {
-    let optionValue = OPTIONS[option];
-
-    if (optionValue !== undefined) {
-        let camelCase = option.replace(/-(\w)/g, (match) => match.slice(-1).toUpperCase());
-
-        ARGVS[camelCase] = optionValue;
+export default class Cli {
+    static transformHostToIp(config) {
+        return new Promise(resolve => {
+            // If the selenium standalone hub is running inside a docker
+            // container `localhost` need to be changed to an ip
+            Cli.getIp()
+                .then(ip => {
+                    config.host = ip;
+                    resolve();
+                });
+        });
     }
-});
 
-let browserstackUser = process.env.BROWSERSTACK_USERNAME,
-    browserstackKey = process.env.BROWSERSTACK_ACCESS_KEY;
+    static getListOfIps() {
+        let interfaces = os.networkInterfaces(),
+            addresses = [];
 
-if (!ARGVS.browserstackUser && browserstackUser) {
-    console.log(colors.yellow('Using browserstack credentials from environment variables!!'));
-    ARGVS.browserstackUser = browserstackUser;
-}
-
-if (!ARGVS.browserstackKey && browserstackKey) {
-    ARGVS.browserstackKey = browserstackKey;
-}
-
-export {ARGVS};
-
-// Only for Yes and No questions
-prompt.message = '';
-prompt.start();
-
-export function getUserConfirmation(question = 'confirm', yesChar = 'y', noChar = 'n') {
-    let schema = {
-        properties: {
-            confirm: {
-                description: question,
-                required: false,
-                conform: (input) => {
-                    return input === null || input.match(new RegExp(`^[${yesChar + noChar}]$`, 'i'));
+        for (let i in interfaces) {
+            for (let j in interfaces[i]) {
+                let address = interfaces[i][j];
+                if (address.family === 'IPv4' && !address.internal) {
+                    addresses.push(address.address);
                 }
             }
         }
-    };
 
-    if (ARGVS.y) {
-        return Promise.resolve('');
-    } else {
+        return addresses;
+    }
 
-        return new Promise((resolve, reject) => {
-            prompt.get(schema, (err, result) => {
-                if (err) {
-                    console.log(err);
-                    return 1;
-                } else {
-                    let input = result.confirm;
+    static getIp() {
+        let addresses = Cli.getListOfIps();
 
-                    if (input.match(new RegExp(`^[${yesChar}]*$`, 'i'))) {
-                        resolve(input.toLowerCase());
-                    } else {
-                        reject();
+        return new Promise(resolve => {
+            for (let i in interfaces) {
+                for (let j in interfaces[i]) {
+                    let address = interfaces[i][j];
+                    if (address.family === 'IPv4' && !address.internal) {
+                        addresses.push(address.address);
                     }
                 }
-            });
+            }
+
+            if (addresses.length > 1) {
+                Cli.prompt({
+                    name: 'ip',
+                    message: 'Which IP should be used?',
+                    type: 'list',
+                    choices: addresses,
+                }, (output) => resolve(output.ip));
+            } else {
+                resolve(addresses[0]);
+            }
         });
     }
-}
 
+    static prompt(questions, callback) {
+        inquirer.prompt(questions, callback);
+    }
+
+    static confirm(message, confirmed, cancelled) {
+        confirm(message)
+            .then(confirmed, cancelled);
+    }
+}

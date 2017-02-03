@@ -3,26 +3,28 @@
 import colors from 'colors/safe';
 
 import Browserstack from '../src/utils/browserstack';
-import {getUserConfirmation, ARGVS} from '../src/utils/cli';
+import Config from '../tests/config';
+import Cli from '../src/utils/cli';
 
-if (!ARGVS.browserstackKey) {
+if (!Config.browserstackKey) {
     console.log('Usage: ./tasks/clean-browserstack-project [--project projectname] --browserstack-user <user> --browserstack-key key');
     console.log('      --project          name of the browserstack project (default: selenium-protractor');
     process.exit(0);
 }
-let browserstack = new Browserstack(ARGVS);
+let browserstack = new Browserstack(Config);
 
 browserstack.getProject()
     .then(() => {
-        getUserConfirmation(`${colors.red('Are you sure you want to erase project')} '${colors.bold.green(browserstack.projectName)}' ${colors.grey.bgGreen('[Yn]')}`)
-            .then(() => browserstack.getProject(),
-                () => {
-                    console.log(colors.underline.bold.bgYellow.white('Aborted!!'));
-                    process.exit();
-                }
-            )
-            .then(() => browserstack.deleteBuilds())
-            .then(() => browserstack.deleteProject())
-            .then(() => console.log(colors.grey.bgGreen('Project deleted')))
+        Cli.confirm(`${colors.red('Are you sure you want to erase project')} '${colors.bold.green(Config.project)}'`,
+            () => {
+                browserstack.getProject()
+                    .then(() => browserstack.deleteBuilds())
+                    .then(() => browserstack.deleteProject())
+                    .then(() => console.log(colors.grey.bgGreen('Project deleted')));
+            },
+            () => {
+                console.log(colors.underline.bold.bgYellow.white('Aborted!!'));
+                process.exit();
+            });
     });
 
