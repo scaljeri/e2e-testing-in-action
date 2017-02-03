@@ -12,7 +12,7 @@ This project will demonstrate how run run tests against different browsers on lo
 
 To make it all a bit more challenging, the demo-test site is protected with Basic Authentication :)
 
-A more in-depth discussion with examples of how to run the test checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article.
+A more in-depth discussion with examples of how to run the test checkout [THIS](https://scaljeri.github.io/e2e-testing-in-action/) article.
 
 #### Demo Site
 
