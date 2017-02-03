@@ -4,15 +4,16 @@
 
 ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=SW5jemxFMi9URmh6SEtGOC9yN0dlRzZlME5Vd3RWYklTd0xMRHlLOEhmQT0tLWthYzAwM0xaaVBiRmpORTV0SXR1RVE9PQ==--fe0340b981aedb79e9f8271da1c6c0d0f92e1e17)
 
-This project demonstrates how to test a website with pure node, selenium, protractor or mocha. Depending on 
+This project demonstrates how to test a website with pure node, selenium, protractor, mocha or webdriverIO. Depending on 
 your needs this project can serve as a reference guide or a tutorial on how to setup automated testing.
 
-This project will demonstrate how run run tests against different browsers on local machine or remote using 
-[Browserstack](https://www.browserstack.com) in parallel.
+This project will demonstrate how run run tests against different browsers on your local machine or remote using 
+[Browserstack](https://www.browserstack.com) even in parallel.
 
 To make it all a bit more challenging, the demo-test site is protected with Basic Authentication :)
 
-A more in-depth discussion with examples of how to run the test checkout [THIS](https://scaljeri.github.io/e2e-testing-in-action/) article.
+Checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article for an in-depth discussion plus examples of how to run 
+all this code.
 
 #### Demo Site
 
