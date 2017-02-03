@@ -11,7 +11,7 @@ export default class Config {
                 host: 'localhost',
                 'url-path': '',
 
-                project: 'e2e-testing-in-action'
+                project: 'E2E testing in action'
             };
     }
 
@@ -49,6 +49,10 @@ export default class Config {
 
     static get browserstackKey() {
         return Config.getArgv('browserstack-key');
+    }
+
+    static get build() {
+        return Config.getArgv('build');
     }
 
     static get host() {

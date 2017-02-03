@@ -3,14 +3,6 @@ import chrome  from 'selenium-webdriver/chrome';
 import safari  from 'selenium-webdriver/safari';
 import webdriver from 'selenium-webdriver';
 
-/*
-const VERSIONS = {
-    safari: 10,
-    firefox: 47,
-    chrome: 55
-};
-*/
-
 export default class Driver {
     constructor(config) {
         this._config = config;

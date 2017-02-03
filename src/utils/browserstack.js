@@ -19,7 +19,7 @@ export default class Browserstack {
     }
 
     get project() {
-        return this._project || {};
+        return this._project || {name: this._config.project};
     }
 
     set project(project) {
@@ -71,10 +71,10 @@ export default class Browserstack {
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
-                let project = extract(json, 'name', this._config.project);
+                let project = extract(json, 'name', this.project.name);
 
                 if (!project) {
-                    console.error(`Project '${this.project}' does not exist!`);
+                    console.error(`Project '${this.project.name}' does not exist!`);
                     console.log('Available projects are:');
                     (json || []).forEach(projectObj => {
                         console.log(`   ${projectObj.name}`);
@@ -83,7 +83,6 @@ export default class Browserstack {
                 }
 
                 this.project = project;
-
                 resolve(project);
             });
         });
@@ -151,17 +150,22 @@ export default class Browserstack {
         });
     }
 
-    getSession() {
+    getSession(build) {
+        build = build || this.build;
+
         return new Promise(resolve => {
-            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/builds/${this.build.hashed_id}/sessions.json`;
+            let cmd = `curl -u "${this.user}:${this.key}" https://www.browserstack.com/automate/builds/${build.hashed_id}/sessions.json`;
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
 
                 if (this._session) {
                     let session = extract(json, 'name', this.session.name, 'automation_session');
-                    this.session = session.automation_session;
-                    json = this.session;
+
+                    if (session) {
+                        this.session = session.automation_session;
+                        json = this.session;
+                    }
                 }
 
                 resolve(json);
