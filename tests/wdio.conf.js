@@ -1,6 +1,10 @@
 require('babel-core/register');
 
-let ARGVS = require('../src/utils/cli.js').ARGVS;
+let Config = require('../src/utils/cli.js').default;
+
+Config.defaults = {
+    browser: 'chrome'
+};
 
 let config = {
     //
@@ -11,8 +15,8 @@ let config = {
     // should work too though). These services define specific user and key (or access key)
     // values you need to put in here in order to connect to these services.
     //
-    user: ARGVS.browserstackUser,
-    key: ARGVS.browserstackKey,
+    user: Config.browserstackUser,
+    key:  Config.browserstackKey,
 
     timeout: 0,
     
@@ -60,7 +64,7 @@ let config = {
         // 5 instances get started at a time.
         maxInstances: 5,
         //
-        browserName: ARGVS.browser || 'chrome',
+        browserName: Config.browser,
         project: 'selenium-browserstack',
         build: 'wdio',
         'browserstack.local': true,
@@ -223,7 +227,7 @@ let config = {
     // }
 };
 
-if (ARGVS.browserstackUser) {
+if (Config.browserstackUser) {
     config.services = ['browserstack'];
 }
 

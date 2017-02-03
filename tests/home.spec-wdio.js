@@ -1,8 +1,8 @@
-import {USERNAME, PASSWORD, URL} from './settings';
+import Config from './config';
 
 describe('Protractor Basic auth login', () => {
     before(() => {
-        browser.url(`http://${USERNAME}:${PASSWORD}@${URL}`);
+        browser.url(Config.url);
     });
 
     it('should have a title', function () {

@@ -1,9 +1,9 @@
-import {USERNAME, PASSWORD, URL} from './settings';
 import HomePo from './po/home-po';
+import Config from './config';
 
-test.describe('Protractor Basic auth login', function () {
+test.describe('Mocha with Basic auth login', function () {
     test.before(() => {
-        driver.get(`http://${USERNAME}:${PASSWORD}@${URL}`);
+        driver.get(Config.url);
     });
 
     test.it('should have a title', function () {

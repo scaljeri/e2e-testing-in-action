@@ -8,21 +8,14 @@ function extract(json, matchKey, findVal, preKey) {
 }
 
 export default class Browserstack {
-    constructor(options = {}) {
-        this._options = options;
+    constructor(config = {}) {
+        this._config = config;
 
-        this.projectName = options.project || 'selenium-protractor';
-        if (options.build) {
-            this.build = {name: options.build};
+        if (config.build) {
+            this.build = {name: config.build};
         }
-    }
 
-    get projectName() {
-        return this._projectName;
-    }
-
-    set projectName(projectName) {
-        this._projectName = projectName.replace(/-/g, ' ');
+        config.name = this.session.name;
     }
 
     get project() {
@@ -45,7 +38,7 @@ export default class Browserstack {
 
     get session() {
         if (!this._session) {
-            this._session = {name: (this._options.prefix ? this._options.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16)};
+            this._session = {name: (this._config.prefix ? this._config.prefix + '-' : '') + (0 | Math.random() * 9e6).toString(16)};
         }
 
         return this._session;
@@ -56,11 +49,11 @@ export default class Browserstack {
     }
 
     get user() {
-        return this._options.browserstackUser;
+        return this._config.browserstackUser;
     }
 
     get key() {
-        return this._options.browserstackKey;
+        return this._config.browserstackKey;
     }
 
 
@@ -78,7 +71,7 @@ export default class Browserstack {
 
             exec(cmd, (error, stdout, stderr) => {
                 let json = JSON.parse(stdout);
-                let project = extract(json, 'name', this.projectName);
+                let project = extract(json, 'name', this._config.project);
 
                 if (!project) {
                     console.error(`Project '${this.project}' does not exist!`);
