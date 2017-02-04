@@ -1,12 +1,12 @@
 // stepdefinitions.js
-const expect = require('chai').expect;
+require('chai').should();
 
 module.exports = function () {
-  this.Given(/^I go to the website "([^"]*)"$/, (url) => {
-    browser.url(url);
+  this.Given(/^I go to the demo website$/, () => {
+    browser.url('http://foo:bar@localhost');
   });
 
-  this.Then(/^I expect the title of the page "([^"]*)"$/, (title) => {
-    expect(browser.getTitle()).to.be.eql(title);
+  this.Then(/^I expect the title of the page to be "([^"]*)"$/, (title) => {
+    browser.getTitle().should.equal(title);
   });
-}
+};

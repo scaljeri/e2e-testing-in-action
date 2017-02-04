@@ -4,5 +4,5 @@ Feature: Title check
   and check its title
 
 Scenario: Get the title of webpage
-  Given I go to the website "http://www.google.com"
-  Then I expect the title of the page "Google"
+  Given I go to the demo website
+  Then I expect the title of the page to be "Hello world!"
