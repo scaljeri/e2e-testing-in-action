@@ -2474,6 +2474,15 @@ prompt@1.0.0:
     utile "0.3.x"
     winston "2.1.x"
 
+protractor-cucumber-framework@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/protractor-cucumber-framework/-/protractor-cucumber-framework-0.6.0.tgz#d1259c7836f5ead010df341c0f6de48b640b7c47"
+  dependencies:
+    debug "^2.2.0"
+    glob "^7.0.3"
+    object-assign "^4.0.1"
+    q "^1.4.1"
+
 protractor@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/protractor/-/protractor-5.0.0.tgz#0935c487042c5f147d1dd03ab57b839a9d6c3368"

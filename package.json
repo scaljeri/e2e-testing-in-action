@@ -17,6 +17,7 @@
     "optimist": "0.6.1",
     "prompt": "1.0.0",
     "protractor": "5.0.0",
+    "protractor-cucumber-framework": "^0.6.0",
     "selenium-webdriver": "3.0.1",
     "should": "11.1.2",
     "wdio-cucumber-framework": "^0.2.15",

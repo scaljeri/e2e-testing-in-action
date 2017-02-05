@@ -1,8 +1,9 @@
 # title.feature
-Feature: Title check
-  I should be able to go to a website
-  and check its title
+Feature: Hello Cucumber
+  As a developer
+  I want to see the demo website
+  So that I can see the awesome title
 
-Scenario: Get the title of webpage
+Scenario: User sees the title
   Given I go to the demo website
-  Then I expect the title of the page to be "Hello world!"
+  Then I expect the title to be "Hello world!"
