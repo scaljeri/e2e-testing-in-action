@@ -1,6 +1,5 @@
 require('babel-core/register');
-let Driver = require('../src/utils/driver.js').default,
-    Browserstack = require('../src/utils/browserstack.js').default,
+let Browserstack = require('../src/utils/browserstack.js').default,
     StatusReporter = require('./reporters/jasmine.js').default;
 
 let Config = require('./config.js').default;
@@ -12,13 +11,12 @@ process.on('unhandledRejection', (err) => {
 });
 
 Config.defaults = {
-    build: 'protractor',
+    build:  (Config.cucumber ? 'cucumber' : 'protractor'),
     prefix: 'protractor',
     browser: 'chrome'
 };
 
-let driver = new Driver(Config),
-    browserstack = new Browserstack(Config),
+let browserstack = new Browserstack(Config),
     statusReporter = new StatusReporter();
 
 let config = {
@@ -32,11 +30,11 @@ let config = {
         'browserstack.local': true,
         'browserstack.debug': 'true',
         project: Config.project,
-        build: 'protractor',
+        build: Config.build,
         name: browserstack.session.name,
 
         browserName: Config.browser,
-        version: driver.browserVersion
+        version: Config.browserVersion
     },
 
     baseUrl: Config.url,
@@ -56,15 +54,15 @@ let config = {
     }
 };
 
-if (driver.osVersion) {
-    config.capabilities.os = driver.os;
-    config.capabilities.osVersion = driver.osVersion;
+if (Config.osVersion) {
+    config.capabilities.os = Config.os;
+    config.capabilities.osVersion = Config.osVersion;
 }
 
-if (driver.browserName === 'firefox') {
+if (Config.browserName === 'firefox') {
     config.capabilities['firefox_profile'] = Driver.createProfile();
 
-    if (!driver.browserstackUser) {
+    if (!Config.browserstackUser) {
         config.capabilities.marionette = false;
     }
 }

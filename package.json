@@ -29,9 +29,9 @@
     "start": "./node_modules/.bin/babel-node ./src/selenium.js",
     "mocha": "./node_modules/.bin/babel-node ./src/mocha.js",
     "protractor": "./node_modules/.bin/protractor ./tests/protractor.conf.js --disableChecks",
-    "cucumber:protractor": "./node_modules/.bin/protractor ./tests/protractor.conf.js --disableChecks --cucumber",
-    "cucumber:wdio": "./node_modules/.bin/wdio ./tests/wdio.conf.js --cucumber",
-    "wdio": "./node_modules/.bin/wdio ./tests/wdio.conf.js"
+    "protractor:cucumber": "./node_modules/.bin/protractor ./tests/protractor.conf.js --disableChecks --cucumber",
+    "wdio": "./node_modules/.bin/wdio ./tests/wdio.conf.js",
+    "wdio:cucumber": "./node_modules/.bin/wdio ./tests/wdio.conf.js --cucumber"
   },
   "devDependencies": {
     "wdio-browserstack-service": "^0.1.4",

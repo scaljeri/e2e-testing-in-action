@@ -1,11 +1,16 @@
 require('babel-core/register');
 
-let Config = require('./config.js').default;
-let Cli = require('../src/utils/cli.js').default;
+let Browserstack = require('../src/utils/browserstack.js').default,
+    Config = require('./config.js').default,
+    Cli = require('../src/utils/cli.js').default;
 
 Config.defaults = {
+    build:  (Config.cucumber ? 'cucumber' : 'wdio'),
+    prefix: 'wdio',
     browser: 'chrome'
 };
+
+let browserstack = new Browserstack(Config);
 
 // Get the firt IP in the list
 Config.host = Cli.getListOfIps()[0];
@@ -69,8 +74,9 @@ let settings = {
         maxInstances: 5,
         //
         browserName: Config.browser,
-        project: 'selenium-browserstack',
-        build: 'wdio',
+        project: Config.project,
+        build: Config.build,
+        name: browserstack.session.name,
         'browserstack.local': true,
         'browserstack.debug': 'true'
     }],
