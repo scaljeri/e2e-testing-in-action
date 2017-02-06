@@ -1,6 +1,5 @@
 require('babel-core/register');
-let Driver = require('../src/utils/driver.js').default,
-    Browserstack = require('../src/utils/browserstack.js').default,
+let Browserstack = require('../src/utils/browserstack.js').default,
     StatusReporter = require('./reporters/jasmine.js').default;
 
 let Config = require('./config.js').default;
@@ -12,30 +11,33 @@ process.on('unhandledRejection', (err) => {
 });
 
 Config.defaults = {
-    build: 'protractor',
+    build:  (Config.cucumber ? 'cucumber' : 'protractor'),
     prefix: 'protractor',
     browser: 'chrome'
 };
 
-let driver = new Driver(Config),
-    browserstack = new Browserstack(Config),
+let browserstack = new Browserstack(Config),
     statusReporter = new StatusReporter();
 
 let config = {
     framework: 'jasmine2',
+    getPageTimeout: 60000,
+    allScriptsTimeout: 500000,
     browserstackUser: Config.browserstackUser,
-    browserstackKey:  Config.browserstackKey,
+    browserstackKey: Config.browserstackKey,
 
     capabilities: {
         'browserstack.local': true,
         'browserstack.debug': 'true',
-        project: 'selenium-protractor',
-        build: 'protractor',
+        project: Config.project,
+        build: Config.build,
         name: browserstack.session.name,
 
         browserName: Config.browser,
-        version: driver.browserVersion
+        version: Config.browserVersion
     },
+
+    baseUrl: Config.url,
     specs: ['home.spec-protractor.js'],
 
     jasmineNodeOpts: {
@@ -43,24 +45,45 @@ let config = {
         defaultTimeoutInterval: 30000
     },
     onPrepare: function () {
-        jasmine.getEnv().addReporter(statusReporter);
+        if (typeof jasmine !== 'undefined') {
+            jasmine.getEnv().addReporter(statusReporter);
+        }
     },
-    onComplete: function() {
+    onComplete: function () {
         //console.log(statusReporter.success);
     }
 };
 
-if (driver.osVersion) {
-    config.capabilities.os = driver.os;
-    config.capabilities.osVersion = driver.osVersion;
+if (Config.osVersion) {
+    config.capabilities.os = Config.os;
+    config.capabilities.osVersion = Config.osVersion;
 }
 
-if (driver.browserName === 'firefox') {
+if (Config.browserName === 'firefox') {
     config.capabilities['firefox_profile'] = Driver.createProfile();
 
-    if (!driver.browserstackUser) {
+    if (!Config.browserstackUser) {
         config.capabilities.marionette = false;
     }
+}
+
+if (Config.cucumber) {
+    config = Object.assign(config, {
+        framework: 'custom',
+        frameworkPath: require.resolve('protractor-cucumber-framework'),
+        cucumberOpts: {
+            require: 'features/step-definitions/definitions-protractor.js',
+            tags: false,
+            format: 'pretty',
+            profile: false,
+            'no-source': true
+        },
+        specs: [
+            'features/*.feature'
+        ]
+    });
+
+    delete config.jasmineNodeOpts;
 }
 
 exports.config = config;
