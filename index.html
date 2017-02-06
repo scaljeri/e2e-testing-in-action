@@ -29,11 +29,10 @@
                 but not even start in the other.
                 The reason for that can be anything and more often than not, hard to solve. That is why I started
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack">this</a> project on GitHub to
-                demonstrate how you can use selenium
-                or protractor with different browser and run test locally, remote or in parallel .
+                demonstrate how you can use selenium, protractor, cucumber or webdriverIO with different browser and
+                run test locally, remote or in parallel.
 
-                Before you begin follows the steps describe in the project's <a
-                    href="https://github.com/scaljeri/selenium-protractor-browserstack">README</a>
+                Before you begin follows the steps describe in the project's <a href="https://github.com/scaljeri/selenium-protractor-browserstack">README</a>
                 to install all required libraries.
             </div>
 
@@ -41,32 +40,27 @@
             <h2>Basic Authentication</h2>
             <div class="content first-dark-red">
                 As you might already know selenium cannot control the native popup you get using basic authentication.
-                In my
-                search to solve this I found two solution which overcome these shortcomings. <br><br>
+                In my search to solve this I found two solution which overcome these shortcomings. <br><br>
 
                 The most easiest solution is to add the username and password to the url
 
                 <pre style='color:#000020;background:#f6f8ff;'>http://foo:bar@localhost</pre>
                 <br>
 
-                Thats it, BUT not for Firefox, they have an addition popup
+                That's it, BUT not for Firefox, they have an addition popup
 
                 <img src="images/extra-popup.png">
                 <br>
 
                 Fortunately this popup can be disabled with the config property <strong>network.http.phishy-userpass-length</strong>.
-                It can be implemented using <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver">Firefox
-                profiles</a>, which
-                I have implemented <a
-                    href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L116">here</a>.
+                It can be implemented using <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver">Firefox profiles</a>,
+                which I have implemented <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L116">here</a>.
                 <br><br>
 
                 But there is an other way to solve this, but it requires a different setup. The site itself should be
-                public and the
-                authentication part protected. From there you will be redirect to your public site with some kind of
-                authentication token
-                in the url. In such case you can do the authentication with nodeJs only. You can see it in action
-                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L40">here</a>.
+                public and the authentication part protected. After you've authenticated you will be redirect to your public site with some kind of
+                authentication token in the url. In such case you can do the authentication part with nodeJs only before you start selenium. You can see
+                this in action <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/index.js#L40">here</a>.
             </div>
 
             <h2>Local testing</h2>
@@ -110,15 +104,15 @@
                 Currently you can only use Firefox version 47.
                 <br>
 
-                For protractor, Mocha and webdriverio its basically the same
+                For protractor, WebdriverIO and Mocha its basically the same
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm run test:mocha <span
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm run mocha <span
                         style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span
                         style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser chrome
-$<span style='color:#308080; '>></span> npm run test:protractor <span style='color:#308080; '>-</span><span
+$<span style='color:#308080; '>></span> npm run protractor <span style='color:#308080; '>-</span><span
                             style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span
                             style='color:#308080; '>-</span>browser safari
-$<span style='color:#308080; '>></span> npm run test:wdio <span style='color:#308080; '>-</span><span
+$<span style='color:#308080; '>></span> npm run wdio <span style='color:#308080; '>-</span><span
                             style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span
                             style='color:#308080; '>-</span> browser chrome
 </pre>
@@ -132,8 +126,8 @@ $<span style='color:#308080; '>></span> npm run test:wdio <span style='color:#30
                 config</a>
                 <br>
 
-                With the current version of Protractor and WebdriverIO you don't need to use firefox profiles, its all
-                taken care of now! <br><br>
+                With the current version of Protractor and WebdriverIO you don't need to use firefox profiles in order to
+                solve the issue with basic auth, its all taken care of now! <br><br>
                 WebdriverIO also comes with a handy tool called <strong>./node_modules/.bin/wdio</strong> which can
                 setup the configuration file and
                 run the specs with a lot of interesting options. Furthermore, in contrast to selenium and protractor,
@@ -148,6 +142,18 @@ $<span style='color:#308080; '>></span> npm run test:wdio <span style='color:#30
                 waits for angular to be ready, but they haven't enhanced it with angular specific commands as the
                 developers think that functional tests
                 should be as framework-agnostic as possible.
+
+                <br><br>
+
+                Available options:
+
+                <table>
+                    <tr>
+                        <td><b>--cucumber</b></td><td>run cucumber feature tests</td>
+                    </tr>
+                </table>
+
+
             </div>
 
             <h2>Local testing with selenium standalone</h2>
