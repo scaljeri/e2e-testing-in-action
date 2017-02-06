@@ -51,6 +51,10 @@ export default class Config {
         return Config.getArgv('browserstack-key');
     }
 
+    static get cucumber() {
+        return Config.getArgv('cucumber');
+    }
+
     static get build() {
         return Config.getArgv('build');
     }

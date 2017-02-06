@@ -6,7 +6,11 @@ test.describe('Mocha with Basic auth login', function () {
         driver.get(Config.url);
     });
 
-    test.it('should have a title', function () {
+    test.it('should have a title in the head', function () {
+        driver.getTitle().should.eventually.equal('Hello world!');
+    });
+
+    test.it('should have a page title', function () {
         HomePo.title.should.eventually.equal('Hello world!');
     });
 
