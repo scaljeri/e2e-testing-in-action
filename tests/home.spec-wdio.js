@@ -1,6 +1,6 @@
 import Config from './config';
 
-describe('Protractor Basic auth login', () => {
+describe('WebdriverIO with Basic auth login', () => {
     before(() => {
         browser.url(Config.url);
     });
