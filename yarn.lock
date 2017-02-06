@@ -3288,7 +3288,7 @@ wdio-selenium-standalone-service@^0.0.7:
     fs-extra "^0.30.0"
     selenium-standalone "^5.6.0"
 
-wdio-spec-reporter@0.0.5:
+wdio-spec-reporter@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/wdio-spec-reporter/-/wdio-spec-reporter-0.0.5.tgz#d0fb8fd14af153fe010051bb740aa30ab31063f5"
   dependencies:

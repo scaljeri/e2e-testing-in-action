@@ -7,6 +7,9 @@ Config.defaults = {
     browser: 'chrome'
 };
 
+// Get the firt IP in the list
+Config.host = Cli.getListOfIps()[0];
+
 let settings = {
     //
     // =================
@@ -20,7 +23,7 @@ let settings = {
     key:  Config.browserstackKey,
 
     timeout: 0,
-    
+
     //
     // ==================
     // Specify Test Files
@@ -83,7 +86,7 @@ let settings = {
     sync: true,
     //
     // Level of logging verbosity: silent | verbose | command | data | result | error
-    logLevel: 'result',
+    logLevel: 'silent',
     //
     // Enables colors for log output.
     coloredLogs: true,
@@ -97,7 +100,7 @@ let settings = {
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
-    baseUrl: 'http://localhost',
+    baseUrl: Config.url,
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 20000,
@@ -135,6 +138,8 @@ let settings = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     //services: ['browserstack'],
+    services: [Config.browserstackUser ? 'browserstack' : 'selenium-standalone'],
+    //services: ['selenium-standalone'],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -147,8 +152,8 @@ let settings = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/testrunner/reporters.html
-    reporters: ['dot'],
-    
+    reporters: ['dot', 'spec'],
+
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -232,7 +237,31 @@ if (Config.browserstackUser) {
     settings.services = ['browserstack'];
 }
 
-// Get the firt IP in the list
-Config.host = Cli.getListOfIps()[0];
+if (Config.cucumber) {
+    Object.assign(settings, {
+        specs: [
+            './tests/features/**/*.feature'
+        ],
+        framework: 'cucumber',
+        cucumberOpts: {
+            require: ['./tests/features/step-definitions/definitions-wdio.js'],        // <string[]> (file/dir) require files before executing features
+                backtrace: false,   // <boolean> show full backtrace for errors
+                compiler: [],       // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
+                dryRun: false,      // <boolean> invoke formatters without executing steps
+                failFast: false,    // <boolean> abort the run on first failure
+                format: ['pretty'], // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
+                colors: true,       // <boolean> disable colors in formatter output
+                snippets: true,     // <boolean> hide step definition snippets for pending steps
+                source: true,       // <boolean> hide source uris
+                profile: [],        // <string[]> (name) specify the profile to use
+                strict: false,      // <boolean> fail if there are any undefined or pending steps
+                tags: [],           // <string[]> (expression) only execute the features or scenarios with tags matching the expression
+                timeout: 20000,     // <number> timeout for step definitions
+                ignoreUndefinedDefinitions: false // <boolean> Enable this config to treat undefined definitions as warnings.
+        }
+    });
+
+    delete settings.mochaOpts;
+}
 
 exports.config = settings;

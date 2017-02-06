@@ -23,19 +23,23 @@ let driver = new Driver(Config),
 
 let config = {
     framework: 'jasmine2',
+    getPageTimeout: 60000,
+    allScriptsTimeout: 500000,
     browserstackUser: Config.browserstackUser,
-    browserstackKey:  Config.browserstackKey,
+    browserstackKey: Config.browserstackKey,
 
     capabilities: {
         'browserstack.local': true,
         'browserstack.debug': 'true',
-        project: 'selenium-protractor',
+        project: Config.project,
         build: 'protractor',
         name: browserstack.session.name,
 
         browserName: Config.browser,
         version: driver.browserVersion
     },
+
+    baseUrl: Config.url,
     specs: ['home.spec-protractor.js'],
 
     jasmineNodeOpts: {
@@ -43,9 +47,11 @@ let config = {
         defaultTimeoutInterval: 30000
     },
     onPrepare: function () {
-        jasmine.getEnv().addReporter(statusReporter);
+        if (typeof jasmine !== 'undefined') {
+            jasmine.getEnv().addReporter(statusReporter);
+        }
     },
-    onComplete: function() {
+    onComplete: function () {
         //console.log(statusReporter.success);
     }
 };
@@ -61,6 +67,25 @@ if (driver.browserName === 'firefox') {
     if (!driver.browserstackUser) {
         config.capabilities.marionette = false;
     }
+}
+
+if (Config.cucumber) {
+    config = Object.assign(config, {
+        framework: 'custom',
+        frameworkPath: require.resolve('protractor-cucumber-framework'),
+        cucumberOpts: {
+            require: 'features/step-definitions/definitions-protractor.js',
+            tags: false,
+            format: 'pretty',
+            profile: false,
+            'no-source': true
+        },
+        specs: [
+            'features/*.feature'
+        ]
+    });
+
+    delete config.jasmineNodeOpts;
 }
 
 exports.config = config;

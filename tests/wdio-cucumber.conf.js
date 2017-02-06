@@ -1,5 +1,6 @@
-exports.config = {
-    
+//exports.config = {
+var x = {
+
     //
     // ==================
     // Specify Test Files
@@ -138,7 +139,7 @@ exports.config = {
         timeout: 20000,     // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
     },
-    
+
     //
     // =====
     // Hooks
@@ -149,7 +150,7 @@ exports.config = {
     // resolved to continue.
     //
     // Gets executed once before all workers get launched.
-     onPrepare: function (config, capabilities) {
+    onPrepare: function (config, capabilities) {
     },
     //
     // Gets executed just before initialising the webdriver session and test framework. It allows you
@@ -209,4 +210,52 @@ exports.config = {
     // possible to defer the end of the process using a promise.
     // onComplete: function(exitCode) {
     // }
-}
+};
+
+var y  = {
+    user: undefined,
+    key: undefined,
+    timeout: 0,
+    specs: ['./tests/features/**/*.feature'],
+    exclude: [],
+    maxInstances: 10,
+    capabilities: [{
+        maxInstances: 5,
+        browserName: 'chrome',
+        project: 'selenium-browserstack',
+        build: 'wdio',
+        'browserstack.local': true,
+        'browserstack.debug': 'true'
+    }],
+    sync: true,
+    logLevel: 'silent',
+    coloredLogs: true,
+    bail: 0,
+    screenshotPath: './errorShots/',
+    baseUrl: 'http://foo:bar@192.168.2.6',
+    waitforTimeout: 20000,
+    connectionRetryTimeout: 90000,
+    connectionRetryCount: 3,
+    plugins: {'wdio-screenshot': {}},
+    services: ['selenium-standalone'],
+    framework: 'cucumber',
+    reporters: ['dot'],
+    cucumberOpts: {
+        require: ['./tests/features/step-definitions/definitions-wdio.js'],
+        backtrace: false,
+        compiler: [],
+        dryRun: false,
+        failFast: false,
+        format: ['pretty'],
+        colors: true,
+        snippets: true,
+        source: true,
+        profile: [],
+        strict: false,
+        tags: [],
+        timeout: 20000,
+        ignoreUndefinedDefinitions: false
+    }
+};
+
+exports.config = x;
