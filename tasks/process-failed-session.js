@@ -48,6 +48,7 @@ function performAction(action) {
                         (sessions || []).forEach(session => {
                             let status = session.automation_session.status;
 
+                            // TODO: Handle `error` too
                             if (session.automation_session.status === 'failed') {
                                 console.log('  Build ' + colors.bgGreen.white(build.name));
 
