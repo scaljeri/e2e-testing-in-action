@@ -1,4 +1,4 @@
-# Selenium/Protractor in action  
+# E2E testing in action  
 
 [![Browserstack.com](/browserstack-logo-small.png)](https://browserstack.com) 
 
