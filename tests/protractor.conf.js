@@ -1,4 +1,5 @@
 require('babel-core/register');
+
 let Browserstack = require('../src/utils/browserstack.js').default,
     StatusReporter = require('./reporters/jasmine.js').default;
 
@@ -34,7 +35,10 @@ let config = {
         name: browserstack.session.name,
 
         browserName: Config.browser,
-        version: Config.browserVersion
+        version: Config.browserVersion,
+
+        shardTestFiles: true,
+        maxInstances: 2
     },
 
     baseUrl: Config.url,
