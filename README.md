@@ -5,7 +5,7 @@
 ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=SW5jemxFMi9URmh6SEtGOC9yN0dlRzZlME5Vd3RWYklTd0xMRHlLOEhmQT0tLWthYzAwM0xaaVBiRmpORTV0SXR1RVE9PQ==--fe0340b981aedb79e9f8271da1c6c0d0f92e1e17)
 
 This project demonstrates how to test a website with pure node, cucumber, protractor and webdriverIO using mocha/chai. Depending on 
-your needs this project can serve as a reference guide or a tutorial on how to setup automated testing.
+your needs this project can serve as just a reference or a tutorial on how to setup automated testing.
 
 This project will demonstrate how to run tests against different browsers on your local machine or remote using 
 [Browserstack](https://www.browserstack.com) even in parallel.
@@ -25,22 +25,35 @@ The demo site can be accessed via `http://localhost` with username `foo` and pas
 #### Setup
 
     $> yarn install
-    $> ./node_modules/.bin/webdriver-manager update
     
 In order to user the demo site on [Browserstack](https://browserstack.com) you have to enable [Local Testing](https://www.browserstack.com/local-testing)
-and download the `BrowserStackLocal` binary. Run this binary before you start testing
+and download the `BrowserStackLocal` binary. Run this binary before you start test 
 
     $> ./BrowserStackLocal --key <access-key>
     
 Your username and access-key can be found under `Account -> Settings`
 
-For locally testing without `selenium-standalone` you also need to download the [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
-and [checkdriver](https://github.com/mozilla/geckodriver/releases/) and place them in the root of this repository. Finally, 
-download the [selenium standalone server](http://www.seleniumhq.org/download/)
+For local testing you have a couple of options. You can run against the browser drivers directly
 
-Currently this will only work for Firefox 47 for local testing.
+  * [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads), 
+  * [geckodriver](https://github.com/mozilla/geckodriver/releases/). 
+  
+The only way to test agains Firefox for me at this moment is via the geckodriver.
+
+The second way, is with the selenium standalone server
+
+    $> yarn selenium
+    
+And the third way is, is a combination of the other, combined in a docker image
+
+        $> docker run -p 127.0.0.1:4444:4444 selenium/standalone-chrome:latest
+        $> docker run -p 127.0.0.1:4444:4444 selenium/standalone-firefox:latest
+
+It like headless testing, made possible by the [XVFB](http://tobyho.com/2015/01/09/headless-browser-testing-xvfb/)
+project. 
 
 ### Tasks 
+
 As you can see at the top of this README, Browserstack has a [badge](https://www.browserstack.com/automate/status-badges),
 which is nice and it informs you about the status of your tests. If a test session fails, the badge will became red. Which 
 is a good thing of course. However, it will remain red forever until you remove the failed session or you update the session 
