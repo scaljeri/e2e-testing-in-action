@@ -1,5 +1,7 @@
 require('babel-core/register');
 
+let path = require('path');
+
 let Browserstack = require('../src/utils/browserstack.js').default,
     Config = require('./config.js').default,
     Cli = require('../src/utils/cli.js').default;
@@ -61,7 +63,7 @@ let settings = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 2,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -182,8 +184,9 @@ let settings = {
     //
     // Gets executed just before initialising the webdriver session and test framework. It allows you
     // to manipulate configurations depending on the capability or spec.
-    // beforeSession: function (config, capabilities, specs) {
-    // },
+    beforeSession: function (config, capabilities, specs) {
+        capabilities.name += `:${path.basename(specs[0])}`;
+    },
     //
     // Gets executed before test execution begins. At this point you can access all global
     // variables, such as `browser`. It is the perfect place to define custom commands.

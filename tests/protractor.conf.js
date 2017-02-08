@@ -1,7 +1,8 @@
 require('babel-core/register');
 
 let Browserstack = require('../src/utils/browserstack.js').default,
-    StatusReporter = require('./reporters/jasmine.js').default;
+    StatusReporter = require('./reporters/jasmine.js').default,
+    Cli = require('../src/utils/cli.js').default;
 
 let Config = require('./config.js').default;
 
@@ -20,7 +21,11 @@ Config.defaults = {
 let browserstack = new Browserstack(Config),
     statusReporter = new StatusReporter();
 
+// Get the firt IP in the list
+Config.host = Cli.getListOfIps()[0];
+
 let config = {
+    //seleniumAddress: 'http://localhost:4444/wd/hub',
     framework: 'jasmine2',
     getPageTimeout: 60000,
     allScriptsTimeout: 500000,
