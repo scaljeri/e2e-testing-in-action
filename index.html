@@ -85,7 +85,7 @@
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/package.json#L28" target="_blank">package.js</a>.
                 The above command can also be executed as
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start</pre>
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start</pre>
                 <br>
 
                 But there is an other way to solve this, but it requires a different setup. The site itself should be
@@ -94,10 +94,12 @@
                 the new url. You can see this in action
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/selenium.js#L62" target="_blank">here</a>.
 
+                <h3>Selenium standalone</h3>
+
                 <h3>Selenium</h3>
                 To run the inside a browser add the <b>--browser browsername</b> to the command described above
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse<span style='color:#308080; '>=</span>chrome</pre>
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse<span style='color:#308080; '>=</span>chrome</pre>
 
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/selenium.js#L42" target="_blank">Code</a>.
 
@@ -107,25 +109,26 @@
                 <h3>Mocha</h3>
                 The Mocha tests can be run as follows
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm mocha <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse chrome
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn mocha <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse chrome
 $<span style='color:#308080; '>></span> npm mocha <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span></pre>
 
 
                 <h3>Protractor</h3>
                 Protractor runs the same way as Mocha, except that it also supports cucmber tests
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm protractor <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse chrome
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn protractor <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse chrome
 $<span style='color:#308080; '>></span> npm protractor <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber</pre>
 
 
                 <h3>WebdriverIO</h3>
                 WebdriverIO supports the same options as Protractor
 
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm wdio <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber</pre>
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn wdio <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber</pre>
 
 
                 <h3>Selenium standalone</h3>
-                To run tests on your local system you can use the drivers for chrome, firefox and safari directly, but
+                To run tests on your local system you can use the drivers for chrome, firefox and safari directly, which is what
+                we have done so far. But
                 it can also be done using selenium-standalone server
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> java <span style='color:#308080; '>-</span>jar selenium<span style='color:#308080; '>-</span>server<span style='color:#308080; '>-</span>standalone<span style='color:#308080; '>-</span><span style='color:#008000; '>3.0</span><span style='color:#308080; '>.</span><span style='color:#008000; '>1.</span>jar
