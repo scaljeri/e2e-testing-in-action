@@ -16,12 +16,26 @@ Checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article for a
 all this code.
 
 #### Demo Site
-The run the site the following two docker images need to be started first
+The run the site you will need docker installed before you can start the demo site
 
-    $> docker run -d --name web dockercloud/hello-world
-    $> docker run -d -p 80:80 --link web:web --name auth beevelop/nginx-basic-auth
+    $> docker network create my-test-network
+    $> docker run -d --network=my-test-network --name web dockercloud/hello-world
+    $> docker run -d -p 80:80 --network=my-test-network --name auth beevelop/nginx-basic-auth
+    
+or you can do it with `docker-compose`
 
-The demo site can be accessed via `http://localhost` with username `foo` and password `bar`
+    $> docker-compose up -d
+    
+or simply do
+ 
+    $> yarn serve
+
+The demo site can be accessed via `http://localhost` with username `foo` and password `bar`. 
+
+When you're done testing make sure to clean up
+
+    $> yarn cleanup // Stop and remove all docker containers
+    $> docker rmi $(docker images -q) // Remove all docker images
 
 #### Setup
 

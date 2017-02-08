@@ -28,6 +28,8 @@
   },
   "scripts": {
     "install": "./node_modules/selenium-standalone/bin/selenium-standalone install && ./node_modules/.bin/webdriver-manager update",
+    "serve": "docker-compose up -d",
+    "cleanup": "docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)",
     "selenium": "./node_modules/selenium-standalone/bin/selenium-standalone start",
     "start": "./node_modules/.bin/babel-node ./src/selenium.js",
     "mocha": "./node_modules/.bin/babel-node ./src/mocha.js",
