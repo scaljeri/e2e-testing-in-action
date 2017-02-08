@@ -39,6 +39,10 @@ export default class Config {
         return Config.getArgv('browser');
     }
 
+    static get browserName() {
+        return Config.browser;
+    }
+
     static get browserVersion() {
         return Config.getArgv('browser-version');
     }

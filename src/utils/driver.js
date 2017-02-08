@@ -32,9 +32,9 @@ export default class Driver {
     build() {
         let builder = new webdriver.Builder();
 
-        switch (this.browserName) {
+        switch (this._config.browserName) {
             case 'firefox':
-                if (!this.browserstackUser) {
+                if (!this._config.browserstackUser) {
                     let profile = Driver.createProfile();
 
                     this.capabilities.marionette = false;

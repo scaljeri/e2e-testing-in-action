@@ -35,15 +35,6 @@ export default class Cli {
         let addresses = Cli.getListOfIps();
 
         return new Promise(resolve => {
-            for (let i in interfaces) {
-                for (let j in interfaces[i]) {
-                    let address = interfaces[i][j];
-                    if (address.family === 'IPv4' && !address.internal) {
-                        addresses.push(address.address);
-                    }
-                }
-            }
-
             if (addresses.length > 1) {
                 Cli.prompt({
                     name: 'ip',
