@@ -80,7 +80,7 @@ which is nice and it informs you about the status of your tests. If a test sessi
 is a good thing of course. However, it will remain red forever until you remove the failed session or you update the session 
 and pass it yourself. 
 
-So, a test-run on browserstack to is called a session, which belongs to a build and a build sits in a project. 
+So, a test-run on browserstack is called a session, which belongs to a build and a build sits in a project. 
 A badge belongs to a project and a session can pass or fail. 
 
 To remove a project with all its builds and session simply do
