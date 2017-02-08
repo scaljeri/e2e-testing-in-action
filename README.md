@@ -28,29 +28,33 @@ The demo site can be accessed via `http://localhost` with username `foo` and pas
     $> yarn install
     
 In order to user the demo site on [Browserstack](https://browserstack.com) you have to enable [Local Testing](https://www.browserstack.com/local-testing)
-and download the `BrowserStackLocal` binary. Run this binary before you start test 
+and download the `BrowserStackLocal` binary. Run this binary before you start testing 
 
     $> ./BrowserStackLocal --key <access-key>
     
 Your username and access-key can be found under `Account -> Settings`
 
-For local testing you have a couple of options. You can run against the browser drivers directly
+### Local testing
+To be able to run the tests on your laptop or pc you have a couple of options. You can use the  browser-drivers directly
 
   * [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads), 
   * [geckodriver](https://github.com/mozilla/geckodriver/releases/). 
   
-The only way to test agains Firefox for me at this moment is via the geckodriver.
+The only way I was able to test against Firefox which actually worked was via the geckodriver.
 
-The second way, is with the selenium standalone server
+The second way, is with the selenium standalone server, which can be started as follows
 
     $> yarn selenium
     
-And the third way is, is a combination of the other, combined in a docker image
+And the third way is, is a combination of both combined in a docker image
 
         $> docker run -p 127.0.0.1:4444:4444 selenium/standalone-chrome:latest
+        
+or
+
         $> docker run -p 127.0.0.1:4444:4444 selenium/standalone-firefox:latest
 
-It like headless testing, made possible by the [XVFB](http://tobyho.com/2015/01/09/headless-browser-testing-xvfb/)
+It's like headless testing, all made possible by the [XVFB](http://tobyho.com/2015/01/09/headless-browser-testing-xvfb/)
 project. 
 
 ### Tasks 
