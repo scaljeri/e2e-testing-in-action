@@ -2,7 +2,8 @@ require('babel-core/register');
 
 let Browserstack = require('../src/utils/browserstack.js').default,
     StatusReporter = require('./reporters/jasmine.js').default,
-    Cli = require('../src/utils/cli.js').default;
+    Cli = require('../src/utils/cli.js').default,
+    Driver = require('../src/utils/driver').default;
 
 let Config = require('./config.js').default;
 
@@ -25,7 +26,6 @@ let browserstack = new Browserstack(Config),
 Config.host = Cli.getListOfIps()[0];
 
 let config = {
-    //seleniumAddress: 'http://localhost:4444/wd/hub',
     framework: 'jasmine2',
     getPageTimeout: 60000,
     allScriptsTimeout: 500000,
@@ -74,6 +74,10 @@ if (Config.browserName === 'firefox') {
     if (!Config.browserstackUser) {
         config.capabilities.marionette = false;
     }
+}
+
+if (Config.seleniumStandalone) {
+    config.seleniumAddress = 'http://localhost:4444/wd/hub';
 }
 
 if (Config.cucumber) {
