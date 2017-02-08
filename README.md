@@ -16,6 +16,7 @@ Checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article for a
 all this code.
 
 #### Demo Site
+The run the site the following two docker images need to be started first
 
     $> docker run -d --name web dockercloud/hello-world
     $> docker run -d -p 80:80 --link web:web --name auth beevelop/nginx-basic-auth
