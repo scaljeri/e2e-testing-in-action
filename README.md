@@ -16,13 +16,13 @@ Checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article for a
 all this code.
 
 #### Demo Site
-The run the site you will need docker installed before you can start the demo site
+The run the site you will need docker installed before you can begin 
 
     $> docker network create my-test-network
     $> docker run -d --network=my-test-network --name web dockercloud/hello-world
     $> docker run -d -p 80:80 --network=my-test-network --name auth beevelop/nginx-basic-auth
     
-or you can do it with `docker-compose`
+or you can do all that with `docker-compose`
 
     $> docker-compose up -d
     
