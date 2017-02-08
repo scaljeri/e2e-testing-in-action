@@ -54,13 +54,15 @@ To be able to run the tests on your laptop or pc you have a couple of options. Y
   * [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads), 
   * [geckodriver](https://github.com/mozilla/geckodriver/releases/). 
   
-The only way I was able to test against Firefox which actually worked was via the geckodriver.
+Move the drivers to the root of this project.
+  
+The only way I was able to test against Firefox was only with the geckodriver.
 
-The second way, is with the selenium standalone server, which can be started as follows
+The second way is with the selenium standalone server, which can be started as follows
 
     $> yarn selenium
     
-And the third way is, is a combination of both combined in a docker image
+And the third way is a combination of both combined in a docker image
 
         $> docker run -p 127.0.0.1:4444:4444 selenium/standalone-chrome:latest
         
@@ -97,4 +99,4 @@ it will output the badge code in Markdown and HTML.
 
 ### Known issues
 
-   * With `--selenium-standalone` Safari and Firefox don't work
+   * Firefox doesn't work with the selenium standalone server
