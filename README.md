@@ -1,10 +1,11 @@
 # E2E testing in action  
 
-[![Join the chat at https://gitter.im/scaljeri/e2e-testing-in-action](https://badges.gitter.im/scaljeri/e2e-testing-in-action.svg)](https://gitter.im/scaljeri/e2e-testing-in-action?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/scaljeri/e2e-testing-in-action](https://badges.gitter.im/scaljeri/e2e-testing-in-action.svg)](https://gitter.im/scaljeri/e2e-testing-in-action?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Dependency Status][depstat-image]][depstat-url] ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=SW5jemxFMi9URmh6SEtGOC9yN0dlRzZlME5Vd3RWYklTd0xMRHlLOEhmQT0tLWthYzAwM0xaaVBiRmpORTV0SXR1RVE9PQ==--fe0340b981aedb79e9f8271da1c6c0d0f92e1e17)
 
-[![Browserstack.com](/browserstack-logo-small.png)](https://browserstack.com) [![Dependency Status][depstat-image]][depstat-url] 
 
-![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=SW5jemxFMi9URmh6SEtGOC9yN0dlRzZlME5Vd3RWYklTd0xMRHlLOEhmQT0tLWthYzAwM0xaaVBiRmpORTV0SXR1RVE9PQ==--fe0340b981aedb79e9f8271da1c6c0d0f92e1e17)
+[![Browserstack.com](/browserstack-logo-small.png)](https://browserstack.com) 
+
+
 
 This project demonstrates how to test a website with pure node, cucumber, protractor and webdriverIO using mocha/chai. Depending on 
 your needs this project can serve as just a reference or a tutorial on how to setup automated testing.
