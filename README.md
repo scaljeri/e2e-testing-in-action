@@ -105,3 +105,6 @@ it will output the badge code in Markdown and HTML.
 
 [depstat-url]: https://david-dm.org/scaljeri/e2e-testing-in-action
 [depstat-image]: https://david-dm.org/scaljeri/e2e-testing-in-action.svg
+
+[depstat-dev-url]: https://david-dm.org/scaljeri/e2e-testing-in-action#info=devDependencies
+[depstat-dev-image]: https://david-dm.org/scaljeri/e2e-testing-in-action/dev-status.svg
