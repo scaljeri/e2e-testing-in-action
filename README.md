@@ -1,5 +1,7 @@
 # E2E testing in action  
 
+[![Join the chat at https://gitter.im/scaljeri/e2e-testing-in-action](https://badges.gitter.im/scaljeri/e2e-testing-in-action.svg)](https://gitter.im/scaljeri/e2e-testing-in-action?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Browserstack.com](/browserstack-logo-small.png)](https://browserstack.com) 
 
 ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=SW5jemxFMi9URmh6SEtGOC9yN0dlRzZlME5Vd3RWYklTd0xMRHlLOEhmQT0tLWthYzAwM0xaaVBiRmpORTV0SXR1RVE9PQ==--fe0340b981aedb79e9f8271da1c6c0d0f92e1e17)
