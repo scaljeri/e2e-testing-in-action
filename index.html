@@ -45,7 +45,6 @@
                 The most easiest solution is to add the username and password to the url
 
                 <pre style='color:#000020;background:#f6f8ff;'>http://foo:bar@localhost</pre>
-                <br>
 
                 That's it, BUT not for Firefox, they have an addition popup
 
@@ -54,7 +53,7 @@
 
                 Fortunately this popup can be disabled with the config property <strong>network.http.phishy-userpass-length</strong>.
                 It can be implemented using <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver">Firefox profiles</a>,
-                which I have implemented <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L116">here</a>.
+                which I have implemented <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L68" target="_blank">here</a>.
             </div>
 
             <h2>Local testing</h2>
@@ -78,32 +77,36 @@
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> .<span
                         style='color:#308080; '>/</span>node_modules<span style='color:#308080; '>/</span>.bin<span
                         style='color:#308080; '>/</span>babel<span style='color:#308080; '>-</span>node .<span
-                        style='color:#308080; '>/</span>src<span style='color:#308080; '>/</span>index<span
+                        style='color:#308080; '>/</span>src<span style='color:#308080; '>/</span>selenium<span
                         style='color:#008c00; '>.</span>js</pre>
 
                 To simplify things a bit most commands are added to
-                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/package.json#L28" target="_blank">package.js</a>.
+                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/package.json#L29" target="_blank">package.js</a>.
                 The above command can also be executed as
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start</pre>
-                <br>
-
-                But there is an other way to solve this, but it requires a different setup. The site itself should be
-                public and the authentication part protected. After you've authenticated you will be redirect to your public site with some kind of
-                authentication token in the url. In such case you can do the authentication part with nodeJs only before you start selenium with
-                the new url. You can see this in action
-                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/selenium.js#L62" target="_blank">here</a>.
 
                 <h3>Selenium standalone</h3>
+                Running tests with pure selenium or mocha you need a selenium standalone server up and running.
+
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn selenium</pre>
+                Or you can use a docker image with chrome or firefox included, which is described in the project's
+                <a href="https://github.com/scaljeri/selenium-protractor-browserstack" target="_blank">README</a>
+
+                <h3>NodeJs and Selenium</h3>
+                It is possible to handle the authentication with NodeJS, before Selenium takes over, but it requires a different setup.
+                The site itself should be public and the authentication part protected. After you've authenticated you will be redirect
+                to your public site with some kind of authentication token in the url. In such case you can do the authentication with
+                nodeJs followed by Selenium which start the browser and runs the tests. You can see the NodeJS part in action
+                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/selenium.js#L62" target="_blank">here</a>.
+
 
                 <h3>Selenium</h3>
-                To run the inside a browser add the <b>--browser browsername</b> to the command described above
+                To run this inside a specific browser add the <b>--browser name</b> to the command
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse<span style='color:#308080; '>=</span>chrome</pre>
 
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/selenium.js#L42" target="_blank">Code</a>.
-
-                Currently you can only use Firefox version 47.
                 <br>
 
                 <h3>Mocha</h3>
@@ -126,36 +129,6 @@ $<span style='color:#308080; '>></span> npm protractor <span style='color:#30808
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn wdio <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber</pre>
 
 
-                <h3>Selenium standalone</h3>
-                To run tests on your local system you can use the drivers for chrome, firefox and safari directly, which is what
-                we have done so far. But
-                it can also be done using selenium-standalone server
-
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> java <span style='color:#308080; '>-</span>jar selenium<span style='color:#308080; '>-</span>server<span style='color:#308080; '>-</span>standalone<span style='color:#308080; '>-</span><span style='color:#008000; '>3.0</span><span style='color:#308080; '>.</span><span style='color:#008000; '>1.</span>jar
-$<span style='color:#308080; '>></span> npm wdio <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber <span style='color:#308080; '>--</span>selenium<span style='color:#308080; '>-</span>standalone</pre>
-
-                For protractor, WebdriverIO and Mocha its basically the same
-
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm run mocha <span
-                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span
-                        style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser chrome
-$<span style='color:#308080; '>></span> npm run protractor <span style='color:#308080; '>-</span><span
-                            style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span
-                            style='color:#308080; '>-</span>browser safari
-$<span style='color:#308080; '>></span> npm run wdio <span style='color:#308080; '>-</span><span
-                            style='color:#308080; '>-</span> <span style='color:#308080; '>-</span><span
-                            style='color:#308080; '>-</span> browser chrome
-</pre>
-
-                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/mocha.js">Mocha
-                    code</a>, <a
-                    href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/protractor.conf.js">Protractor
-                config</a>
-                and <a
-                    href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/tests/wdio.conf.js">Wdio
-                config</a>
-                <br>
-
                 With the current version of Protractor and WebdriverIO you don't need to use firefox profiles in order to
                 solve the issue with basic auth, its all taken care of now! <br><br>
                 WebdriverIO also comes with a handy tool called <strong>./node_modules/.bin/wdio</strong> which can
@@ -175,36 +148,20 @@ $<span style='color:#308080; '>></span> npm run wdio <span style='color:#308080;
 
                 <br><br>
 
-                Available options:
+                <h3>Available CLI options</h3>
 
                 <table>
                     <tr>
                         <td><b>--cucumber</b></td><td>run cucumber feature tests</td>
                     </tr>
                 </table>
+                TODO
 
-
-            </div>
-
-            <h2>Local testing with selenium standalone</h2>
-            <div class="content">
-                First start the selenium hub
-
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> java <span
-                        style='color:#308080; '>-</span>jar selenium<span style='color:#308080; '>-</span>server<span
-                        style='color:#308080; '>-</span>standalone<span style='color:#308080; '>-</span><span
-                        style='color:#008c00; '>3.0.1.</span>jar</pre>
-
-                Now you can run the same commands as described above with addition of one parameter<strong>--selenium-standalone</strong>
-                <br>
-                Unfortunately, it is not possible to use Firefox and Safari, they produce errors which I haven't solved
-                yet. Feel free to
-                help and send me a <a href="https://help.github.com/articles/about-pull-requests/">PR</a> :)
 
             </div>
 
             <h2>Remote testing with Browserstack</h2>
-            <div class="first-dark-red">
+            <div class="content first-dark-red">
                 In order to use browserstack you need a username and a key. If you don't have an account you can sign-up
                 for a free one, which
                 gives you access to a lot of time to test remotely. These credentials neeed to be added to the
@@ -260,8 +217,13 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
                 don't need to use firefox profiles, the url with credentials is enough, they fixed that too.
             </div>
 
+            <h2>Parallel testing</h2>
+            <div class="content first-dark-blue">
+                TODO
+            </div>
+
             <h2>Conclusion</h2>
-            <p class="first-dark-blue">
+            <p class="content">
                 Considering all the work you have to do to get testing on your local machine up and running, I advice to
                 use Browserstack. They have
                 and will solve all the issue that can possibly happen. Like they did with Basic authentication. Local
