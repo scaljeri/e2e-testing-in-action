@@ -20,11 +20,6 @@ chai.should();
 
 Config.defaults = {browser: 'chrome', build: 'mocha', prefix: 'mocha'};
 
-if (Config.seleniumStandalone) {
-    // Get the firt IP in the list
-    Config.host = Cli.getListOfIps()[0];
-}
-
 function run() {
     let browserstack = new Browserstack(Config),
         myDriver = new Driver(Config);
