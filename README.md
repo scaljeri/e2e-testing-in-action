@@ -82,7 +82,7 @@ on [Browserstack](https://browserstack.com) first. Finally, download the `Browse
 ### Tasks 
 
 As you can see at the top of this README, Browserstack has a [badge](https://www.browserstack.com/automate/status-badges),
-which is nice and it informs you about the status of your tests. If a test session fails, the badge will became red. Which 
+which is nice and it informs you about the status of your tests. If a test session fails, the badge will become red. Which 
 is a good thing of course. However, it will remain red forever until you remove the failed session or you update the session 
 and pass it yourself. 
 
