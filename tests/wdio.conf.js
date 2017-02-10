@@ -9,7 +9,8 @@ let Browserstack = require('../src/utils/browserstack.js').default,
 Config.defaults = {
     build:  (Config.cucumber ? 'cucumber' : 'wdio'),
     prefix: 'wdio',
-    browser: 'chrome'
+    browser: 'chrome',
+    'max-sessions': 2
 };
 
 let browserstack = new Browserstack(Config);

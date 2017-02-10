@@ -25,7 +25,7 @@ let browserstack = new Browserstack(Config),
 // Get the firt IP in the list
 Config.host = Cli.getListOfIps()[0];
 
-let config = {
+let settings = {
     framework: 'jasmine2',
     getPageTimeout: 60000,
     allScriptsTimeout: 500000,
@@ -52,24 +52,24 @@ let config = {
 };
 
 if (Config.osVersion) {
-    config.capabilities.os = Config.os;
-    config.capabilities.osVersion = Config.osVersion;
+    settings.capabilities.os = Config.os;
+    settings.capabilities.osVersion = Config.osVersion;
 }
 
 if (Config.browserName === 'firefox') {
-    config.capabilities['firefox_profile'] = Driver.createProfile();
+    settings.capabilities['firefox_profile'] = Driver.createProfile();
 
     if (!Config.browserstackUser) {
-        config.capabilities.marionette = false;
+        settings.capabilities.marionette = false;
     }
 }
 
 if (Config.seleniumStandalone) {
-    config.seleniumAddress = Config.seleniumHub;
+    settings.seleniumAddress = Config.seleniumHub;
 }
 
 if (Config.cucumber) {
-    config = Object.assign(config, {
+    settings = Object.assign(settings, {
         framework: 'custom',
         frameworkPath: require.resolve('protractor-cucumber-framework'),
         cucumberOpts: {
@@ -84,13 +84,13 @@ if (Config.cucumber) {
         ]
     });
 
-    delete config.jasmineNodeOpts;
+    delete settings.jasmineNodeOpts;
 }
 
 if (Config.maxInstances > 1) {
-    config.multiCapabilities = [config.capabilities, Config.buildCapabilities(Object.assign({}, config.capabilities, {browser: 'edge'}))];
+    settings.multiCapabilities = [settings.capabilities, Config.buildCapabilities(Object.assign({}, settings.capabilities, {browser: 'edge'}))];
 
-    delete config.capabilities;
+    delete settings.capabilities;
 }
 
-exports.config = config;
+exports.config = settings;
