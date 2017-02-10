@@ -72,7 +72,7 @@ This will give you access to endless time of testing fun. Next, goto `Account ->
 credentials that are needed for automated testing.
 
 Because the demo site is running locally, you have to enable [Local Testing](https://www.browserstack.com/local-testing)
-on [Browserstack](https://browserstack.com). Finaly, download the `BrowserStackLocal` binary and run it
+on [Browserstack](https://browserstack.com). Finally, download the `BrowserStackLocal` binary and run it
 
     $> ./BrowserStackLocal --key <access-key>
     
