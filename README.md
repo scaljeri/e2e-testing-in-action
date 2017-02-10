@@ -43,13 +43,6 @@ When you're done testing make sure to clean up
 Run the following command to install all node dependencies
 
     $> yarn install
-    
-To be able to test the demo site, which is running locally, you have to enable [Local Testing](https://www.browserstack.com/local-testing)
-on [Browserstack](https://browserstack.com). Meaning, download the `BrowserStackLocal` binary and run it
-
-    $> ./BrowserStackLocal --key <access-key>
-    
-Your username and access-key can be found under `Account -> Settings`
 
 ### Local testing
 Running test on your laptop or pc will not work just out of the box and you have a couple of options. 
@@ -74,6 +67,16 @@ or
 
 It's like headless testing, all made possible thanks to [XVFB](http://tobyho.com/2015/01/09/headless-browser-testing-xvfb/).
 
+### Remote testing with Browserstack
+If you don't have a [Browserstack](https://browserstack.com) account yet you can sign-up for free. 
+This will give you access to endless time of testing fun. Next, goto `Account -> Settings` and scroll to the bottom of the page, there you will find
+credentials that are needed for automated testing.
+
+Because the demo site is running locally, you have to enable [Local Testing](https://www.browserstack.com/local-testing)
+on [Browserstack](https://browserstack.com). Finally, download the `BrowserStackLocal` binary and run it
+
+    $> ./BrowserStackLocal --key <access-key>
+    
 ### Tasks 
 
 As you can see at the top of this README, Browserstack has a [badge](https://www.browserstack.com/automate/status-badges),
