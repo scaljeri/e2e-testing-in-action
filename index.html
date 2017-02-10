@@ -145,19 +145,6 @@ $<span style='color:#308080; '>></span> npm protractor <span style='color:#30808
                 waits for angular to be ready, but they haven't enhanced it with angular specific commands as the
                 developers think that functional tests
                 should be as framework-agnostic as possible.
-
-                <br><br>
-
-                <h3>Available CLI options</h3>
-
-                <table>
-                    <tr>
-                        <td><b>--cucumber</b></td><td>run cucumber feature tests</td>
-                    </tr>
-                </table>
-                TODO
-
-
             </div>
 
             <h2>Remote testing with Browserstack</h2>
@@ -256,8 +243,31 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
       <span style='color:#308080; '>.</span><span style='color:#308080; '>.</span><span style='color:#308080; '>.</span>
 <span style='color:#406080; '>}</span><span style='color:#406080; '>;</span></pre>
 
+            <h2>Available CLI options</h2>
+            <div class="content">
+                During the research the amount of configuration options has increased to a serious amount. They are all defined
+                inside <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/config.js">config.js</a>
+                But I've also listed them here too
+                <br><br>
+
+                <table>
+                    <tr>
+                        <td><b>--cucumber</b></td><td>Run cucumber feature tests (only for webdriverIO and Protractor)</td>
+                        <td><b>--browser name</b></td>The name of the browser<td></td>
+                        <td><b>--browser-version number</b></td>The browser version<td></td>
+                        <td><b>--browserstack-key</b></td>The access-key of Browserstack<td></td>
+                        <td><b>--browserstack-user</b></td>The username of Browserstack<td></td>
+                        <td><b>--max-instances</b></td>The max amount of browser instances for a capability<td></td>
+                        <td><b>--max-sessions</b></td>The total amount of browser instances<td></td>
+                        <td><b>--os</b></td>The name of the os (Browserstack only)<td></td>
+                        <td><b>--os-version</b></td>Version of the OS<td></td>
+                        <td><b>--selenium-standalone</b></td>Use selenium standalone (you have to start it yourself!)<td></td>
+                    </tr>
+                </table>
+            </div>
+
             <h2>Conclusion</h2>
-            <p class="content">
+            <p class="content first-dark-red">
                 Considering all the work you have to do to get testing on your local machine up and running, I advice to
                 use Browserstack. They have and will solve all the issue that can possibly happen. Like they did with
                 Basic authentication. Local testing is of course faster, and is probably the only reason why you want to do it.
