@@ -18,13 +18,13 @@ Checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article for a
 all this code.
 
 #### Demo Site
-The start the site you will need docker! Because if you have, all the rest is just a piece of cake 
+The start the site you will need docker! Docker is awesome and it only taks three commands to get our site up and running
 
     $> docker network create my-test-network
     $> docker run -d --network=my-test-network --name web dockercloud/hello-world
     $> docker run -d -p 80:80 --network=my-test-network --name auth beevelop/nginx-basic-auth
     
-or you can do all that with `docker-compose`
+or just one if we use `docker-compose`
 
     $> docker-compose up -d
     
