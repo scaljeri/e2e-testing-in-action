@@ -252,41 +252,41 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
 
             <h2>Available CLI options</h2>
             <div class="content">
-                During the research the amount of configuration options has increased to a serious amount. They are all defined
+                During this project the amount of configuration options has increased to a serious amount. They are all defined
                 inside <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/config.js">config.js</a>
-                But I've also listed them here too
+                But I've listed the most important ones below
                 <br><br>
 
                 <table>
                     <tr>
-                        <td><b>--browser name</b></td><td>The name of the browser</td>
+                        <td><b>--browser name</b></td><td>Name of the browser to be used for testing</td>
                     </tr>
                     <tr>
-                        <td><b>--browserstack-key</b></td><td>The access-key of Browserstack</td>
+                        <td><b>--browserstack-key</b></td><td>The access-key of the Browserstack account</td>
                     </tr>
                     <tr>
-                        <td><b>--browserstack-user</b></td><td>The username of Browserstack</td>
+                        <td><b>--browserstack-user</b></td><td>The username of the Browserstack account</td>
                     </tr>
                     <tr>
-                        <td><b>--browser-version number</b></td><td>The browser version</td>
+                        <td><b>--browser-version number</b></td><td>Browser version</td>
                     </tr>
                     <tr>
-                        <td><b>--cucumber</b></td><td>Run cucumber feature tests (only for webdriverIO and Protractor)</td>
+                        <td><b>--cucumber</b></td><td>Run cucumber feature tests (only for WebdriverIO and Protractor)</td>
                     </tr>
                     <tr>
-                        <td><b>--max-instances</b></td><td>The max amount of browser instances for a capability</td>
+                        <td><b>--max-instances</b></td><td>Max amount of browser instances for one capability</td>
                     </tr>
                     <tr>
-                        <td><b>--max-sessions</b></td><td>The total amount of browser instances</td>
+                        <td><b>--max-sessions</b></td><td>Total amount of browser instances for all capabilities</td>
                     </tr>
                     <tr>
-                        <td><b>--os</b></td><td>The name of the os (Browserstack only)</td>
+                        <td><b>--os</b></td><td>Name of the operating system (Browserstack only)</td>
                     </tr>
                     <tr>
-                        <td><b>--os-version</b></td><td>Version of the OS</td>
+                        <td><b>--os-version</b></td><td>Version of the OS (browserstack only)</td>
                     </tr>
                     <tr>
-                        <td><b>--selenium-standalone</b></td><td>Use selenium standalone (you have to start it yourself!)</td>
+                        <td><b>--selenium-standalone</b></td><td>Use selenium standalone (Note that you have to start the server yourself!)</td>
                     </tr>
                 </table>
             </div>
@@ -297,9 +297,9 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
                 use Browserstack. They have and will solve all the issue that can possibly happen. Like they did with
                 Basic authentication. Local testing is of course faster, and is probably the only reason why you want to do it.
                 <br><br>
-                Furthermore, considering the testing frameworks I've used in this project, WebdriverIO is the big winner.
-                They take away all the pain with their <strong>wdio</strong> command line tool and they managed to run
-                everything synchronously.
+                Furthermore, considering the testing frameworks I've used in this project, <a href="http://webdriver.io/">WebdriverIO</a> is the big winner.
+                They take away all the pain with their <strong>wdio</strong> command line tool, its awesome. But the biggest advantages is that everything
+                is done synchronously.
             </p>
         </div>
     </article>
