@@ -4,7 +4,9 @@ export default class Config {
     static get defaults() {
         return Config._defaults || {
                 'browserstack-user': process.env.BROWSERSTACK_USERNAME,
-                'browserstack-key':  process.env.BROWSERSTACK_ACCESS_KEY,
+                'browserstack-key': process.env.BROWSERSTACK_ACCESS_KEY,
+                'max-instances': 2,
+                'max-sessions': -1,
 
                 username: 'foo',
                 password: 'bar',
@@ -13,6 +15,34 @@ export default class Config {
 
                 project: 'E2E testing in action'
             };
+    }
+
+    static deleteUndefined(obj) {
+        let clone = {};
+
+        for (let key in obj) {
+            if (obj[key] !== undefined) {
+                clone[key] = obj[key];
+            }
+        }
+
+        return clone;
+    }
+
+    static buildCapabilities(defaults = {}) {
+        return Config.deleteUndefined({
+            'browserstack.local': true,
+            'browserstack.debug': 'true',
+            project: Config.project,
+            build:   Config.build,
+            name: defaults.name,
+
+            browserName: (defaults.browser || Config.browser),
+            version:     (defaults.browser ? Config.browserVersion : undefined),
+
+            shardTestFiles: true,
+            maxInstances: (defaults.maxInstances || 2)
+        });
     }
 
     static set defaults(defaults) {
@@ -65,6 +95,14 @@ export default class Config {
 
     static get host() {
         return Config.getArgv('host');
+    }
+
+    static get maxInstances() {
+        return Config.getArgv('max-instances');
+    }
+
+    static get maxSessions() {
+        return Config.getArgv('max-sessions');
     }
 
     static get os() {

@@ -63,26 +63,14 @@ let settings = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 2,
+    maxInstances: Config.maxSessions,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: [{
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-        maxInstances: 5,
-        //
-        browserName: Config.browser,
-        project: Config.project,
-        build: Config.build,
-        name: browserstack.session.name,
-        'browserstack.local': true,
-        'browserstack.debug': 'true'
-    }],
-    //
+    capabilities: [Config.buildCapabilities({name: browserstack.session.name, maxInstances: Config.maxInstances})], /*{
+    // */
     // ===================
     // Test Configurations
     // ===================
@@ -271,6 +259,11 @@ if (Config.cucumber) {
     });
 
     delete settings.mochaOpts;
+}
+
+if (Config.maxSessions >  0 ) {
+    settings.maxInstances = Config.maxSessions;
+    settings.capabilities.push(Config.buildCapabilities(Object.assign({}, settings.capabilities[0], {browser: 'edge'})));
 }
 
 exports.config = settings;

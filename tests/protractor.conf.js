@@ -14,7 +14,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 Config.defaults = {
-    build:  (Config.cucumber ? 'cucumber' : 'protractor'),
+    build: (Config.cucumber ? 'cucumber' : 'protractor'),
     prefix: 'protractor',
     browser: 'chrome'
 };
@@ -31,21 +31,9 @@ let config = {
     allScriptsTimeout: 500000,
     browserstackUser: Config.browserstackUser,
     browserstackKey: Config.browserstackKey,
+    maxSessions: Config.maxSessions,
 
-    capabilities: {
-        'browserstack.local': true,
-        'browserstack.debug': 'true',
-        project: Config.project,
-        build: Config.build,
-        name: browserstack.session.name,
-
-        browserName: Config.browser,
-        version: Config.browserVersion,
-
-        shardTestFiles: true,
-        maxInstances: 2
-    },
-
+    capabilities: Config.buildCapabilities({name: browserstack.session.name, maxInstances: Config.maxInstances}),
     baseUrl: Config.url,
     specs: ['home.spec-protractor.js'],
 
@@ -77,7 +65,7 @@ if (Config.browserName === 'firefox') {
 }
 
 if (Config.seleniumStandalone) {
-    config.seleniumAddress = 'http://localhost:4444/wd/hub';
+    config.seleniumAddress = Config.seleniumHub;
 }
 
 if (Config.cucumber) {
@@ -97,6 +85,12 @@ if (Config.cucumber) {
     });
 
     delete config.jasmineNodeOpts;
+}
+
+if (Config.maxInstances > 1) {
+    config.multiCapabilities = [config.capabilities, Config.buildCapabilities(Object.assign({}, config.capabilities, {browser: 'edge'}))];
+
+    delete config.capabilities;
 }
 
 exports.config = config;
