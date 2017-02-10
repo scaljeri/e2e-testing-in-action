@@ -18,7 +18,7 @@ Checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article for a
 all this code.
 
 #### Demo Site
-The start the site you will need docker! Docker is awesome and it only taks three commands to get our site up and running
+To start the demo-site you will need docker! Docker is awesome and it only taks three commands to get our site up and running
 
     $> docker network create my-test-network
     $> docker run -d --network=my-test-network --name web dockercloud/hello-world
@@ -44,7 +44,7 @@ When you're done testing make sure to clean up
     $> yarn install
     
 To be able to test the demo site, which is running locally, you have to enable [Local Testing](https://www.browserstack.com/local-testing)
-on [Browserstack](https://browserstack.com). Meaning, download the `BrowserStackLocal` and run it
+on [Browserstack](https://browserstack.com). Meaning, download the `BrowserStackLocal` binary and run it
 
     $> ./BrowserStackLocal --key <access-key>
     
@@ -57,8 +57,7 @@ You can use the  browser-drivers directly
   * [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads), 
   * [geckodriver](https://github.com/mozilla/geckodriver/releases/). 
   
-Put the drivers in the root of this project. With the `geckeodriver` was the only way
-to have test pass using firefox on my mac. 
+Put the drivers in the root of this project. This was the only way firefox worked correctly for me.
   
 The second way is with the selenium standalone server, which can be started as follows
 
@@ -81,14 +80,16 @@ which is nice and it informs you about the status of your tests. If a test sessi
 is a good thing of course. However, it will remain red forever until you remove the failed session or you update the session 
 and pass it yourself. 
 
-So, a test-run on browserstack is called a session, which belongs to a build and a build sits in a project. 
-A badge belongs to a project and a session can pass or fail. 
+So, a test-run on browserstack is called a session, which are grouped in a build and builds belong to a project. 
+A badge belongs to a project and sessions can pass or fail. 
+
+Now, with all that in place, lets checkout the tasks available:
 
 To remove a project with all its builds and session simply do
   
     $> ./tasks/clean-browserstack-project --browserstack-user <user> --browserstack-key <access-key> [--project project name]
     
-but you can also update/delete failing sessions as follows
+but you can also update/delete failing sessions 
 
     $> ./tasks/process-failed-sessions --browserstack-user <user> --browserstack-key <key> [--project project name]
     
