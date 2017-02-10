@@ -7,7 +7,7 @@
 
 
 
-This project demonstrates how to test a website with pure node, selenium, protractor and webdriverIO using cucumber or mocha/chai. Depending on 
+This project demonstrates how to test a website with only NodeJS, Selenium, Protractor and WebdriverIO using Cucumber or Mocha/Chai. Depending on 
 your needs this project can serve as just a reference or a tutorial on how to setup automated testing.
 
 You can run tests against different browsers locally or remote using [Browserstack](https://www.browserstack.com) even in parallel.
@@ -18,13 +18,13 @@ Checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article for a
 all this code.
 
 #### Demo Site
-To start the demo-site you will need docker! Docker is awesome and it only taks three commands to get our site up and running
+To start the demo-site you will need docker! Docker is awesome and it will only take you three commands to get our site up and running
 
     $> docker network create my-test-network
     $> docker run -d --network=my-test-network --name web dockercloud/hello-world
     $> docker run -d -p 80:80 --network=my-test-network --name auth beevelop/nginx-basic-auth
     
-or just one if we use `docker-compose`
+or just one if `docker-compose` is used
 
     $> docker-compose up -d
     
@@ -40,6 +40,7 @@ When you're done testing make sure to clean up
     $> docker rmi $(docker images -q) // Remove all docker images
 
 #### Setup
+Run the following command to install all node dependencies
 
     $> yarn install
     
