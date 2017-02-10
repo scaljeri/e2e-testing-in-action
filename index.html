@@ -216,9 +216,45 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
 
             <h2>Parallel testing</h2>
             <div class="content first-dark-blue">
-                TODO
+                In Protractor parallel sessions are controlled by a couple of arguments. First, with <strong>maxSessions</strong>
+                you can define the total amount of browser used to run the tests. With <strong>maxInstances</strong>
+                you can control the total amount per browser. Finally, the <strong>shardTestFiles</strong> property
+                lets you share spec files between browser instances, which is good for performance
+
+                <pre style='color:#000020;background:#f6f8ff;'>exports<span style='color:#308080; '>.</span>config <span style='color:#308080; '>=</span> <span style='color:#406080; '>{</span>
+    <span style='color:#308080; '>.</span><span style='color:#308080; '>.</span><span style='color:#308080; '>.</span>
+    maxSessions<span style='color:#406080; '>:</span> <span style='color:#308080; '>-</span><span style='color:#008c00; '>1</span> <span style='color:#595979; '>// unlimited</span>
+
+   multiCapabilities<span style='color:#406080; '>:</span> <span style='color:#308080; '>[</span><span style='color:#406080; '>{</span>
+           browserName<span style='color:#406080; '>:</span> <span style='color:#800000; '>'</span><span style='color:#1060b6; '>chrome</span><span style='color:#800000; '>'</span><span style='color:#308080; '>,</span>
+           shardTestFiles<span style='color:#406080; '>:</span> <span style='color:#0f4d75; '>true</span><span style='color:#308080; '>,</span>
+           maxInstances<span style='color:#406080; '>:</span> <span style='color:#008c00; '>10</span>
+       <span style='color:#406080; '>}</span><span style='color:#308080; '>,</span>
+       <span style='color:#406080; '>{</span>
+           browserName<span style='color:#406080; '>:</span> <span style='color:#800000; '>'</span><span style='color:#1060b6; '>edge</span><span style='color:#800000; '>'</span><span style='color:#308080; '>,</span>
+           shardTestFiles<span style='color:#406080; '>:</span> <span style='color:#0f4d75; '>true</span><span style='color:#308080; '>,</span>
+           maxInstances<span style='color:#406080; '>:</span> <span style='color:#008c00; '>2</span>
+       <span style='color:#406080; '>}</span><span style='color:#308080; '>]</span><span style='color:#308080; '>,</span>
+      <span style='color:#308080; '>.</span><span style='color:#308080; '>.</span><span style='color:#308080; '>.</span>
+<span style='color:#406080; '>}</span><span style='color:#406080; '>;</span></pre>
             </div>
 
+            WebdriverIO has a configuration which is almost similar
+
+            <pre style='color:#000020;background:#f6f8ff;'>exports<span style='color:#308080; '>.</span>config <span style='color:#308080; '>=</span> <span style='color:#406080; '>{</span>
+    <span style='color:#308080; '>.</span><span style='color:#308080; '>.</span><span style='color:#308080; '>.</span>
+   maxInstances<span style='color:#406080; '>:</span> <span style='color:#308080; '>-</span><span style='color:#008c00; '>1</span> <span style='color:#595979; '>// unlimited</span>
+
+   multiCapabilities<span style='color:#406080; '>:</span> <span style='color:#308080; '>[</span><span style='color:#406080; '>{</span>
+           browserName<span style='color:#406080; '>:</span> <span style='color:#800000; '>'</span><span style='color:#1060b6; '>chrome</span><span style='color:#800000; '>'</span><span style='color:#308080; '>,</span>
+           maxInstances<span style='color:#406080; '>:</span> <span style='color:#008c00; '>10</span>
+       <span style='color:#406080; '>}</span><span style='color:#308080; '>,</span>
+       <span style='color:#406080; '>{</span>
+           browserName<span style='color:#406080; '>:</span> <span style='color:#800000; '>'</span><span style='color:#1060b6; '>edge</span><span style='color:#800000; '>'</span><span style='color:#308080; '>,</span>
+           maxInstances<span style='color:#406080; '>:</span> <span style='color:#008c00; '>2</span>
+       <span style='color:#406080; '>}</span><span style='color:#308080; '>]</span><span style='color:#308080; '>,</span>
+      <span style='color:#308080; '>.</span><span style='color:#308080; '>.</span><span style='color:#308080; '>.</span>
+<span style='color:#406080; '>}</span><span style='color:#406080; '>;</span></pre>
             <h2>Conclusion</h2>
             <p class="content">
                 Considering all the work you have to do to get testing on your local machine up and running, I advice to
