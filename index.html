@@ -32,15 +32,16 @@
                 demonstrate how you can use selenium, protractor or webdriverIO with different test runners, assertion
                 libraries and browser and run test locally, remote or even in parallel.
                 <br>
-                But before you begin follows the steps describe in the project's <a href="https://github.com/scaljeri/selenium-protractor-browserstack">README</a>
-                to install all required libraries.
+                But before I begin first follow the steps described in the project's <a href="https://github.com/scaljeri/selenium-protractor-browserstack">README</a>
+                to get everything up and running.
             </div>
 
 
             <h2>Basic Authentication</h2>
             <div class="content first-dark-red">
-                As you might already know selenium cannot control the native popup you get using basic authentication.
-                In my search to solve this I found two solution which overcome these shortcomings. <br><br>
+                To login to the demo website you have to deal first with Basic Authentication. As you might already know selenium
+                cannot control the native popup you get with basic auth. In my search to solve this I found two solution which
+                overcome these shortcomings. <br><br>
 
                 The most easiest solution is to add the username and password to the url
 
@@ -52,8 +53,8 @@
                 <br>
 
                 Fortunately this popup can be disabled with the config property <strong>network.http.phishy-userpass-length</strong>.
-                It can be implemented using <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver">Firefox profiles</a>,
-                which I have implemented <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L68" target="_blank">here</a>.
+                For that to work with Selenium, you have to use <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver">Firefox profiles</a>,
+                which you can see in action <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L68" target="_blank">here</a>.
             </div>
 
             <h2>Local testing</h2>
