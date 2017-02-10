@@ -33,7 +33,7 @@ let settings = {
     browserstackKey: Config.browserstackKey,
     maxSessions: Config.maxSessions,
 
-    capabilities: Config.buildCapabilities({name: browserstack.session.name, maxInstances: Config.maxInstances}),
+    capabilities: Config.buildCapabilities({session: browserstack.session.name, maxInstances: Config.maxInstances}),
     baseUrl: Config.url,
     specs: ['home.spec-protractor.js'],
 

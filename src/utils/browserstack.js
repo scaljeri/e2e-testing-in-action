@@ -15,7 +15,7 @@ export default class Browserstack {
             this.build = {name: config.build};
         }
 
-        config.name = this.session.name;
+        config.session = this.session.name;
     }
 
     get project() {

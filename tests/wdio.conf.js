@@ -70,7 +70,7 @@ let settings = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: [Config.buildCapabilities({name: browserstack.session.name, maxInstances: Config.maxInstances})], /*{
+    capabilities: [Config.buildCapabilities({session: browserstack.session.name, maxInstances: Config.maxInstances})], /*{
     // */
     // ===================
     // Test Configurations
