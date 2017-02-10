@@ -58,7 +58,8 @@
 
             <h2>Local testing</h2>
             <div class="content first-dark-blue">
-                There is only one test case in this project, which looks like this
+                There is only one test case in this project, which looks more or less like
+                <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/home.spec-protractor.js">tthis</a>
 
                 <pre style='color:#000020;background:#f6f8ff;'>expect<span style='color:#308080; '>(</span>HomePo<span
                         style='color:#308080; '>.</span>title<span style='color:#308080; '>)</span><span
@@ -67,8 +68,10 @@
                         style='color:#800000; '>'</span><span style='color:#308080; '>)</span><span
                         style='color:#406080; '>;</span></pre>
                 <br>
+                And there is also a <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/home.spec-mocha.js">chai/should</a> and
+                <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/features/title.feature">cucumber</a> variant.
 
-                Not very spectacular, but it serves its purpose very well :)
+                I admit, not very spectacular, but it serves its purpose very well :)
 
 
                 <h3>NodeJs</h3>
@@ -87,7 +90,8 @@
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start</pre>
 
                 <h3>Selenium standalone</h3>
-                Running tests with pure selenium or mocha you need a selenium standalone server up and running.
+                You can run your tests directly agains a browser driver or with a selenium standalone server. To start the server run
+                the following command
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn selenium</pre>
                 Or you can use a docker image with chrome or firefox included, which is described in the project's
@@ -95,14 +99,14 @@
 
                 <h3>NodeJs and Selenium</h3>
                 It is possible to handle the authentication with NodeJS, before Selenium takes over, but it requires a different setup.
-                The site itself should be public and the authentication part protected. After you've authenticated you will be redirect
-                to your public site with some kind of authentication token in the url. In such case you can do the authentication with
-                nodeJs followed by Selenium which start the browser and runs the tests. You can see the NodeJS part in action
+                The site itself should be public and the authentication part protected. After you've authenticated a redirect will bring you
+                to your public site, but with some kind of authentication token in that url. In such case you can do the authentication with
+                nodeJs followed by Selenium which uses this url as its entry point. You can see the NodeJS part in action
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/selenium.js#L62" target="_blank">here</a>.
 
-
                 <h3>Selenium</h3>
-                To run this inside a specific browser add the <b>--browser name</b> to the command
+                Before you can run any tests with pure selenium make sure you have a selenium server up and running or have the browser driver in the root
+                of this project. Furthermore, you need to define a browser you want to use for your tests
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse<span style='color:#308080; '>=</span>chrome</pre>
 
@@ -110,6 +114,7 @@
                 <br>
 
                 <h3>Mocha</h3>
+                Also with running mocha, make sure a selenium server running or to have the right browser driver in place before you begin.
                 The Mocha tests can be run as follows
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn mocha <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse chrome
@@ -117,11 +122,13 @@ $<span style='color:#308080; '>></span> npm mocha <span style='color:#308080; '>
 
 
                 <h3>Protractor</h3>
-                Protractor runs the same way as Mocha, except that it also supports cucmber tests
+                With protractor things get easier, it can start the selenium server for you. So the only thing you have to type is
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn protractor <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse chrome
 $<span style='color:#308080; '>></span> npm protractor <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber</pre>
 
+                The first example runs the <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/home.spec-protractor.js">jasmine specs</a>
+                while the second runs <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/features/title.feature">cucumber tests</a>
 
                 <h3>WebdriverIO</h3>
                 WebdriverIO supports the same options as Protractor
