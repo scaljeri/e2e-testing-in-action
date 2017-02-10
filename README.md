@@ -7,11 +7,10 @@
 
 
 
-This project demonstrates how to test a website with pure node, cucumber, protractor and webdriverIO using mocha/chai. Depending on 
+This project demonstrates how to test a website with pure node, selenium, protractor and webdriverIO using cucumber or mocha/chai. Depending on 
 your needs this project can serve as just a reference or a tutorial on how to setup automated testing.
 
-This project will demonstrate how to run tests against different browsers on your local machine or remote using 
-[Browserstack](https://www.browserstack.com) even in parallel.
+You can run tests against different browsers locally or remote using [Browserstack](https://www.browserstack.com) even in parallel.
 
 To make it all a bit more challenging, the demo-test site is protected with Basic Authentication :)
 
@@ -19,7 +18,7 @@ Checkout [this](https://scaljeri.github.io/e2e-testing-in-action/) article for a
 all this code.
 
 #### Demo Site
-The run the site you will need docker installed before you can begin 
+The start the site you will need docker! Because if you have, all the rest is just a piece of cake 
 
     $> docker network create my-test-network
     $> docker run -d --network=my-test-network --name web dockercloud/hello-world
@@ -44,23 +43,23 @@ When you're done testing make sure to clean up
 
     $> yarn install
     
-In order to user the demo site on [Browserstack](https://browserstack.com) you have to enable [Local Testing](https://www.browserstack.com/local-testing)
-and download the `BrowserStackLocal` binary. Run this binary before you start testing 
+To be able to test the demo site, which is running locally, you have to enable [Local Testing](https://www.browserstack.com/local-testing)
+on [Browserstack](https://browserstack.com). Meaning, download the `BrowserStackLocal` and run it
 
     $> ./BrowserStackLocal --key <access-key>
     
 Your username and access-key can be found under `Account -> Settings`
 
 ### Local testing
-To be able to run the tests on your laptop or pc you have a couple of options. You can use the  browser-drivers directly
+Running test on your laptop or pc will not work just out of the box and you have a couple of options. 
+You can use the  browser-drivers directly
 
   * [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads), 
   * [geckodriver](https://github.com/mozilla/geckodriver/releases/). 
   
-Move the drivers to the root of this project.
+Put the drivers in the root of this project. With the `geckeodriver` was the only way
+to have test pass using firefox on my mac. 
   
-The only way I was able to test against Firefox was only with the geckodriver.
-
 The second way is with the selenium standalone server, which can be started as follows
 
     $> yarn selenium
@@ -73,8 +72,7 @@ or
 
         $> docker run -p 127.0.0.1:4444:4444 selenium/standalone-firefox:latest
 
-It's like headless testing, all made possible by the [XVFB](http://tobyho.com/2015/01/09/headless-browser-testing-xvfb/)
-project. 
+It's like headless testing, all made possible thanks to [XVFB](http://tobyho.com/2015/01/09/headless-browser-testing-xvfb/).
 
 ### Tasks 
 
