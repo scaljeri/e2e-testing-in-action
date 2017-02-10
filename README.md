@@ -89,7 +89,7 @@ To remove a project with all its builds and session simply do
   
     $> ./tasks/clean-browserstack-project --browserstack-user <user> --browserstack-key <access-key> [--project project name]
     
-but you can also update/delete failing sessions 
+but you can also update/delete failing sessions within a project 
 
     $> ./tasks/process-failed-sessions --browserstack-user <user> --browserstack-key <key> [--project project name]
     
