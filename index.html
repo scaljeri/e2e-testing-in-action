@@ -39,7 +39,7 @@
 
             <h2>Basic Authentication</h2>
             <div class="content first-dark-red">
-                To login to the demo website you have to deal first with Basic Authentication. As you might already know selenium
+                To login to the demo website you have to deal with Basic Authentication first. As you might already know selenium
                 cannot control the native popup you get with basic auth. In my search to solve this I found two solution which
                 overcome these shortcomings. <br><br>
 
@@ -53,14 +53,21 @@
                 <br>
 
                 Fortunately this popup can be disabled with the config property <strong>network.http.phishy-userpass-length</strong>.
-                For that to work with Selenium, you have to use <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver">Firefox profiles</a>,
+                For that to work with Selenium, you have to use <a href="https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver" target="_blank">Firefox profiles</a>,
                 which you can see in action <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/utils/driver.js#L68" target="_blank">here</a>.
+                <br><br>
+                But it is also possible to handle the authentication with NodeJS, before Selenium takes over, but it requires a different setup.
+                The site itself should be public and the authentication part protected. After you've authenticated a redirect will bring you
+                to your public site, but with some kind of authentication token appended to the url. In such case you can do the authentication with
+                NodeJS followed by Selenium which uses this redirect url as its entry point. You can see the NodeJS part in action
+                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/selenium.js#L62" target="_blank">here</a>.
+
             </div>
 
             <h2>Local testing</h2>
             <div class="content first-dark-blue">
                 There is only one test case in this project, which looks more or less like
-                <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/home.spec-protractor.js">tthis</a>
+                <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/home.spec-protractor.js">this</a>
 
                 <pre style='color:#000020;background:#f6f8ff;'>expect<span style='color:#308080; '>(</span>HomePo<span
                         style='color:#308080; '>.</span>title<span style='color:#308080; '>)</span><span
@@ -86,28 +93,13 @@
 
                 To simplify things a bit most commands are added to
                 <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/package.json#L29" target="_blank">package.js</a>.
-                The above command can also be executed as
+                The above command can be shortened to
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start</pre>
 
-                <h3>Selenium standalone</h3>
-                You can run your tests directly agains a browser driver or with a selenium standalone server. To start the server run
-                the following command
-
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn selenium</pre>
-                Or you can use a docker image with chrome or firefox included, which is described in the project's
-                <a href="https://github.com/scaljeri/selenium-protractor-browserstack" target="_blank">README</a>
-
-                <h3>NodeJs and Selenium</h3>
-                It is possible to handle the authentication with NodeJS, before Selenium takes over, but it requires a different setup.
-                The site itself should be public and the authentication part protected. After you've authenticated a redirect will bring you
-                to your public site, but with some kind of authentication token in that url. In such case you can do the authentication with
-                nodeJs followed by Selenium which uses this url as its entry point. You can see the NodeJS part in action
-                <a href="https://github.com/scaljeri/selenium-protractor-browserstack/blob/master/src/selenium.js#L62" target="_blank">here</a>.
-
                 <h3>Selenium</h3>
-                Before you can run any tests with pure selenium make sure you have a selenium server up and running or have the browser driver in the root
-                of this project. Furthermore, you need to define a browser you want to use for your tests
+                Before you can run any tests with pure Selenium make sure you have a selenium server up and running or have the browser drivers
+                in the root of this project. Furthermore, you need to define the browser you want to use for your testing
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse<span style='color:#308080; '>=</span>chrome</pre>
 
@@ -115,18 +107,20 @@
                 <br>
 
                 <h3>Mocha</h3>
-                Also with running mocha, make sure a selenium server running or to have the right browser driver in place before you begin.
                 The Mocha tests can be run as follows
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn mocha <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse chrome
-$<span style='color:#308080; '>></span> npm mocha <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span></pre>
+$<span style='color:#308080; '>></span> yarn mocha <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span></pre>
 
+                I run mocha <a href="https://github.com/mochajs/mocha/wiki/Using-mocha-programmatically" target="_blank">programmatically</a> which gives
+                you more control over what is happening as can be seen
+                <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/src/mocha.js" target="_blank">here</a>.
 
                 <h3>Protractor</h3>
                 With protractor things get easier, it can start the selenium server for you. So the only thing you have to type is
 
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn protractor <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browse chrome
-$<span style='color:#308080; '>></span> npm protractor <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber</pre>
+$<span style='color:#308080; '>></span> yarn protractor <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber</pre>
 
                 The first example runs the <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/home.spec-protractor.js">jasmine specs</a>
                 while the second runs <a href="https://github.com/scaljeri/e2e-testing-in-action/blob/master/tests/features/title.feature">cucumber tests</a>
@@ -137,7 +131,7 @@ $<span style='color:#308080; '>></span> npm protractor <span style='color:#30808
                 <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn wdio <span style='color:#308080; '>--</span> <span style='color:#308080; '>--</span>browser firefox <span style='color:#308080; '>--</span>browser<span style='color:#308080; '>-</span>version <span style='color:#008c00; '>51</span> <span style='color:#308080; '>--</span>cucumber</pre>
 
 
-                With the current version of Protractor and WebdriverIO you don't need to use firefox profiles in order to
+                With the current version of Protractor and WebdriverIO you don't need to use firefox profiles anymore in order to
                 solve the issue with basic auth, its all taken care of now! <br><br>
                 WebdriverIO also comes with a handy tool called <strong>./node_modules/.bin/wdio</strong> which can
                 setup the configuration file and
@@ -157,10 +151,8 @@ $<span style='color:#308080; '>></span> npm protractor <span style='color:#30808
 
             <h2>Remote testing with Browserstack</h2>
             <div class="content first-dark-red">
-                In order to use browserstack you need a <i>name</i> and a <i>access key</i>. If you don't have an account you can sign-up
-                for free, which gives you access to a lot of time to test remotely. These credentials need to be added to the
-                configuration files. Checkout the <a href="https://github.com/scaljeri/selenium-protractor-browserstack">README</a>
-                for how to enable local testing with browserstack.
+                With your Browserstack automation credentials you can now run your tests in the cloud. The only thing
+                that is added to the configuration of Protractor and Webdriver IO is
 
                 <pre style='color:#000020;background:#f6f8ff;'>export<span style='color:#008c00; '>.</span>config <span
                         style='color:#308080; '>=</span> {
@@ -189,8 +181,8 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
 </pre>
 
 
-                Here is an example how selenium is started
-                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> npm start <span
+                Here is an example how selenium can be started
+                <pre style='color:#000020;background:#f6f8ff;'>$<span style='color:#308080; '>></span> yarn start <span
                         style='color:#308080; '>-</span><span style='color:#308080; '>-</span> <span
                         style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser ie <span
                         style='color:#308080; '>-</span><span style='color:#308080; '>-</span>browser<span
@@ -204,16 +196,16 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
                             style='color:#308080; '>-</span>user barfoo <span style='color:#308080; '>-</span><span
                             style='color:#308080; '>-</span>browserstack<span style='color:#308080; '>-</span>key liufo7ag4</pre>
 
-                Checkout browserstack to see what operating systems and which devices are supported in combination with
-                a specific browser. On browserstack there are no firefox issues anymore and Basic Authentication is also
-                taken care of, meaning that url with credentials is enough, they fixed that too.
+                Checkout Browserstack to see what operating systems, devices and browsers are supported.
+                Furthermore, as you might have noticed, running tests locally with Firefox is a true nightmare, but not on
+                Browserstack, apparently they fixed all that. They even fixed that Firefox issue with Basic Authentication.
             </div>
 
             <h2>Parallel testing</h2>
             <div class="content first-dark-blue">
                 In Protractor parallel sessions are controlled by a couple of arguments. First, with <strong>maxSessions</strong>
                 you can define the total amount of browser used to run the tests. With <strong>maxInstances</strong>
-                you can control the total amount per browser. Finally, the <strong>shardTestFiles</strong> property
+                you can control the total amount of browsers per capability. Finally, the <strong>shardTestFiles</strong> property
                 lets you share spec files between browser instances, which is good for performance
 
                 <pre style='color:#000020;background:#f6f8ff;'>exports<span style='color:#308080; '>.</span>config <span style='color:#308080; '>=</span> <span style='color:#406080; '>{</span>
@@ -234,7 +226,7 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
 <span style='color:#406080; '>}</span><span style='color:#406080; '>;</span></pre>
             </div>
 
-            WebdriverIO has a more or less similar configuration setup
+            WebdriverIO has a slightly different configuration for parallel testing
 
             <pre style='color:#000020;background:#f6f8ff;'>exports<span style='color:#308080; '>.</span>config <span style='color:#308080; '>=</span> <span style='color:#406080; '>{</span>
    <span style='color:#308080; '>.</span><span style='color:#308080; '>.</span><span style='color:#308080; '>.</span>
@@ -263,10 +255,10 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
                         <td><b>--browser name</b></td><td>Name of the browser to be used for testing</td>
                     </tr>
                     <tr>
-                        <td><b>--browserstack-key</b></td><td>The access-key of the Browserstack account</td>
+                        <td><b>--browserstack-key access-key</b></td><td>The access-key of the Browserstack account</td>
                     </tr>
                     <tr>
-                        <td><b>--browserstack-user</b></td><td>The username of the Browserstack account</td>
+                        <td><b>--browserstack-user username</b></td><td>The username of the Browserstack account</td>
                     </tr>
                     <tr>
                         <td><b>--browser-version number</b></td><td>Browser version</td>
@@ -275,16 +267,16 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
                         <td><b>--cucumber</b></td><td>Run cucumber feature tests (only for WebdriverIO and Protractor)</td>
                     </tr>
                     <tr>
-                        <td><b>--max-instances</b></td><td>Max amount of browser instances for one capability</td>
+                        <td><b>--max-instances number</b></td><td>Max amount of browser instances for one capability</td>
                     </tr>
                     <tr>
-                        <td><b>--max-sessions</b></td><td>Total amount of browser instances for all capabilities</td>
+                        <td><b>--max-sessions number</b></td><td>Total amount of browser instances for all capabilities</td>
                     </tr>
                     <tr>
-                        <td><b>--os</b></td><td>Name of the operating system (Browserstack only)</td>
+                        <td><b>--os name</b></td><td>Name of the operating system (Browserstack only)</td>
                     </tr>
                     <tr>
-                        <td><b>--os-version</b></td><td>Version of the OS (browserstack only)</td>
+                        <td><b>--os-version number</b></td><td>Version of the OS (browserstack only)</td>
                     </tr>
                     <tr>
                         <td><b>--selenium-standalone</b></td><td>Use selenium standalone (Note that you have to start the server yourself!)</td>
@@ -296,7 +288,7 @@ $<span style='color:#308080; '>></span> export BROWSERSTACK_ACCESS_KEY<span styl
             <p class="content first-dark-red">
                 Considering all the work you have to do to get testing on your local machine up and running, I advice to
                 use Browserstack. They have and will solve all the issue that can possibly happen. Like they did with
-                Basic authentication. Local testing is of course faster, and is probably the only reason why you want to do it.
+                Basic authentication. Local testing is of course faster, and should probably be the only reason why you want to do it.
                 <br><br>
                 Furthermore, considering the testing frameworks I've used in this project, <a href="http://webdriver.io/">WebdriverIO</a> is the big winner.
                 They take away all the pain with their <strong>wdio</strong> command line tool, its awesome. But the biggest advantages is that everything
