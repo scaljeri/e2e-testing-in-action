@@ -45,13 +45,15 @@ Run the following command to install all node dependencies
     $> yarn install
 
 ### Local testing
-Running test on your laptop or pc will not work just out of the box and you have a couple of options. 
+Running tests on your laptop or pc will not just work out of the box, but you have a couple of options to fix that.
+
 You can use the  browser-drivers directly
 
-  * [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads), 
-  * [geckodriver](https://github.com/mozilla/geckodriver/releases/). 
+  * [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+  * [geckodriver](https://github.com/mozilla/geckodriver/releases/)
   
-Put the drivers in the root of this project. This was the only way firefox worked correctly for me.
+Put the drivers in the root of this project. Using the `geckodriver` was for me the only way to test 
+locally with firefox.
   
 The second way is with the selenium standalone server, which can be started as follows
 
@@ -69,11 +71,11 @@ It's like headless testing, all made possible thanks to [XVFB](http://tobyho.com
 
 ### Remote testing with Browserstack
 If you don't have a [Browserstack](https://browserstack.com) account yet you can sign-up for free. 
-This will give you access to endless time of testing fun. Next, goto `Account -> Settings` and scroll to the bottom of the page, there you will find
-credentials that are needed for automated testing.
+This will give you access to endless time of testing fun. To run these automated tests you will need the automation credentials, 
+which can be found here:  `Account -> Settings` at the bottom of the page!
 
 Because the demo site is running locally, you have to enable [Local Testing](https://www.browserstack.com/local-testing)
-on [Browserstack](https://browserstack.com). Finally, download the `BrowserStackLocal` binary and run it
+on [Browserstack](https://browserstack.com) first. Finally, download the `BrowserStackLocal` binary and run it
 
     $> ./BrowserStackLocal --key <access-key>
     
