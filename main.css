@@ -45,6 +45,9 @@ h1 {
 	margin-left: 10px;
 	line-height: 120px;
 	transition: all 0.4s ease-in-out;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 header.minified {
@@ -195,11 +198,15 @@ pre.demo-code {
 	}
 }
 
-@media screen and (max-width: 451px) {
+@media screen and (max-width: 800px) {
 	header, section, div {
 		position: relative;
 		width: 450px;
 		overflow: scroll!important;
+	}
+
+	article .content-container {
+        width: 100vw;
 	}
 
 	article {
