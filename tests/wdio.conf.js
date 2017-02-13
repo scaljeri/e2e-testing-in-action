@@ -262,9 +262,10 @@ if (Config.cucumber) {
     delete settings.mochaOpts;
 }
 
-if (Config.maxSessions >  0 ) {
+if (Config.maxSessions >  0) {
     settings.maxInstances = Config.maxSessions;
-    settings.capabilities.push(Config.buildCapabilities(Object.assign({}, settings.capabilities[0], {browser: 'edge'})));
+
+    settings.capabilities.push(Config.buildCapabilities(Object.assign({}, settings.capabilities[0], {browser: Config.browserstackUser ? 'edge' : 'chrome'})));
 }
 
 exports.config = settings;
