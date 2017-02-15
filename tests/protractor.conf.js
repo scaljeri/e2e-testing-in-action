@@ -88,7 +88,7 @@ if (Config.cucumber) {
 }
 
 if (Config.maxInstances > 1) {
-    settings.multiCapabilities = [settings.capabilities, Config.buildCapabilities(Object.assign({}, settings.capabilities, {browser: 'edge'}))];
+    settings.multiCapabilities = [settings.capabilities, Config.buildCapabilities(Object.assign({}, settings.capabilities, {browser: Config.browserstackUser ? 'edge' : 'chrome'}))];
 
     delete settings.capabilities;
 }
